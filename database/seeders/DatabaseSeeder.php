@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
             PageDetailsSeeder::class,
             CountrySeeder::class,
             StateSeeder::class,
+            CitySeeder::class,
         ]);
     }
 }
