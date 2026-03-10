@@ -54,8 +54,8 @@
                                             <i class="fa-regular fa-globe"></i>
                                         </div>
                                         <input type="text" id="search-input3" class="form-control"
-                                               placeholder="Enter Country">
-                                        <input type="hidden" name="location" id="search-input3-value">
+                                               placeholder="Enter Country" value="{{ $hero['detected_country_name'] ?? '' }}">
+                                        <input type="hidden" name="location" id="search-input3-value" value="{{ $hero['detected_country_id'] ?? '' }}">
                                         <div id="search-result3" class="search-result">
                                             @foreach($hero['all_places'] as $place)
                                                 @if($place!=null)
@@ -77,8 +77,8 @@
                                             <i class="fa-regular fa-city"></i>
                                         </div>
                                         <input type="text" id="search-input4" class="form-control"
-                                               placeholder="Enter City">
-                                        <input type="hidden" name="city" id="search-input4-value">
+                                               placeholder="Enter City" value="{{ $hero['detected_city_name'] ?? '' }}">
+                                        <input type="hidden" name="city" id="search-input4-value" value="{{ $hero['detected_city_id'] ?? '' }}">
                                         <div id="search-result4" class="search-result">
                                             @foreach($hero['uniqueCities'] as $city)
                                                 @if($city!=null)

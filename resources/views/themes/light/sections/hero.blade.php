@@ -1,4 +1,3 @@
-
 @if(isset($hero))
     <section class="home-section"
              style="background-image: url({{ getFile($hero['single']['media']->image->driver, $hero['single']['media']->image->path) }})">
@@ -65,7 +64,7 @@
                                                     @foreach($hero['all_places'] as $place)
                                                         @if($place!=null)
                                                             <option value="{{ $place->id }}"
-                                                                    @if(request()->location == $place->id) selected @endif>@lang($place->name)</option>
+                                                                    @if(request()->location == $place->id || (!request()->location && $hero['detected_country_id'] == $place->id)) selected @endif>@lang($place->name)</option>
                                                         @endif
                                                     @endforeach
                                                 </select>
@@ -84,7 +83,7 @@
                                                     @foreach($hero['uniqueCities'] as $city)
                                                         @if($city!=null)
                                                             <option value="{{ $city->id }}"
-                                                                    @if(request()->city == $city->id) selected @endif>@lang($city->name)</option>
+                                                                    @if(request()->city == $city->id || (!request()->city && $hero['detected_city_id'] == $city->id)) selected @endif>@lang($city->name)</option>
                                                         @endif
                                                     @endforeach
                                                 </select>
