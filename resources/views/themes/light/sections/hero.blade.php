@@ -107,6 +107,24 @@
     </section>
 @endif
 
+@if(isset($hero))
+    <section class="home-images-section py-4">
+        <div class="container">
+            <div class="row justify-content-center align-items-center g-5">
+                <div class="col-12 col-md-4">
+                    <img src="{{ asset('assets/global/images/home/1.jpeg') }}" alt="Image 1" class="img-fluid rounded" style="max-height: 300px; width: 100%; object-fit: scale-down;">
+                </div>
+                <div class="col-12 col-md-4">
+                    <img src="{{ asset('assets/global/images/home/2.jpeg') }}" alt="Image 2" class="img-fluid rounded" style="max-height: 300px; width: 100%; object-fit: scale-down;">
+                </div>
+                <div class="col-12 col-md-4">
+                    <img src="{{ asset('assets/global/images/home/3.jpeg') }}" alt="Image 3" class="img-fluid rounded" style="max-height: 300px; width: 100%; object-fit: scale-down;">
+                </div>
+            </div>
+        </div>
+    </section>
+@endif
+
 <script src="{{asset('assets/global/js/jquery.min.js') }}"></script>
 <script>
     'use strict'
