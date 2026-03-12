@@ -19,36 +19,39 @@ trait Frontend
             return view("themes.$selectedTheme.support", $data)->toHtml();
         }
 
-        $location = getIpInfo();
-        $detectedCountryId = null;
-        $detectedCityId = null;
-        $detectedCountryName = null;
-        $detectedCityName = null;
+        $detectedCountryId = session('detected_country_id');
+        $detectedCityId = session('detected_city_id');
+        $detectedCountryName = session('detected_country_name');
+        $detectedCityName = session('detected_city_name');
 
-        Log::info("Buscando localizacion:  ");
-        Log::info($location);
+        if (!$detectedCountryId) {
+            $location = getIpInfo();
 
-        if ($location && isset($location["country"])) {
-            $country = Country::where(
-                "name",
-                "LIKE",
-                "%" . $location["country"] . "%",
-            )
-                ->where("status", 1)
-                ->first();
-            if ($country) {
-                $detectedCountryId = $country->id;
-                $detectedCountryName = $country->name;
-                if (isset($location["city"])) {
-                    $city = \App\Models\CountryCities::where(
-                        "country_id",
-                        $country->id,
-                    )
-                        ->where("name", "LIKE", "%" . $location["city"] . "%")
-                        ->first();
-                    if ($city) {
-                        $detectedCityId = $city->id;
-                        $detectedCityName = $city->name;
+            Log::info("Buscando localizacion:  ");
+            Log::info($location);
+
+            if ($location && isset($location["country"])) {
+                $country = Country::where(
+                    "name",
+                    "LIKE",
+                    "%" . $location["country"] . "%",
+                )
+                    ->where("status", 1)
+                    ->first();
+                if ($country) {
+                    $detectedCountryId = $country->id;
+                    $detectedCountryName = $country->name;
+                    if (isset($location["city"])) {
+                        $city = \App\Models\CountryCities::where(
+                            "country_id",
+                            $country->id,
+                        )
+                            ->where("name", "LIKE", "%" . $location["city"] . "%")
+                            ->first();
+                        if ($city) {
+                            $detectedCityId = $city->id;
+                            $detectedCityName = $city->name;
+                        }
                     }
                 }
             }

@@ -106,5 +106,34 @@
         });
     </script>
 
+    @if(!session()->has('detected_country_id'))
+        <script>
+            $(document).ready(function() {
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        const lat = position.coords.latitude;
+                        const long = position.coords.longitude;
+
+                        axios.post("{{ route('set.location') }}", {
+                            lat: lat,
+                            long: long
+                        })
+                        .then(function (response) {
+                            if(response.data.success) {
+                                // Optionally reload if we want immediate filter change
+                                // location.reload();
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                    }, function(error) {
+                        console.warn("Error getting location: ", error.message);
+                    });
+                }
+            });
+        </script>
+    @endif
+
 </body>
 </html>

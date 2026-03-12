@@ -251,6 +251,8 @@ Route::group(['middleware' => ['maintenanceMode']], function () use ($basicContr
     Route::get('auth/{socialite}', [SocialiteController::class, 'socialiteLogin'])->name('socialiteLogin');
     Route::get('auth/callback/{socialite}', [SocialiteController::class, 'socialiteCallback'])->name('socialiteCallback');
 
+    Route::post('/set-location', [FrontendController::class, 'setLocation'])->name('set.location');
+
     /*= Frontend Manage Controller =*/
     Route::get("/{slug?}", [FrontendController::class, 'page'])->name('page')->middleware('track.visitors');
 });
