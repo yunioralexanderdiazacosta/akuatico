@@ -228,6 +228,7 @@ Route::group(['middleware' => ['maintenanceMode']], function () use ($basicContr
     Route::get('blog/{slug?}', [BlogController::class, 'blogDetails'])->name('blog.details');
 
     Route::get('/profile/{user_name?}', [ProfileController::class, 'profile'])->name('profile');
+    Route::get('/profiles', [ProfileController::class, 'profiles'])->name('profiles');
 
 
 
