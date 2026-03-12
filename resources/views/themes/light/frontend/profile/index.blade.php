@@ -29,6 +29,13 @@
                                             </p>
                                         @endif
 
+                                        @if($user_information->category_id)
+                                            <p class="mb-2 text-primary small">
+                                                <i class="fas fa-tags me-1"></i>
+                                                {{ $user_information->getCategoriesName() }}
+                                            </p>
+                                        @endif
+
                                         <div class="links">
                                             @if($user_information->website)
                                                 <a href="javascript:void(0)"><i class="fas fa-globe"></i>@lang($user_information->website)</a>

@@ -68,9 +68,19 @@ class ProfileController extends Controller
                     ->orWhere('lastname', 'LIKE', "%{$search['name']}%")
                     ->orWhere('username', 'LIKE', "%{$search['name']}%");
             })
+            ->when(isset($search['category']) && !in_array('all', $search['category']), function ($query) use ($search) {
+                return $query->where(function ($query) use ($search) {
+                    $query->whereJsonContains('category_id', $search['category'][0]);
+                    foreach (array_slice($search['category'], 1) as $category_id) {
+                        $query->orWhereJsonContains('category_id', $category_id);
+                    }
+                });
+            })
             ->where('status', 1)
             ->orderBy('id', 'desc')
             ->paginate(12);
+
+        $data['all_categories'] = \App\Models\ListingCategory::select('id')->with('details:id,listing_category_id,name')->where('status', 1)->latest()->get();
 
         $pageSeo = Page::where('slug', 'profile')->first();
         $pageSeo['breadcrumb_image'] = $pageSeo?->breadcrumb_status == 1 ?  getFile($pageSeo->breadcrumb_image_driver, $pageSeo->breadcrumb_image) : null;

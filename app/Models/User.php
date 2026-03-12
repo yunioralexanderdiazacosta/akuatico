@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Cache;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, Notify;
@@ -22,46 +21,47 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'firstname',
-        'lastname',
-        'username',
-        'website',
-        'email',
-        'password',
-        'referral_id',
-        'language_id',
-        'email',
-        'country_code',
-        'country',
-        'phone_code',
-        'phone',
-        'balance',
-        'image',
-        'image_driver',
-        'state',
-        'city',
-        'zip_code',
-        'address_one',
-        'address_two',
-        'bio',
-        'provider',
-        'provider_id',
-        'status',
-        'identity_verify',
-        'address_verify',
-        'two_fa',
-        'two_fa_verify',
-        'two_fa_code',
-        'email_verification',
-        'sms_verification',
-        'verify_code',
-        'time_zone',
-        'sent_at',
-        'last_login',
-        'last_seen',
-        'password',
-        'email_verified_at',
-        'remember_token',
+        "firstname",
+        "lastname",
+        "username",
+        "website",
+        "email",
+        "password",
+        "referral_id",
+        "language_id",
+        "email",
+        "country_code",
+        "country",
+        "phone_code",
+        "phone",
+        "balance",
+        "image",
+        "image_driver",
+        "state",
+        "city",
+        "zip_code",
+        "address_one",
+        "address_two",
+        "bio",
+        "category_id",
+        "provider",
+        "provider_id",
+        "status",
+        "identity_verify",
+        "address_verify",
+        "two_fa",
+        "two_fa_verify",
+        "two_fa_code",
+        "email_verification",
+        "sms_verification",
+        "verify_code",
+        "time_zone",
+        "sent_at",
+        "last_login",
+        "last_seen",
+        "password",
+        "email_verified_at",
+        "remember_token",
     ];
 
     /**
@@ -69,12 +69,15 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ["password", "remember_token"];
 
-    protected $appends = ['LastSeenActivity', 'imgPath', 'lastSeen', 'fullAddress', 'fullName'];
+    protected $appends = [
+        "LastSeenActivity",
+        "imgPath",
+        "lastSeen",
+        "fullAddress",
+        "fullName",
+    ];
 
     /**
      * The attributes that should be cast.
@@ -82,20 +85,20 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        "email_verified_at" => "datetime",
+        "password" => "hashed",
+        "category_id" => "array",
     ];
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ["deleted_at"];
 
     protected static function boot()
     {
         parent::boot();
         static::saved(function () {
-            Cache::forget('userRecord');
+            Cache::forget("userRecord");
         });
     }
-
 
     public function transaction()
     {
@@ -109,7 +112,7 @@ class User extends Authenticatable
 
     public function getLastSeenActivityAttribute()
     {
-        if (Cache::has('user-is-online-' . $this->id) == true) {
+        if (Cache::has("user-is-online-" . $this->id) == true) {
             return true;
         } else {
             return false;
@@ -118,77 +121,104 @@ class User extends Authenticatable
 
     public function getLastSeenAttribute()
     {
-        if(\Illuminate\Support\Facades\Cache::has('user-is-online-' . $this->id)){
+        if (
+            \Illuminate\Support\Facades\Cache::has(
+                "user-is-online-" . $this->id,
+            )
+        ) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     public function inAppNotification()
     {
-        return $this->morphOne(InAppNotification::class, 'inAppNotificationable', 'in_app_notificationable_type', 'in_app_notificationable_id');
+        return $this->morphOne(
+            InAppNotification::class,
+            "inAppNotificationable",
+            "in_app_notificationable_type",
+            "in_app_notificationable_id",
+        );
     }
 
     public function fireBaseToken()
     {
-        return $this->morphMany(FireBaseToken::class, 'tokenable');
+        return $this->morphMany(FireBaseToken::class, "tokenable");
     }
 
     public function profilePicture()
     {
         $image = $this->image;
         if (!$image) {
-            $active = $this->LastSeenActivity == false ? 'warning' : 'success';
+            $active = $this->LastSeenActivity == false ? "warning" : "success";
             $firstLetter = substr($this->firstname, 0, 1);
             return '<div class="avatar avatar-sm avatar-soft-primary avatar-circle">
-                        <span class="avatar-initials">' . $firstLetter . '</span>
-                        <span class="avatar-status avatar-sm-status avatar-status-' . $active . '"></span>
+                        <span class="avatar-initials">' .
+                $firstLetter .
+                '</span>
+                        <span class="avatar-status avatar-sm-status avatar-status-' .
+                $active .
+                '"></span>
                      </div>';
-
         } else {
             $url = getFile($this->image_driver, $this->image);
-            $active = $this->LastSeenActivity == false ? 'warning' : 'success';
+            $active = $this->LastSeenActivity == false ? "warning" : "success";
             return '<div class="avatar avatar-sm avatar-circle">
-                        <img class="avatar-img" src="' . $url . '" alt="Image Description">
-                        <span class="avatar-status avatar-sm-status avatar-status-' . $active . '"></span>
+                        <img class="avatar-img" src="' .
+                $url .
+                '" alt="Image Description">
+                        <span class="avatar-status avatar-sm-status avatar-status-' .
+                $active .
+                '"></span>
                      </div>';
-
         }
     }
 
     public function sendPasswordResetNotification($token)
     {
-        $this->mail($this, 'PASSWORD_RESET', $params = [
-            'message' => '<a href="' . url('password/reset', $token) . '?email=' . $this->email . '" target="_blank">Click To Reset Password</a>'
-        ]);
+        $this->mail(
+            $this,
+            "PASSWORD_RESET",
+            $params = [
+                "message" =>
+                    '<a href="' .
+                    url("password/reset", $token) .
+                    "?email=" .
+                    $this->email .
+                    '" target="_blank">Click To Reset Password</a>',
+            ],
+        );
     }
 
     public function notifypermission()
     {
-        return $this->morphOne(NotificationPermission::class, 'notifyable');
+        return $this->morphOne(NotificationPermission::class, "notifyable");
     }
 
-
-    public function get_listing(){
-        return $this->hasMany(Listing::class, 'user_id');
+    public function get_listing()
+    {
+        return $this->hasMany(Listing::class, "user_id");
     }
 
-    public function  get_social_links_user(){
-        return $this->hasMany(UserSocial::class, 'user_id');
+    public function get_social_links_user()
+    {
+        return $this->hasMany(UserSocial::class, "user_id");
     }
 
-    public function follower(){
-        return $this->hasMany(Follower::class, 'user_id');
+    public function follower()
+    {
+        return $this->hasMany(Follower::class, "user_id");
     }
-    public function following(){
-        return $this->hasMany(Follower::class, 'following_id');
-    }
-
-    public function totalViews(){
-        return $this->hasMany(Viewer::class, 'user_id');
+    public function following()
+    {
+        return $this->hasMany(Follower::class, "following_id");
     }
 
+    public function totalViews()
+    {
+        return $this->hasMany(Viewer::class, "user_id");
+    }
 
     public function getImgPathAttribute()
     {
@@ -196,11 +226,25 @@ class User extends Authenticatable
     }
     public function getFullAddressAttribute()
     {
-        return $this->address_one.', '. $this->address_two;
+        return $this->address_one . ", " . $this->address_two;
     }
     public function getFullNameAttribute()
     {
-        return $this->firstname.' '. $this->lastname;
+        return $this->firstname . " " . $this->lastname;
     }
 
+    public function getCategoriesName()
+    {
+        if ($this->category_id) {
+            $categories = ListingCategory::whereIn("id", $this->category_id)
+                ->with("details")
+                ->get();
+            return $categories
+                ->map(function ($category) {
+                    return $category->details->name;
+                })
+                ->implode(", ");
+        }
+        return null;
+    }
 }

@@ -24,12 +24,6 @@
                             @if($user_information->bio)
                                 <p class="mb-0">@lang($user_information->bio)</p>
                             @endif
-                            @if($user_information->category_id)
-                                <p class="mb-0 text-primary small mt-1">
-                                    <i class="fa-regular fa-tags me-1"></i>
-                                    {{ $user_information->getCategoriesName() }}
-                                </p>
-                            @endif
                         </div>
 
                         @if(count($user_information->get_social_links_user) > 0)

@@ -851,6 +851,8 @@ if (!function_exists('staticPagesAndRoutes')) {
     {
         return [
                 'blog' => 'blog',
+                'listings' => 'listings',
+                'profiles' => 'profiles',
             ][$name] ?? $name;
     }
 }

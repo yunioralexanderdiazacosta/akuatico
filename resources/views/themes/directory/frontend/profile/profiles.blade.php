@@ -50,8 +50,15 @@
                                                             <i class="fas fa-check-circle text-primary small" aria-hidden="true"></i>
                                                         @endif
                                                     </h5>
-                                                    <p class="mb-2 text-muted small">@lang('Member since') {{ dateTime($profile->created_at) }}</p>
+                                                    <p class="mb-1 text-muted small">@lang('Member since') {{ dateTime($profile->created_at) }}</p>
                                                     
+                                                    @if($profile->category_id)
+                                                        <p class="mb-2 text-primary small">
+                                                            <i class="fa-regular fa-tags me-1"></i>
+                                                            {{ Str::limit($profile->getCategoriesName(), 40) }}
+                                                        </p>
+                                                    @endif
+
                                                     <div class="d-flex justify-content-around mt-3 border-top pt-3">
                                                         <div class="text-center">
                                                             <h6 class="mb-0">{{ $profile->get_listing_count }}</h6>
@@ -99,7 +106,7 @@
             <button type="button" class="cmn-btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
                 <i class="fa-regular fa-arrow-left"></i></button>
         </div>
-        <form action="{{ route('profiles') }}" method="get">
+        <form action="{{ route('profiles') }}" method="get" id="profile-filter-form">
             <div class="offcanvas-body">
                 <div class="widget-title">
                     <h6>@lang('Search')</h6>
@@ -112,6 +119,24 @@
                     </div>
                 </div>
                 <hr class="cmn-hr2">
+                <div class="widget-title">
+                    <h6>@lang('Filter by Category')</h6>
+                </div>
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div id="formModal">
+                            <select class="modal-select" name="category[]" multiple>
+                                <option value="all" @if(request()->category && in_array('all', request()->category)) selected @endif>@lang('All Category')</option>
+                                @foreach($all_categories as $category)
+                                    <option value="{{ $category->id }}"
+                                            @if(request()->category && in_array($category->id, request()->category)) selected @endif> @lang(optional($category->details)->name)
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <hr class="cmn-hr2">
                 <button class="cmn-btn w-100" type="submit">@lang('submit')</button>
             </div>
         </form>
@@ -119,9 +144,21 @@
 @endsection
 
 @push('style')
+    <link rel="stylesheet" href="{{ asset(template(true).'css/nice-select.css') }}">
     <style>
         .mt-40 {
             margin-top: 40px;
         }
     </style>
+@endpush
+
+@push('extra-js')
+    <script src="{{ asset(template(true).'js/jquery.nice-select.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            if ($('.modal-select').length > 0) {
+                $('.modal-select').niceSelect();
+            }
+        });
+    </script>
 @endpush

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Kyc;
 use App\Models\Language;
 use App\Models\Listing;
+use App\Models\ListingCategory;
 use App\Models\User;
 use App\Models\UserSocial;
 use App\Models\Viewer;
@@ -34,6 +35,8 @@ class UserProfileSettingController extends Controller
         $data['listing_infos'] = Listing::where('user_id', $data['user']->id)->get();
         $data['languages'] = Language::all();
         $data['identityFormList'] = Kyc::where('status', 1)->get();
+        $data['listing_categories'] = ListingCategory::with('details')->where('status', 1)->get();
+
         if ($request->has('identity_type')) {
             $validator->errors()->add('identity', '1');
             $data['identity_type'] = $request->identity_type;
@@ -151,6 +154,7 @@ class UserProfileSettingController extends Controller
                 'address_one' => $req['address_one'],
                 'address_two' => $req['address_two'],
                 'bio' => $req['bio'],
+                'category_id' => $req['category_id'] ?? null,
             ]);
             if ($request->social_icon) {
                 UserSocial::where('user_id', $user->id)->delete();
