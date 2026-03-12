@@ -85,7 +85,7 @@
                             </div>
                         @else
                             <div class="custom-not-found">
-                                <img src="{{ asset(template(true).'img/error/error.png') }}" alt="image" class="img-fluid">
+                                <img src="{{ asset(template(true).'img/no_data_found.png') }}" alt="image" class="img-fluid">
                             </div>
                         @endif
                     </div>
