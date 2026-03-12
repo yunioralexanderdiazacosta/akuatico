@@ -56,6 +56,28 @@ class ProfileController extends Controller
         return view(template() . 'frontend.profile.index', $data, compact('user_information','pageSeo'));
     }
 
+    public function profiles(Request $request)
+    {
+        $selectedTheme = getTheme();
+        $search = $request->all();
+
+        $data['all_profiles'] = User::with(['get_listing', 'follower', 'following'])
+            ->withCount(['get_listing', 'totalViews', 'follower', 'following'])
+            ->when(isset($search['name']), function ($query) use ($search) {
+                return $query->where('firstname', 'LIKE', "%{$search['name']}%")
+                    ->orWhere('lastname', 'LIKE', "%{$search['name']}%")
+                    ->orWhere('username', 'LIKE', "%{$search['name']}%");
+            })
+            ->where('status', 1)
+            ->orderBy('id', 'desc')
+            ->paginate(12);
+
+        $pageSeo = Page::where('slug', 'profile')->first();
+        $pageSeo['breadcrumb_image'] = $pageSeo?->breadcrumb_status == 1 ?  getFile($pageSeo->breadcrumb_image_driver, $pageSeo->breadcrumb_image) : null;
+
+        return view(template() . 'frontend.profile.profiles', $data, compact('pageSeo'));
+    }
+
 
     public function profileFollow(Request $request, $userId = null){
         if ($userId != auth()->id()){
