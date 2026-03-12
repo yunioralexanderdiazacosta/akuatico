@@ -14,10 +14,10 @@
                         <div class="listing-topbar">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <button class="cmn-btn3" type="button" data-bs-toggle="offcanvas"
+                                    <button class="mt-2 mb-2 cmn-btn3" type="button" data-bs-toggle="offcanvas"
                                             data-bs-target="#offcanvasWithBothOptions"
                                             aria-controls="offcanvasWithBothOptions">
-                                        <i class="fas fa-filter-list"></i> @lang('Filters')
+                                        <i class="fas fa-filter"></i> @lang('Filters')
                                     </button>
                                 </div>
                                 <div class="col justify-content-end d-flex">
@@ -125,7 +125,7 @@
                 <div class="row g-4">
                     <div class="col-12">
                         <div id="formModal">
-                            <select class="modal-select" name="category[]" multiple style="width: 100%;">
+                            <select class="listing__category__select2 form-control" name="category[]" multiple>
                                 <option value="all" @if(request()->category && in_array('all', request()->category)) selected @endif>@lang('All Category')</option>
                                 @foreach($all_categories as $category)
                                     <option value="{{ $category->id }}"
@@ -144,7 +144,6 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset(template(true).'css/nice-select.css') }}">
     <style>
         .mt-40 {
             margin-top: 40px;
@@ -152,13 +151,13 @@
     </style>
 @endpush
 
-@push('extra-js')
-    <script src="{{ asset(template(true).'js/jquery.nice-select.min.js') }}"></script>
+@push('script')
     <script>
         $(document).ready(function() {
-            if ($('.modal-select').length > 0) {
-                $('.modal-select').niceSelect();
-            }
+            $(".listing__category__select2").select2({
+                width: '100%',
+                placeholder: '@lang("Select Categories")',
+            });
         });
     </script>
 @endpush
