@@ -20,8 +20,9 @@
                     <div class="col-xl-3 col-md-6 col-6">
                         <a href="{{ route('listings', $category->id) }}">
                             <div class="category-box">
+                                <?php dd($category); ?>
                                 <div class="icon-box">
-                                    <i class="{{ $category->icon }}"></i>
+                                    @if(isset($category->mobile_app_image) && $category->mobile_app_image) <img src="{{ $category->mobile_app_image }}" alt="{{ optional($category->details)->name }}"/> @else <i class="{{ $category->icon }}"></i> @endif
                                 </div>
                                 <div>
                                     <h5>@lang(optional($category->details)->name)</h5>
