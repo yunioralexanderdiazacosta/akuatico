@@ -21,7 +21,7 @@
                         <a href="{{ route('listings', $category->id) }}">
                             <div class="category-box">
                                 <div class="icon-box">
-                                    @if(isset($category->mobile_app_image) && $category->mobile_app_image) <img src="{{ getFile($category->image_driver, $category->mobile_app_image) }}" alt="{{ optional($category->details)->name }}"/> @else <i class="{{ $category->icon }}"></i> @endif
+                                    @if(isset($category->mobile_app_image) && $category->mobile_app_image) <img class="avatar avatar-xl avatar-4x3 avatar-centered h-100 mb-2" src="{{ getFile($category->image_driver, $category->mobile_app_image) }}" alt="{{ optional($category->details)->name }}"/> @else <i class="{{ $category->icon }}"></i> @endif
                                 </div>
                                 <div>
                                     <h5>@lang(optional($category->details)->name)</h5>
