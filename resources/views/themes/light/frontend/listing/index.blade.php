@@ -57,7 +57,7 @@
                                 </div>
 
                                 <div class="input-group mb-3">
-                                    <select class="listing__category__select2 form-control" name="category[]" multiple>
+                                    <select id="category_id" class="listing__category__select2 form-control" name="category[]" multiple>
                                         <option value="all"
                                                 @if(request()->category && in_array('all', request()->category))
                                                     selected
@@ -68,6 +68,25 @@
                                                  @if(request()->category && in_array($category->id, request()->category))
                                                         selected
                                                 @endif> @lang(optional($category->details)->name)
+                                            </option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <select id="subcategory_id" class="listing__subcategory__select2 form-control" name="subcategory[]" multiple>
+                                        <option value="all"
+                                                @if(request()->subcategory && in_array('all', request()->subcategory))
+                                                    selected
+                                                @endif>@lang('All Subcategory')</option>
+                                        @foreach($all_subcategories as $subcategory)
+                                            @if($subcategory != null)
+                                            <option value="{{ $subcategory->id }}"
+                                                    data-parent="{{ $subcategory->parent_id }}"
+                                                 @if(request()->subcategory && in_array($subcategory->id, request()->subcategory))
+                                                        selected
+                                                @endif> @lang(optional($subcategory->details)->name)
                                             </option>
                                             @endif
                                         @endforeach
@@ -166,6 +185,13 @@
 
                 <div class="col-xl-6 col-lg-6 col-sm-12 my-4">
                     @if( 0 <count($all_listings))
+                        <div class="row mb-4">
+                            <div class="col-12 justify-content-end d-flex">
+                                <div id="results-count" data-total="{{ $all_listings->total() }}" data-current-page="{{ $all_listings->currentPage() }}">
+                                    {{--Showing results here--}}
+                                </div>
+                            </div>
+                        </div>
                         <input type="hidden" id="googleMapAppKey" value="{{ basicControl()->google_map_app_key }}">
                         <input type="hidden" id="google_map_id" value="{{ basicControl()->google_map_id }}">
                         <div class="row g-4">
@@ -239,6 +265,11 @@
                                             <p class="mb-2">
                                                 <span class="">@lang('Category'): </span> @lang(optional($listing)->getCategoriesName())
                                             </p>
+                                            @if($listing->getSubCategoriesName())
+                                                <p class="mb-2">
+                                                    <span class="">@lang('Subcategory'): </span> @lang($listing->getSubCategoriesName())
+                                                </p>
+                                            @endif
                                             <p class="address mt-1">
                                                 <i class="fal fa-map-marker-alt"></i>
                                                 @lang($listing->city_id != null ? $listing->get_cities?->getAddress() : $listing->address)
@@ -298,6 +329,35 @@
             placeholder: '@lang("Select Categories")',
         });
 
+        $(".listing__subcategory__select2").select2({
+            width: '100%',
+            placeholder: '@lang("Select Subcategories")',
+        });
+
+        function filterSubcategories() {
+            let selectedParents = $('#category_id').val() || [];
+            $('#subcategory_id option').each(function() {
+                if ($(this).val() === 'all') return;
+                let parentId = $(this).data('parent');
+                if (parentId) {
+                    parentId = parentId.toString();
+                    if (selectedParents.includes('all') || selectedParents.includes(parentId) || selectedParents.length === 0) {
+                        $(this).removeAttr('disabled');
+                    } else {
+                        $(this).attr('disabled', 'disabled');
+                        $(this).prop('selected', false);
+                    }
+                }
+            });
+            $('#subcategory_id').trigger('change.select2');
+        }
+
+        $('#category_id').on('change', function() {
+            filterSubcategories();
+        });
+
+        filterSubcategories();
+
         var isAuthenticate = '{{ Auth::check() }}';
 
         $(document).ready(function () {
@@ -313,6 +373,16 @@
                     window.location.href = '{{route('login')}}';
                 }
             });
+
+            const $resultsCount = $('#results-count');
+            if ($resultsCount.length) {
+                const total = parseInt($resultsCount.data('total'), 10);
+                const currentPage = parseInt($resultsCount.data('current-page'), 10);
+                const perPage = 6;
+                const start = (currentPage - 1) * perPage + 1;
+                const end = Math.min(start + perPage - 1, total);
+                $resultsCount.html(`Showing <strong>${start} – ${end}</strong> of <strong>${total}</strong> results`);
+            }
         });
 
 

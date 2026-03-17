@@ -41,22 +41,25 @@ class ListingController extends Controller
         $data['all_listings'] = Listing::with(['get_user', 'get_place', 'get_reviews', 'get_package', 'listingSeo'])
             ->when(isset($categoryIds) && !in_array('all', $categoryIds), function ($query) use ($categoryIds) {
                 $query->where(function ($query) use ($categoryIds) {
-                    $query->whereJsonContains('category_id', $categoryIds[0]);
-                    foreach (array_slice($categoryIds, 1) as $category_id) {
-                        $query->orWhereJsonContains('category_id', $category_id);
+                    foreach ($categoryIds as $category_id) {
+                        $query->orWhereJsonContains('category_id', $category_id)
+                              ->orWhereJsonContains('subcategory_id', $category_id);
                     }
                 });
             })
             ->when(isset($subcategoryIds) && !in_array('all', $subcategoryIds), function ($query) use ($subcategoryIds) {
                 $query->where(function ($query) use ($subcategoryIds) {
-                    $query->whereJsonContains('subcategory_id', $subcategoryIds[0]);
-                    foreach (array_slice($subcategoryIds, 1) as $subcategory_id) {
-                        $query->orWhereJsonContains('subcategory_id', $subcategory_id);
+                    foreach ($subcategoryIds as $subcategory_id) {
+                        $query->orWhereJsonContains('subcategory_id', $subcategory_id)
+                              ->orWhereJsonContains('category_id', $subcategory_id);
                     }
                 });
             })
             ->when(isset($id), function ($query) use ($id) {
-                return $query->whereJsonContains('category_id', $id);
+                return $query->where(function($q) use ($id) {
+                    $q->whereJsonContains('category_id', $id)
+                      ->orWhereJsonContains('subcategory_id', $id);
+                });
             })
             ->when(isset($search['name']), function ($query) use ($search) {
                 return $query->where('title', 'LIKE', "%{$search['name']}%")

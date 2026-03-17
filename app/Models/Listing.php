@@ -166,5 +166,19 @@ class Listing extends Model
         return implode(' , ', $categoryNames);
     }
 
+    public function getSubCategoriesName(): string
+    {
+        $subcategoryIds = is_array($this->subcategory_id) ? $this->subcategory_id : json_decode($this->subcategory_id, true);
+
+        if (!is_array($subcategoryIds) || empty($subcategoryIds)) {
+            return '';
+        }
+        if (empty(static::$categoryNamesCache)) {
+            static::$categoryNamesCache = ListingCategoryDetails::pluck('name', 'listing_category_id')->toArray();
+        }
+        $subcategoryNames = array_intersect_key(static::$categoryNamesCache, array_flip($subcategoryIds));
+        return implode(' , ', $subcategoryNames);
+    }
+
 
 }
