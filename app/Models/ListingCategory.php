@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Log;
 class ListingCategory extends Model
 {
     use HasFactory;
-    protected $table = 'listing_categories';
-    protected $guarded = ['id'];
+    protected $table = "listing_categories";
+    protected $guarded = ["id"];
 
     public function language()
     {
-        return $this->hasMany(Language::class, 'language_id', 'id');
+        return $this->hasMany(Language::class, "language_id", "id");
     }
 
     public function details()
@@ -23,17 +23,45 @@ class ListingCategory extends Model
         return $this->hasOne(ListingCategoryDetails::class);
     }
 
+    public function subcategories()
+    {
+        return $this->hasMany(ListingCategory::class, "parent_id");
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(ListingCategory::class, "parent_id");
+    }
+
+    public function scopeOnlyParent($query)
+    {
+        return $query->whereNull("parent_id");
+    }
+
+    public function scopeOnlySubcategories($query)
+    {
+        return $query->whereNotNull("parent_id");
+    }
+
     public function get_listings()
     {
-        return $this->hasMany(Listing::class, 'category_id', 'id')->where('status', 1)->where('is_active', 1);
+        return $this->hasMany(Listing::class, "category_id", "id")
+            ->where("status", 1)
+            ->where("is_active", 1);
     }
 
     public function getCategoryCount()
     {
-        return Listing::whereJsonContains('category_id', json_encode($this->id))->where('status', 1)->where('is_active', 1)->count();
+        return Listing::where("status", 1)
+            ->where("is_active", 1)
+            ->where(function ($query) {
+                $query
+                    ->whereJsonContains("category_id", json_encode($this->id))
+                    ->orWhereJsonContains(
+                        "subcategory_id",
+                        json_encode($this->id),
+                    );
+            })
+            ->count();
     }
-
-
-
-
 }

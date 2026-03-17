@@ -309,6 +309,8 @@ class ListingController extends Controller
             'title' => 'required|string|max:255',
             'category_id' => 'required|array',
             'category_id.*' => 'exists:listing_categories,id',
+            'subcategory_id' => 'nullable|array',
+            'subcategory_id.*' => 'exists:listing_categories,id',
             'email' => 'nullable|email',
             'phone' => 'nullable|string',
             'description' => 'required|string',
@@ -377,6 +379,7 @@ class ListingController extends Controller
 
             $numberOfCategoriesPerListing = min(count($request->category_id), optional($listing->get_package)->no_of_categories_per_listing ?? 1);
             $listing->category_id = array_slice($request->category_id, 0, $numberOfCategoriesPerListing);
+            $listing->subcategory_id = $request->subcategory_id;
 
             $listing->phone = $request->phone;
             $listing->email = $request->email;

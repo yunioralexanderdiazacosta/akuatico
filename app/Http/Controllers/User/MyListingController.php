@@ -150,6 +150,8 @@ class MyListingController extends Controller
             ],
             "category_id" => "required|array",
             "category_id.*" => "exists:listing_categories,id",
+            "subcategory_id" => "nullable|array",
+            "subcategory_id.*" => "exists:listing_categories,id",
             "email" => "nullable|email",
             "phone" => "nullable|string",
             "description" => "required|string",
@@ -292,6 +294,7 @@ class MyListingController extends Controller
                 0,
                 $numberOfCategoriesPerListing,
             );
+            $listing->subcategory_id = $request->subcategory_id;
             $listing->phone = $request->phone;
             $listing->email = $request->email;
             $listing->description = $request->description;
@@ -521,6 +524,8 @@ class MyListingController extends Controller
             "title" => "required|string|max:255",
             "category_id" => "required|array",
             "category_id.*" => "exists:listing_categories,id",
+            "subcategory_id" => "nullable|array",
+            "subcategory_id.*" => "exists:listing_categories,id",
             "email" => "nullable|email",
             "phone" => "nullable|string",
             "description" => "required|string",
@@ -641,6 +646,7 @@ class MyListingController extends Controller
                 0,
                 $numberOfCategoriesPerListing,
             );
+            $listing->subcategory_id = $request->subcategory_id;
 
             $listing->phone = $request->phone;
             $listing->email = $request->email;

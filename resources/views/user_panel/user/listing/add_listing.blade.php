@@ -214,16 +214,37 @@
                                     </div>
                                     <div class="input-box col-md-12">
                                         <select
+                                            id="category_id"
                                             class="listing__category__select2 form-control @error('category_id') is-invalid @enderror"
                                             name="category_id[]" multiple data-categories="{{ $single_package_infos->no_of_categories_per_listing }}">
                                             <option disabled> @lang('Select Category')</option>
-                                            @foreach ($all_listings_category as $item)
+                                            @foreach ($all_listings_category->whereNull('parent_id') as $item)
                                                 <option
-                                                    value="{{ $item->id }}" {{ old('category_id') == $item->id ? 'selected' : '' }}>@lang(optional($item->details)->name) </option>
+                                                    value="{{ $item->id }}" {{ (collect(old('category_id'))->contains($item->id)) ? 'selected' : '' }}>@lang(optional($item->details)->name) </option>
                                             @endforeach
                                         </select>
                                         <div class="invalid-feedback">
                                             @error('category_id') @lang($message) @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="input-box col-md-12">
+                                        <select
+                                            id="subcategory_id"
+                                            class="form-control @error('subcategory_id') is-invalid @enderror"
+                                            name="subcategory_id[]" multiple>
+                                            <option disabled> @lang('Select Subcategory')</option>
+                                            @foreach ($all_listings_category->whereNotNull('parent_id') as $item)
+                                                <option
+                                                    value="{{ $item->id }}"
+                                                    data-parent="{{ $item->parent_id }}"
+                                                    {{ (collect(old('subcategory_id'))->contains($item->id)) ? 'selected' : '' }}>
+                                                    @lang(optional($item->details)->name)
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            @error('subcategory_id') @lang($message) @enderror
                                         </div>
                                     </div>
 
@@ -1374,6 +1395,34 @@
                 maximumSelectionLength: maxSelectCategories,
             });
 
+            $('#subcategory_id').select2({
+                width: '100%',
+                placeholder: '@lang("Select Subcategories")',
+            });
+
+            function filterSubcategories() {
+                let selectedParents = $('#category_id').val() || [];
+                $('#subcategory_id option').each(function() {
+                    let parentId = $(this).data('parent');
+                    if (parentId) {
+                        parentId = parentId.toString();
+                        if (selectedParents.includes(parentId)) {
+                            $(this).removeAttr('disabled');
+                        } else {
+                            $(this).attr('disabled', 'disabled');
+                            $(this).prop('selected', false);
+                        }
+                    }
+                });
+                $('#subcategory_id').trigger('change.select2');
+            }
+
+            $('#category_id').on('change', function() {
+                filterSubcategories();
+            });
+
+            filterSubcategories();
+            })
             $(document).on('input', ".change_name_input", function (e) {
                 let inputValue = $(this).val();
                 let final_value = inputValue.toLowerCase().replace(/\s+/g, '-');

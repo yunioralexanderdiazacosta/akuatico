@@ -40,6 +40,17 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-4 col-lg-4 mb-3">
                                         <div class="form-group">
+                                            <label class="form-label" for="parent_id"> @lang('Parent Category') (@lang('Optional')) </label>
+                                            <select name="parent_id" class="js-select form-control">
+                                                <option value="">@lang('No Parent (Main Category)')</option>
+                                                @foreach($allCategories as $cat)
+                                                    <option value="{{ $cat->id }}">@lang(optional($cat->details)->name)</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 col-lg-4 mb-3">
+                                        <div class="form-group">
                                             <label class="form-label" for="name"> @lang('Category Name') </label>
                                             <input type="text" name="name[{{ $language->id }}]"
                                                    class="form-control  @error('name'.'.'.$language->id) is-invalid @enderror"

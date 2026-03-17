@@ -15,20 +15,36 @@
 
             <div class="col-md-6">
                 @php
-                    $categoryIds = $single_listing_infos->getCategories();
+                    $categoryIds = $single_listing_infos->category_id ?? [];
+                    $subcategoryIds = $single_listing_infos->subcategory_id ?? [];
                 @endphp
                 <label class="form-label">@lang('Listing Category')</label>
-                <select class="form-control listingCategory" name="category_id[]" multiple
+                <select class="form-control listingCategory" name="category_id[]" id="category_id" multiple
                         data-categories="{{ $single_package_infos->no_of_categories_per_listing }}">
-                    @foreach ($all_listings_category as $item)
+                    @foreach ($all_listings_category->whereNull('parent_id') as $item)
                         <option value="{{ $item->id }}"
-                                @foreach($categoryIds as $category) @if($category->id == $item->id) selected @endif @endforeach>
+                                @if(in_array($item->id, $categoryIds)) selected @endif>
                             @lang(optional($item->details)->name)
                         </option>
                     @endforeach
                 </select>
                 <div class="invalid-feedback">
                     @error('category_id') @lang($message) @enderror
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">@lang('Listing Subcategory')</label>
+                <select class="form-control js-select" name="subcategory_id[]" id="subcategory_id" multiple>
+                    @foreach ($all_listings_category->whereNotNull('parent_id') as $sub)
+                        <option value="{{ $sub->id }}" data-parent="{{ $sub->parent_id }}"
+                                @if(in_array($sub->id, $subcategoryIds)) selected @endif>
+                            @lang(optional($sub->details)->name)
+                        </option>
+                    @endforeach
+                </select>
+                <div class="invalid-feedback">
+                    @error('subcategory_id') @lang($message) @enderror
                 </div>
             </div>
 
@@ -470,6 +486,34 @@
                 placeholder: '@lang("Select Categories")',
                 maximumSelectionLength: maxSelectCategories,
             });
+
+            $('#subcategory_id').select2({
+                width: '100%',
+                placeholder: '@lang("Select Subcategories")',
+            });
+
+            function filterSubcategories() {
+                let selectedParents = $('#category_id').val() || [];
+                $('#subcategory_id option').each(function() {
+                    let parentId = $(this).data('parent');
+                    if (parentId) {
+                        parentId = parentId.toString();
+                        if (selectedParents.includes(parentId)) {
+                            $(this).removeAttr('disabled');
+                        } else {
+                            $(this).attr('disabled', 'disabled');
+                            $(this).prop('selected', false);
+                        }
+                    }
+                });
+                $('#subcategory_id').trigger('change.select2');
+            }
+
+            $('#category_id').on('change', function() {
+                filterSubcategories();
+            });
+
+            filterSubcategories();
         })
 
         $(document).on('change', '#city_id', function () {

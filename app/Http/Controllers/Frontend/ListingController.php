@@ -36,6 +36,7 @@ class ListingController extends Controller
         $today = Carbon::now()->format('Y-m-d');
         $search = $request->all();
         $categoryIds = $request->category;
+        $subcategoryIds = $request->subcategory;
 
         $data['all_listings'] = Listing::with(['get_user', 'get_place', 'get_reviews', 'get_package', 'listingSeo'])
             ->when(isset($categoryIds) && !in_array('all', $categoryIds), function ($query) use ($categoryIds) {
@@ -43,6 +44,14 @@ class ListingController extends Controller
                     $query->whereJsonContains('category_id', $categoryIds[0]);
                     foreach (array_slice($categoryIds, 1) as $category_id) {
                         $query->orWhereJsonContains('category_id', $category_id);
+                    }
+                });
+            })
+            ->when(isset($subcategoryIds) && !in_array('all', $subcategoryIds), function ($query) use ($subcategoryIds) {
+                $query->where(function ($query) use ($subcategoryIds) {
+                    $query->whereJsonContains('subcategory_id', $subcategoryIds[0]);
+                    foreach (array_slice($subcategoryIds, 1) as $subcategory_id) {
+                        $query->orWhereJsonContains('subcategory_id', $subcategory_id);
                     }
                 });
             })
@@ -91,7 +100,8 @@ class ListingController extends Controller
 
         $data['all_places'] = Country::select('id', 'name')->where('status', 1)->orderBy('name', 'ASC')->toBase()->get();
         $data['uniqueCities'] = Listing::with('get_cities')->where('city_id', '!=', null)->get()->pluck('get_cities');
-        $data['all_categories'] = ListingCategory::select('id')->with('details:id,listing_category_id,name')->where('status', 1)->latest()->get();
+        $data['all_categories'] = ListingCategory::onlyParent()->select('id')->with('details:id,listing_category_id,name')->where('status', 1)->latest()->get();
+        $data['all_subcategories'] = ListingCategory::onlySubcategories()->with('details:id,listing_category_id,name')->where('status', 1)->get();
         $pageSeo = Page::where('template_name', $selectedTheme)->where('slug', 'listings')->first();
         $pageSeo['breadcrumb_image'] = $pageSeo?->breadcrumb_status == 1 ?  getFile($pageSeo->breadcrumb_image_driver, $pageSeo->breadcrumb_image) : null;
         return view(template() . 'frontend.listing.index', $data, compact('pageSeo'));
