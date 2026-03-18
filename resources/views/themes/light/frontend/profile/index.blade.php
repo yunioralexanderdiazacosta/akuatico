@@ -23,11 +23,7 @@
                                             @endif
                                         </h4>
 
-                                        @if($user_information->bio)
-                                            <p class="bio">
-                                                @lang($user_information->bio)
-                                            </p>
-                                        @endif
+
 
                                         @if($user_information->category_id)
                                             <p class="mb-2 text-primary small">
@@ -135,6 +131,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
+                    @if($user_information->bio)
+                        <div class="followers mb-4">
+                            <h4>@lang('Description')</h4>
+                            <p>@lang($user_information->bio)</p>
+                        </div>
+                    @endif
                     <div class="followers">
                         <h4>@lang('Followers')</h4>
                         @forelse($user_information->follower as $follower)
