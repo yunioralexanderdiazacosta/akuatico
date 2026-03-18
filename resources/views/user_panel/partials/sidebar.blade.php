@@ -18,6 +18,12 @@
         </li>
 
         <li>
+            <a href="{{route('user.profile')}}" class="{{(lastUriSegment() == 'profile') ? 'active' : ''}}">
+                <i class="fal fa-users-cog text-indigo"></i> @lang('Profile Settings')
+            </a>
+        </li>
+
+        <li>
             <a href="{{ route('user.myPackages') }}" class="{{ request()->routeIs('user.myPackages', 'user.paymentHistory') ? 'active' : ''}}">
                 <i class="fal fa-box-full text-primary"></i>@lang('My Packages')
             </a>
@@ -68,12 +74,6 @@
         <li>
             <a href="{{ route('user.analytics') }}" class="{{ request()->routeIs(['user.analytics','user.analytics.show']) ? 'active' : ''}}">
                 <i class="fal fa-analytics text-green"></i>@lang('Analytics')
-            </a>
-        </li>
-
-        <li>
-            <a href="{{route('user.profile')}}" class="{{(lastUriSegment() == 'profile') ? 'active' : ''}}">
-                <i class="fal fa-users-cog text-indigo"></i> @lang('Profile Settings')
             </a>
         </li>
 
