@@ -63,6 +63,14 @@
                     @error('price') @lang($message) @enderror
                 </div>
             </div>
+            <div class="col-md-4">
+                <label class="form-label">@lang('Length (Feet)')</label>
+                <input type="number" step="0.1" class="form-control @error('length') is-invalid @enderror"
+                       name="length" value="{{ old('length') }}" placeholder="@lang('Enter Length')">
+                <div class="invalid-feedback">
+                    @error('length') @lang($message) @enderror
+                </div>
+            </div>
             <div class="col-md-12 bg-white">
                 <label class="form-label">@lang('Description') <span class="highlight">*</span></label>
                 <textarea class="form-control summernote @error('description') is-invalid @enderror"

@@ -141,6 +141,7 @@ class MyListingController extends Controller
     {
         $rules = [
             "title" => "required|string|max:255",
+            "length" => "nullable|numeric|min:0",
             "slug" => [
                 "required",
                 "min:1",
@@ -289,6 +290,7 @@ class MyListingController extends Controller
             $listing->purchase_package_id = $id;
             $listing->title = $request->title;
             $listing->slug = $request->slug;
+            $listing->length = $request->length;
             $listing->category_id = array_slice(
                 $request->category_id,
                 0,
@@ -522,6 +524,7 @@ class MyListingController extends Controller
     {
         $rules = [
             "title" => "required|string|max:255",
+            "length" => "nullable|numeric|min:0",
             "category_id" => "required|array",
             "category_id.*" => "exists:listing_categories,id",
             "subcategory_id" => "nullable|array",
@@ -635,6 +638,7 @@ class MyListingController extends Controller
 
             $listing->user_id = $user->id;
             $listing->title = $request->title;
+            $listing->length = $request->length;
 
             $numberOfCategoriesPerListing = min(
                 count($request->category_id),

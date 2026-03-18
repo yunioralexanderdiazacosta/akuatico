@@ -76,6 +76,12 @@ class ListingController extends Controller
             ->when(isset($search['city']) && $search['city'] != 'all', function ($query4) use ($search) {
                 return $query4->where('city_id', $search['city']);
             })
+            ->when(isset($search['min_length']), function ($query) use ($search) {
+                return $query->where('length', '>=', $search['min_length']);
+            })
+            ->when(isset($search['max_length']), function ($query) use ($search) {
+                return $query->where('length', '<=', $search['max_length']);
+            })
             ->when(isset($search['user']) && $search['user'] != 'all', function ($query4) use ($search) {
                 return $query4->where('user_id', $search['user']);
             })

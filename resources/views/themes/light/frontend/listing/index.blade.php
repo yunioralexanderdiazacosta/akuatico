@@ -92,6 +92,22 @@
                                         @endforeach
                                     </select>
                                 </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label text-white">@lang('Length (Feet)')</label>
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <input type="number" name="min_length" class="form-control bg-white"
+                                                   value="{{ request()->min_length }}" step="0.1"
+                                                   placeholder="@lang('Min')"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number" name="max_length" class="form-control bg-white"
+                                                   value="{{ request()->max_length }}" step="0.1"
+                                                   placeholder="@lang('Max')"/>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
 
@@ -268,6 +284,11 @@
                                             @if($listing->getSubCategoriesName())
                                                 <p class="mb-2">
                                                     <span class="">@lang('Subcategory'): </span> @lang($listing->getSubCategoriesName())
+                                                </p>
+                                            @endif
+                                            @if($listing->length)
+                                                <p class="mb-2">
+                                                    <span class="">@lang('Length'): </span> {{ $listing->length }} @lang('Feet')
                                                 </p>
                                             @endif
                                             <p class="address mt-1">

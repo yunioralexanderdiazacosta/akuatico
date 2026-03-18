@@ -307,6 +307,7 @@ class ListingController extends Controller
     {
         $rules = [
             'title' => 'required|string|max:255',
+            'length' => 'nullable|numeric|min:0',
             'category_id' => 'required|array',
             'category_id.*' => 'exists:listing_categories,id',
             'subcategory_id' => 'nullable|array',
@@ -376,6 +377,7 @@ class ListingController extends Controller
             }
 
             $listing->title = $request->title;
+            $listing->length = $request->length;
 
             $numberOfCategoriesPerListing = min(count($request->category_id), optional($listing->get_package)->no_of_categories_per_listing ?? 1);
             $listing->category_id = array_slice($request->category_id, 0, $numberOfCategoriesPerListing);

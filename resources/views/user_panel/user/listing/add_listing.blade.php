@@ -265,6 +265,14 @@
                                         </div>
                                     </div>
 
+                                    <div class="input-box col-md-6">
+                                        <input class="form-control @error('length') is-invalid @enderror" type="number" step="0.1"
+                                               name="length" value="{{ old('length') }}" placeholder="@lang('Length (Feet)')"/>
+                                        <div class="invalid-feedback">
+                                            @error('length') @lang($message) @enderror
+                                        </div>
+                                    </div>
+
                                     <div class="input-box col-12 bg-white p-0">
                                         <textarea class="form-control summernote @error('description') is-invalid @enderror" name="description" id="summernote" rows="15" value="{{ old('description') }}" placeholder="@lang('Description')">{{ old('description') }}</textarea>
                                         <div class="invalid-feedback">
