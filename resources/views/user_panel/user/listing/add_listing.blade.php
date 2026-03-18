@@ -216,7 +216,8 @@
                                         <select
                                             id="category_id"
                                             class="listing__category__select2 form-control @error('category_id') is-invalid @enderror"
-                                            name="category_id[]" multiple data-categories="{{ $single_package_infos->no_of_categories_per_listing }}">
+                                            name="category_id[]" multiple data-categories="{{ $single_package_infos->no_of_categories_per_listing }}"
+                                            style="height: auto;">
                                             <option disabled> @lang('Select Category')</option>
                                             @foreach ($all_listings_category->whereNull('parent_id') as $item)
                                                 <option
@@ -232,7 +233,7 @@
                                         <select
                                             id="subcategory_id"
                                             class="form-control @error('subcategory_id') is-invalid @enderror"
-                                            name="subcategory_id[]" multiple>
+                                            name="subcategory_id[]" multiple style="height: auto;">
                                             <option disabled> @lang('Select Subcategory')</option>
                                             @foreach ($all_listings_category->whereNotNull('parent_id') as $item)
                                                 <option
