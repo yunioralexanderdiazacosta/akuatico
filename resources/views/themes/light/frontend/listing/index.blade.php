@@ -94,7 +94,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label text-white">@lang('Length (Feet)')</label>
+                                    <label class="form-label">@lang('Length (Feet)')</label>
                                     <div class="row g-2">
                                         <div class="col-6">
                                             <input type="number" name="min_length" class="form-control bg-white"
