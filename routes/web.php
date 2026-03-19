@@ -26,6 +26,7 @@ use App\Http\Controllers\User\SendMessageController;
 use App\Http\Controllers\User\SubscriptionController;
 use App\Http\Controllers\User\TransactionController;
 use App\Http\Controllers\User\UserProfileSettingController;
+use App\Http\Controllers\GuestContactController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InAppNotificationController;
@@ -141,9 +142,6 @@ Route::group(['middleware' => ['maintenanceMode']], function () use ($basicContr
                 Route::post('/profile-follow/{id?}', [ProfileController::class, 'profileFollow'])->name('profile.follow');
                 Route::post('/profile-unfollow/{id?}', [ProfileController::class, 'profileUnfollow'])->name('profile.unfollow');
 
-                Route::post('/viewer-send-message-to-user/{id}', [SendMessageController::class, 'viewerSendMessageToUser'])->name('viewer.send.message.to.user');
-                Route::post('/send-listing-message/{id}', [SendMessageController::class, 'sendListingMessage'])->name('send.listing.message');
-
                 Route::get('/transaction', [TransactionController::class, 'transaction'])->name('transaction');
 
                 Route::get('/analytics/{id?}', [AnalyticsController::class, 'analytics'])->name('analytics');
@@ -229,6 +227,9 @@ Route::group(['middleware' => ['maintenanceMode']], function () use ($basicContr
 
     Route::get('/profile/{user_name?}', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/profiles', [ProfileController::class, 'profiles'])->name('profiles');
+
+    Route::post('user/viewer-send-message-to-user/{id}', [GuestContactController::class, 'sendProfileContact'])->name('user.viewer.send.message.to.user');
+    Route::post('user/send-listing-message/{id}', [GuestContactController::class, 'sendListingContact'])->name('user.send.listing.message');
 
 
 

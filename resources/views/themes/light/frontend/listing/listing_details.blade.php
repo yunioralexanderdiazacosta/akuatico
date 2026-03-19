@@ -698,20 +698,37 @@
                                         <div class="input-box col-12">
                                             <input class="form-control @error('name') is-invalid @enderror" type="text"
                                                    autocomplete="off" name="name"
-                                                   @if(Auth::check() && Auth::id() != $single_listing_details->user_id)
-                                                       value="@lang(Auth::user()->firstname) @lang(Auth::user()->lastname)"
-                                                   @else
-                                                       placeholder="@lang('Full Name')"
-                                                @endif/>
+                                                   value=""
+                                                   placeholder="@lang('Full Name')" required />
                                             <div class="invalid-feedback">
                                                 @error('name') @lang($message) @enderror
                                             </div>
                                         </div>
 
                                         <div class="input-box col-12">
+                                            <input class="form-control @error('email') is-invalid @enderror" type="email"
+                                                   autocomplete="off" name="email"
+                                                   value=""
+                                                   placeholder="@lang('Email Address')" required />
+                                            <div class="invalid-feedback">
+                                                @error('email') @lang($message) @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="input-box col-12">
+                                            <input class="form-control @error('phone') is-invalid @enderror" type="text"
+                                                   autocomplete="off" name="phone"
+                                                   value=""
+                                                   placeholder="@lang('Phone Number')" />
+                                            <div class="invalid-feedback">
+                                                @error('phone') @lang($message) @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="input-box col-12">
                                             <textarea class="form-control @error('message') is-invalid @enderror"
                                                       cols="30" rows="3" autocomplete="off" name="message"
-                                                      placeholder="@lang('Your message')"></textarea>
+                                                      placeholder="@lang('Your message')" required>{{ old('message') }}</textarea>
                                             <div class="invalid-feedback">
                                                 @error('message') @lang($message) @enderror
                                             </div>
