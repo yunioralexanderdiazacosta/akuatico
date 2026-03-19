@@ -58,16 +58,8 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <label class="form-label">@lang('Price') <span class="highlight">*</span></label>
-                <input type="text" class="form-control @error('price') is-invalid @enderror"
-                       name="price" value="{{ old('price', $listing->price) }}" placeholder="@lang('Enter Price')">
-                <div class="invalid-feedback">
-                    @error('price') @lang($message) @enderror
-                </div>
-            </div>
-            <div class="col-md-4">
                 <label class="form-label">@lang('Length (Feet)')</label>
-                <input type="number" step="0.1" class="form-control @error('length') is-invalid @enderror"
+                <input type="number" min="10" max="100" class="form-control @error('length') is-invalid @enderror"
                        name="length" value="{{ old('length', $listing->length) }}" placeholder="@lang('Enter Length')">
                 <div class="invalid-feedback">
                     @error('length') @lang($message) @enderror

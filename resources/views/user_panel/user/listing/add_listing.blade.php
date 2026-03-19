@@ -266,7 +266,7 @@
                                     </div>
 
                                     <div class="input-box col-md-6">
-                                        <input class="form-control @error('length') is-invalid @enderror" type="number" step="0.1"
+                                        <input class="form-control @error('length') is-invalid @enderror" type="number" min="10" max="100"
                                                name="length" value="{{ old('length') }}" placeholder="@lang('Length (Feet)')"/>
                                         <div class="invalid-feedback">
                                             @error('length') @lang($message) @enderror

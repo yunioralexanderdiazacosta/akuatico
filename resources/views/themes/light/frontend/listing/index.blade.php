@@ -98,12 +98,12 @@
                                     <div class="row g-2">
                                         <div class="col-6">
                                             <input type="number" name="min_length" class="form-control bg-white"
-                                                   value="{{ request()->min_length }}" step="0.1"
+                                                   value="{{ request()->min_length }}" min="10" max="100"
                                                    placeholder="@lang('Min')"/>
                                         </div>
                                         <div class="col-6">
                                             <input type="number" name="max_length" class="form-control bg-white"
-                                                   value="{{ request()->max_length }}" step="0.1"
+                                                   value="{{ request()->max_length }}" min="10" max="100"
                                                    placeholder="@lang('Max')"/>
                                         </div>
                                     </div>
