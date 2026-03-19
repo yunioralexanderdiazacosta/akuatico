@@ -28,7 +28,13 @@
                                         @if($user_information->category_id)
                                             <p class="mb-2 text-primary small">
                                                 <i class="fas fa-tags me-1"></i>
-                                                {{ $user_information->getCategoriesName() }}
+                                                <span class="">@lang('Category') : </span> {{ $user_information->getCategoriesName() }}
+                                            </p>
+                                        @endif
+                                        @if($user_information->getSubCategoriesName())
+                                            <p class="mb-2 text-primary small">
+                                                <i class="fas fa-tags me-1"></i>
+                                                <span class="">@lang('Subcategory') : </span> {{ $user_information->getSubCategoriesName() }}
                                             </p>
                                         @endif
 
@@ -307,7 +313,11 @@
                                                 <p class="mb-2">
                                                     <span class="">@lang('Category') : </span> {{ $latest_listing->getCategoriesName() }}
                                                 </p>
-                                                </p>
+                                                @if($latest_listing->getSubCategoriesName())
+                                                    <p class="mb-2">
+                                                        <span class="">@lang('Subcategory') : </span> {{ $latest_listing->getSubCategoriesName() }}
+                                                    </p>
+                                                @endif
                                                 <p class="address mt-1">
                                                     <i class="fal fa-map-marker-alt"></i>
                                                     @lang($latest_listing->get_cities?->getAddress() ?? $latest_listing->address)

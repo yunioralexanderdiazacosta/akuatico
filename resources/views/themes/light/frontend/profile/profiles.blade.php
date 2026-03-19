@@ -55,7 +55,13 @@
                                                     @if($profile->category_id)
                                                         <p class="mb-2 text-primary small">
                                                             <i class="fas fa-tags me-1"></i>
-                                                            {{ Str::limit($profile->getCategoriesName(), 40) }}
+                                                            <span class="">@lang('Category') : </span> {{ Str::limit($profile->getCategoriesName(), 40) }}
+                                                        </p>
+                                                    @endif
+                                                    @if($profile->getSubCategoriesName())
+                                                        <p class="mb-2 text-primary small">
+                                                            <i class="fas fa-tags me-1"></i>
+                                                            <span class="">@lang('Subcategory') : </span> {{ Str::limit($profile->getSubCategoriesName(), 40) }}
                                                         </p>
                                                     @endif
 
@@ -125,11 +131,30 @@
                 <div class="row g-4">
                     <div class="col-12">
                         <div id="formModal">
-                            <select class="listing__category__select2 form-control" name="category[]" multiple>
+                            <select id="category_id" class="listing__category__select2 form-control" name="category[]" multiple>
                                 <option value="all" @if(request()->category && in_array('all', request()->category)) selected @endif>@lang('All Category')</option>
                                 @foreach($all_categories as $category)
                                     <option value="{{ $category->id }}"
                                             @if(request()->category && in_array($category->id, request()->category)) selected @endif> @lang(optional($category->details)->name)
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <hr class="cmn-hr2">
+                <div class="widget-title">
+                    <h6>@lang('Filter by Subcategory')</h6>
+                </div>
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div id="formModal">
+                            <select id="subcategory_id" class="listing__subcategory__select2 form-control" name="subcategory[]" multiple>
+                                <option value="all" @if(request()->subcategory && in_array('all', request()->subcategory)) selected @endif>@lang('All Subcategory')</option>
+                                @foreach($all_subcategories as $subcategory)
+                                    <option value="{{ $subcategory->id }}"
+                                            data-parent="{{ $subcategory->parent_id }}"
+                                            @if(request()->subcategory && in_array($subcategory->id, request()->subcategory)) selected @endif> @lang(optional($subcategory->details)->name)
                                     </option>
                                 @endforeach
                             </select>
@@ -158,6 +183,35 @@
                 width: '100%',
                 placeholder: '@lang("Select Categories")',
             });
+
+            $(".listing__subcategory__select2").select2({
+                width: '100%',
+                placeholder: '@lang("Select Subcategories")',
+            });
+
+            function filterSubcategories() {
+                let selectedParents = $('#category_id').val() || [];
+                $('#subcategory_id option').each(function() {
+                    if ($(this).val() === 'all') return;
+                    let parentId = $(this).data('parent');
+                    if (parentId) {
+                        parentId = parentId.toString();
+                        if (selectedParents.includes('all') || selectedParents.includes(parentId) || selectedParents.length === 0) {
+                            $(this).removeAttr('disabled');
+                        } else {
+                            $(this).attr('disabled', 'disabled');
+                            $(this).prop('selected', false);
+                        }
+                    }
+                });
+                $('#subcategory_id').trigger('change.select2');
+            }
+
+            $('#category_id').on('change', function() {
+                filterSubcategories();
+            });
+
+            filterSubcategories();
         });
     </script>
 @endpush

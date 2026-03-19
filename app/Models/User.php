@@ -237,11 +237,28 @@ class User extends Authenticatable
     {
         if ($this->category_id) {
             $categories = ListingCategory::whereIn("id", $this->category_id)
+                ->onlyParent()
                 ->with("details")
                 ->get();
             return $categories
                 ->map(function ($category) {
                     return $category->details->name;
+                })
+                ->implode(", ");
+        }
+        return null;
+    }
+
+    public function getSubCategoriesName()
+    {
+        if ($this->category_id) {
+            $subcategories = ListingCategory::whereIn("id", $this->category_id)
+                ->onlySubcategories()
+                ->with("details")
+                ->get();
+            return $subcategories
+                ->map(function ($subcategory) {
+                    return $subcategory->details->name;
                 })
                 ->implode(", ");
         }

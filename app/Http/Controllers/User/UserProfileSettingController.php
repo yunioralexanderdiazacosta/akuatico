@@ -35,6 +35,8 @@ class UserProfileSettingController extends Controller
         $data['listing_infos'] = Listing::where('user_id', $data['user']->id)->get();
         $data['languages'] = Language::all();
         $data['identityFormList'] = Kyc::where('status', 1)->get();
+        $data['all_categories'] = ListingCategory::onlyParent()->with('details')->where('status', 1)->get();
+        $data['all_subcategories'] = ListingCategory::onlySubcategories()->with('details')->where('status', 1)->get();
         $data['listing_categories'] = ListingCategory::with('details')->where('status', 1)->get();
 
         if ($request->has('identity_type')) {

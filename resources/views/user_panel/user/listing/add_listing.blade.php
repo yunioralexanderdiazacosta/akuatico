@@ -190,7 +190,7 @@
                     <div class="col-xl-12">
                         <h3 class="mb-3">@lang('Basic Info')</h3>
                         <div class="form">
-                            <div class="basic-form p-4">
+                            <div class="basic-form">
                                 <div class="row g-3">
                                     <div class="input-box col-md-12">
                                         <input class="form-control change_name_input @error('title') is-invalid @enderror" type="text"
@@ -216,9 +216,7 @@
                                         <select
                                             id="category_id"
                                             class="listing__category__select2 form-control @error('category_id') is-invalid @enderror"
-                                            name="category_id[]" multiple data-categories="{{ $single_package_infos->no_of_categories_per_listing }}"
-                                            style="height: auto;">
-                                            <option disabled> @lang('Select Category')</option>
+                                            name="category_id[]" multiple data-categories="{{ $single_package_infos->no_of_categories_per_listing }}">
                                             @foreach ($all_listings_category->whereNull('parent_id') as $item)
                                                 <option
                                                     value="{{ $item->id }}" {{ (collect(old('category_id'))->contains($item->id)) ? 'selected' : '' }}>@lang(optional($item->details)->name) </option>
@@ -233,7 +231,7 @@
                                         <select
                                             id="subcategory_id"
                                             class="form-control @error('subcategory_id') is-invalid @enderror"
-                                            name="subcategory_id[]" multiple style="height: auto;">
+                                            name="subcategory_id[]" multiple>
                                             <option disabled> @lang('Select Subcategory')</option>
                                             @foreach ($all_listings_category->whereNotNull('parent_id') as $item)
                                                 <option
@@ -1431,7 +1429,7 @@
             });
 
             filterSubcategories();
-            })
+
             $(document).on('input', ".change_name_input", function (e) {
                 let inputValue = $(this).val();
                 let final_value = inputValue.toLowerCase().replace(/\s+/g, '-');
