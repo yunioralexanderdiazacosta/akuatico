@@ -19,10 +19,10 @@ trait Frontend
             return view("themes.$selectedTheme.support", $data)->toHtml();
         }
 
-        $detectedCountryId = session('detected_country_id');
-        $detectedCityId = session('detected_city_id');
-        $detectedCountryName = session('detected_country_name');
-        $detectedCityName = session('detected_city_name');
+        $detectedCountryId = session("detected_country_id");
+        $detectedCityId = session("detected_city_id");
+        $detectedCountryName = session("detected_country_name");
+        $detectedCityName = session("detected_city_name");
 
         if (!$detectedCountryId) {
             $location = getIpInfo();
@@ -46,7 +46,11 @@ trait Frontend
                             "country_id",
                             $country->id,
                         )
-                            ->where("name", "LIKE", "%" . $location["city"] . "%")
+                            ->where(
+                                "name",
+                                "LIKE",
+                                "%" . $location["city"] . "%",
+                            )
                             ->first();
                         if ($city) {
                             $detectedCityId = $city->id;
@@ -85,6 +89,7 @@ trait Frontend
                 ];
             } elseif ($section == "hero") {
                 $listingCategories = ListingCategory::with("details")
+                    ->whereNull("parent_id")
                     ->where("status", 1)
                     ->get();
                 $data[$section] = [
@@ -194,6 +199,7 @@ trait Frontend
                 if (!empty($sliceCategoryIds)) {
                     $popularCategories = ListingCategory::with("details")
                         ->whereIn("id", $sliceCategoryIds)
+                        ->whereNull("parent_id")
                         ->orderByRaw(
                             "FIELD(id, " .
                                 implode(",", $sliceCategoryIds) .
