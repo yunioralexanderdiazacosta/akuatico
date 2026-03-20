@@ -38,6 +38,7 @@ use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\User\KycVerificationController;
 use App\Http\Controllers\TwoFaSecurityController;
 use App\Http\Controllers\API\ApiPaymentController;
+use App\Http\Controllers\Frontend\SpecialCategoryController;
 
 
 /*
@@ -221,6 +222,10 @@ Route::group(['middleware' => ['maintenanceMode']], function () use ($basicContr
 
     Route::get('category', [CategoryController::class, 'index'])->name('category');
     Route::post('category/search', [CategoryController::class, 'categorySearch'])->name('category.search');
+
+    Route::get('clasificado', [SpecialCategoryController::class, 'index'])->name('clasificado');
+    Route::get('directorio', [SpecialCategoryController::class, 'index'])->name('directorio');
+    Route::get('servicios', [SpecialCategoryController::class, 'index'])->name('servicios');
 
     Route::get('blogs', [BlogController::class, 'blogs'])->name('blogs');
     Route::get('blog/{slug?}', [BlogController::class, 'blogDetails'])->name('blog.details');
