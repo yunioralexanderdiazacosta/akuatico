@@ -39,19 +39,19 @@
             </a>
         </li>
 
-        <li>
+        <!-- <li>
             <a href="{{ route('user.wish.list') }}" class="{{ request()->routeIs('user.wish.list') ? 'active' : ''}}">
                 <i class="fal fa-heart text-cyan"></i> @lang('WishList')
             </a>
-        </li>
+        </li> -->
 
-        <li>
+        <!-- <li>
             <a href="{{ route('user.claim.business.list','customer-claim') }}" class="{{ request()->routeIs(['user.claim.business.list','user.claim.business.conversation']) ? 'active' : ''}}">
                 <i class="fal fa-gavel text-orange"></i> @lang('Claim Business')
             </a>
-        </li>
+        </li> -->
 
-        <li>
+        <!-- <li>
             <a href="{{ route('user.product.queries','customer-enquiry') }}"
                class="{{ request()->routeIs('user.product.queries','user.product.query.reply') ? 'active' : '' }}">
                 <i class="fal fa-question text-orange"></i> @lang('Product Enquiries')
@@ -63,13 +63,13 @@
                     <sup class="text-danger custom__queiry_count"> <span class="badge bg-primary rounded-circle">{{ $customerEnquiry + $myEnquiry }}</span> </sup>
                 @endif
             </a>
-        </li>
+        </li> -->
 
-        <li>
+        <!-- <li>
             <a href="{{ route('user.transaction') }}" class="{{ request()->routeIs('user.transaction') ? 'active' : ''}}">
                 <i class="fal fa-sack-dollar text-pink"></i>@lang('Transaction')
             </a>
-        </li>
+        </li> -->
 
         <li>
             <a href="{{ route('user.analytics') }}" class="{{ request()->routeIs(['user.analytics','user.analytics.show']) ? 'active' : ''}}">

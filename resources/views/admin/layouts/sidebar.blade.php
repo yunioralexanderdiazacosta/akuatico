@@ -111,7 +111,7 @@
                         @endif
 
 
-                        @if(adminAccessRoute(config('role.listing_wishlist.access.view')))
+                        <!-- @if(adminAccessRoute(config('role.listing_wishlist.access.view')))
                             <div class="nav-item">
                                 <a class="nav-link {{ menuActive(['admin.wishList']) }}"
                                    href="{{ route('admin.wishList') }}" data-placement="left">
@@ -119,7 +119,7 @@
                                     <span class="nav-link-title">@lang("Wishlist")</span>
                                 </a>
                             </div>
-                        @endif
+                        @endif -->
 
                         @if(adminAccessRoute(config('role.listing_analytics.access.view')))
                             <div class="nav-item">
@@ -163,7 +163,7 @@
                         </div>
                     @endif
 
-                    @if(adminAccessRoute(config('role.claim_business.access.view')))
+                    <!-- @if(adminAccessRoute(config('role.claim_business.access.view')))
                         <span class="dropdown-header mt-2">@lang('Claim Business')</span>
                         <small class="bi-three-dots nav-subtitle-replacer"></small>
                         <div class="nav-item">
@@ -173,7 +173,7 @@
                                 <span class="nav-link-title">@lang("Claim List")</span>
                             </a>
                         </div>
-                    @endif
+                    @endif -->
 
                     @if(adminAccessRoute(config('role.contact_message.access.view')))
                         <span class="dropdown-header mt-2">@lang('Listing Message')</span>
