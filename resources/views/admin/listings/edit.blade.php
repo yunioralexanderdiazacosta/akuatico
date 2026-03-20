@@ -43,11 +43,11 @@
                     </li>
                 @endif
 
-                @if($single_package_infos->is_product == 1)
+                <!-- @if($single_package_infos->is_product == 1)
                     <li class="nav-item" id="nav-profile">
                         <button class="nav-link tab" tab-id="tab5">@lang('Products')</button>
                     </li>
-                @endif
+                @endif -->
 
                 @if($single_package_infos->seo == 1)
                     <li class="nav-item" id="nav-profile">

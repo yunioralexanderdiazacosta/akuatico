@@ -60,7 +60,7 @@
             <div class="col-md-4">
                 <label class="form-label">@lang('Length (Feet)')</label>
                 <input type="number" min="10" max="100" class="form-control @error('length') is-invalid @enderror"
-                       name="length" value="{{ old('length', $listing->length) }}" placeholder="@lang('Enter Length')">
+                       name="length" value="{{ old('length', $single_listing_infos->length) }}" placeholder="@lang('Enter Length')">
                 <div class="invalid-feedback">
                     @error('length') @lang($message) @enderror
                 </div>

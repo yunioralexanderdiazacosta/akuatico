@@ -104,7 +104,7 @@
                 </button>
             @endif
 
-            @if($single_package_infos->is_product == 1)
+            <!-- @if($single_package_infos->is_product == 1)
                 <button tab-id="tab5" class="tab">
                     @lang('Products')
                     @if ($errors->has('product_title.*') || $errors->has('product_price.*') || $errors->has('product_description.*') || $errors->has('product_thumbnail.*'))
@@ -127,7 +127,7 @@
                         </span>
                     @endif
                 </button>
-            @endif
+            @endif -->
 
             @if($single_package_infos->seo == 1)
                 <button tab-id="tab6" class="tab">
@@ -178,11 +178,11 @@
                 </button>
             @endif
 
-            @if($single_package_infos->is_create_from == 1)
+            <!-- @if($single_package_infos->is_create_from == 1)
                 <button tab-id="tab8" class="tab">
                     @lang('Custom Form')
                 </button>
-            @endif
+            @endif -->
         </div>
 
         <form action="{{ route('user.updateListing', $id) }}" method="post" enctype="multipart/form-data">
