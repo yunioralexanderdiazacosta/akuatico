@@ -64,7 +64,7 @@
                             </p>
                         </div>
                         <div class="row">
-                            <div class="info-box col-md-12">
+                            <!-- <div class="info-box col-md-12">
                                 <div class="icon-box">
                                     <i class="fal fa-map-marker-alt"></i>
                                 </div>
@@ -74,7 +74,7 @@
                                         @lang($contact['single']['address'])
                                     </p>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="info-box col-md-12">
                                 <div class="icon-box">
                                     <i class="fal fa-envelope"></i>
@@ -84,7 +84,7 @@
                                     <p>@lang($contact['single']['email'])</p>
                                 </div>
                             </div>
-                            <div class="info-box col-md-12">
+                            <!-- <div class="info-box col-md-12">
                                 <div class="icon-box">
                                     <i class="fal fa-phone-alt"></i>
                                 </div>
@@ -92,7 +92,7 @@
                                     <h5>@lang('Phone')</h5>
                                     <p>@lang($contact['single']['phone'])</p>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

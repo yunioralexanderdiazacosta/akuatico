@@ -62,18 +62,18 @@
                     <div class="footer-box">
                         <h5>@lang(optional($contactSingle->description)->right_heading)</h5>
                         <ul>
-                            <li>
+                            <!-- <li>
                                 <i class="far fa-phone-alt"></i>
                                 <span>@lang(optional($contactSingle->description)->phone)</span>
-                            </li>
+                            </li> -->
                             <li>
                                 <i class="far fa-envelope"></i>
                                 <span>@lang(optional($contactSingle->description)->email)</span>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <i class="far fa-map-marker-alt"></i>
                                 <span>@lang(optional($contactSingle->description)->address)</span>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
