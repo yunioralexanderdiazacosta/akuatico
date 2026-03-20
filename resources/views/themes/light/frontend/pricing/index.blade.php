@@ -29,7 +29,7 @@
 
                                 <div class="text-box">
                                     <h5>@lang(optional($item->details)->title)</h5>
-                                    <h3>{{ $item->price == null ? currencyPosition(0) : currencyPosition($item->price) }}</h3>
+                                    <!-- <h3>{{ $item->price == null ? currencyPosition(0) : currencyPosition($item->price) }}</h3> -->
                                     <ul>
                                         <li>
                                             <span><i class="{{ $item->expiry_time < 0 ? 'fal fa-times-circle text-danger' : 'fal fa-check-circle text-primary' }}"></i>@lang('Package expiry')</span>
