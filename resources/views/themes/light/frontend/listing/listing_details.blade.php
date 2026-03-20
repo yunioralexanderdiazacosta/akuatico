@@ -743,7 +743,7 @@
                             </div>
 
 
-                            <div class="side-box claim-business">
+                            <!-- <div class="side-box claim-business">
                                 <div class="d-flex align-items-center">
                                     <img src="{{ getFile(basicControl()->logo_driver,basicControl()->logo) }}"
                                          class="img-fluid" alt=""/>
@@ -755,9 +755,9 @@
                                         </button>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            @if(isset($single_listing_details->form))
+                            <!-- @if(isset($single_listing_details->form))
                                 <div class="side-box">
                                     <form action="{{ route('collect.listing.form.data') }}" method="post"
                                           enctype="multipart/form-data">
@@ -862,7 +862,7 @@
                                         </div>
                                     </form>
                                 </div>
-                            @endif
+                            @endif -->
                         </div>
                     </div>
                 </div>
