@@ -22,7 +22,7 @@
                                                  </span>
                                                 <input type="text" name="name"
                                                        {{ old('name', request()->name) }}class="form-control"
-                                                       placeholder="@lang('What are you looking for')?"/>
+                                                       placeholder="@lang('What are you looking for?')"/>
                                             </div>
                                         </div>
 
