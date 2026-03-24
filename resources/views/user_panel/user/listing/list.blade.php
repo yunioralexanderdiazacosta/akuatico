@@ -318,6 +318,14 @@
                 let route = $('.total_listing' + package_id).data('route');
                 $('.addCreateListingRoute').attr('href', route)
             });
+
+            $('#addListingmodal').on('shown.bs.modal', function () {
+                let $select = $('#package');
+                let $firstValidOption = $select.find('option:not([disabled])').first();
+                if ($firstValidOption.length) {
+                    $select.val($firstValidOption.val()).trigger('change');
+                }
+            });
         });
     </script>
 @endpush
