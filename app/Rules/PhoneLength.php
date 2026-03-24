@@ -25,16 +25,22 @@ class PhoneLength implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $phoneLengths = $this->phoneLengths;
+        $valueLength = strlen($value);
 
-        if (!is_array($phoneLengths)){
-            if (strlen($value) != $phoneLengths) {
+        if ($valueLength > 10) {
+            $fail("The $attribute may not be greater than 10 digits.");
+            return;
+        }
+
+        /* if (!is_array($phoneLengths)){
+            if ($valueLength != $phoneLengths) {
                 $fail("The $attribute length must be " . $phoneLengths . ' digits.');
             }
         } else {
-            if (!in_array(strlen($value), $phoneLengths)) {
+            if (!in_array($valueLength, $phoneLengths)) {
                 $fail("The $attribute length must be one of " . implode(', ', $phoneLengths) . ' digits.');
             }
-        }
+        } */
     }
 
 
