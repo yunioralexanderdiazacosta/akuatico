@@ -27,11 +27,12 @@
 
         <div class="navbar-text">
             @guest
-                <a href="{{ route('login') }}" class="btn-custom">@lang('Sign in')</a>
+                <a href="{{ route('login') }}" class="btn-custom" style="font-size: x-small;">@lang('Sign in')</a>
             @endguest
 
             @auth
-                <a href="{{ route('user.dashboard') }}" class="btn-custom">@lang('Dashboard')</a>
+                <a href="{{ route('user.dashboard') }}" class="btn-custom"
+                    style="font-size: x-small;">@lang('Dashboard')</a>
             @endauth
         </div>
     </div>
