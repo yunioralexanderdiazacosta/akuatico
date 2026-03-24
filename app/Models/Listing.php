@@ -20,6 +20,7 @@ class Listing extends Model
     protected $casts = [
         'category_id' => 'array',
         'subcategory_id' => 'array',
+        'marca' => 'array',
     ];
 
     public function get_user()

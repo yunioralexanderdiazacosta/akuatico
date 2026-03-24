@@ -247,6 +247,25 @@
                                         </div>
                                     </div>
 
+                                    <div class="input-box col-md-12">
+                                        <select
+                                            id="marca"
+                                            class="form-control @error('marca') is-invalid @enderror"
+                                            name="marca[]" multiple>
+                                            <option disabled> @lang('Select Brand')</option>
+                                            @foreach ($marcas as $item)
+                                                <option
+                                                    value="{{ $item->id }}"
+                                                    {{ (collect(old('marca'))->contains($item->id)) ? 'selected' : '' }}>
+                                                    @lang(optional($item->details)->name)
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            @error('marca') @lang($message) @enderror
+                                        </div>
+                                    </div>
+
                                     <div class="input-box col-md-6">
                                         <input class="form-control @error('email') is-invalid @enderror" type="email"
                                                name="email" value="{{ old('email') }}" placeholder="@lang('Email')"/>
@@ -1413,6 +1432,11 @@
             $('#subcategory_id').select2({
                 width: '100%',
                 placeholder: '@lang("Select Subcategories")',
+            });
+
+            $('#marca').select2({
+                width: '100%',
+                placeholder: '@lang("Select Brand")',
             });
 
             function filterSubcategories() {

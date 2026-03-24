@@ -112,8 +112,24 @@ class MyListingController extends Controller
 
     public function addListing($id)
     {
+        $marcasCategory = ListingCategory::whereHas('details', function ($q) {
+            $q->where('name', 'Marcas');
+        })->first();
+
+        $data["marcas"] = $marcasCategory ? ListingCategory::with('details')
+            ->where('parent_id', $marcasCategory->id)
+            ->where('status', 1)
+            ->get() : collect();
+
         $data["all_listings_category"] = ListingCategory::with("details")
             ->where("status", 1)
+            ->when($marcasCategory, function ($query) use ($marcasCategory) {
+                return $query->where('id', '!=', $marcasCategory->id)
+                    ->where(function($q) use ($marcasCategory) {
+                        $q->where('parent_id', '!=', $marcasCategory->id)
+                            ->orWhereNull('parent_id');
+                    });
+            })
             ->latest()
             ->get();
         $data["countries"] = Country::select("id", "name", "iso2")
@@ -153,6 +169,8 @@ class MyListingController extends Controller
             "category_id.*" => "exists:listing_categories,id",
             "subcategory_id" => "nullable|array",
             "subcategory_id.*" => "exists:listing_categories,id",
+            "marca" => "nullable|array",
+            "marca.*" => "exists:listing_categories,id",
             "email" => "nullable|email",
             "phone" => "nullable|string",
             "price" => "nullable|numeric|min:0",
@@ -298,6 +316,7 @@ class MyListingController extends Controller
                 $numberOfCategoriesPerListing,
             );
             $listing->subcategory_id = $request->subcategory_id;
+            $listing->marca = $request->marca;
             $listing->phone = $request->phone;
             $listing->email = $request->email;
             $listing->price = $request->price;
@@ -483,8 +502,24 @@ class MyListingController extends Controller
             return redirect()->route("user.listings", "rejected");
         }
 
+        $marcasCategory = ListingCategory::whereHas('details', function ($q) {
+            $q->where('name', 'Marcas');
+        })->first();
+
+        $data["marcas"] = $marcasCategory ? ListingCategory::with('details')
+            ->where('parent_id', $marcasCategory->id)
+            ->where('status', 1)
+            ->get() : collect();
+
         $data["all_listings_category"] = ListingCategory::with("details")
             ->where("status", 1)
+            ->when($marcasCategory, function ($query) use ($marcasCategory) {
+                return $query->where('id', '!=', $marcasCategory->id)
+                    ->where(function($q) use ($marcasCategory) {
+                        $q->where('parent_id', '!=', $marcasCategory->id)
+                            ->orWhereNull('parent_id');
+                    });
+            })
             ->latest()
             ->get();
         $data["all_places"] = Country::where("status", 1)
@@ -531,6 +566,8 @@ class MyListingController extends Controller
             "category_id.*" => "exists:listing_categories,id",
             "subcategory_id" => "nullable|array",
             "subcategory_id.*" => "exists:listing_categories,id",
+            "marca" => "nullable|array",
+            "marca.*" => "exists:listing_categories,id",
             "email" => "nullable|email",
             "phone" => "nullable|string",
             "price" => "nullable|numeric|min:0",
@@ -654,6 +691,7 @@ class MyListingController extends Controller
                 $numberOfCategoriesPerListing,
             );
             $listing->subcategory_id = $request->subcategory_id;
+            $listing->marca = $request->marca;
 
             $listing->phone = $request->phone;
             $listing->email = $request->email;
