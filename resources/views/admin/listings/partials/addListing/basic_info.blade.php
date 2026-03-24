@@ -15,14 +15,23 @@
                     @error('brand_category_id') @lang($message) @enderror
                 </div>
             </div>
+
             <div class="col-md-6">
-                <label class="form-label">@lang('Brand Model')</label>
-                <select class="js-select form-control" name="brand_model_id" id="brand_model_id">
+                <label class="form-label">@lang('Brand')</label>
+                <select class="js-select form-control @error('marca') is-invalid @enderror"
+                        name="marca[]" id="marca" multiple>
+                    <option selected disabled>@lang('Select Brand')</option>
+                    @foreach ($marcas as $item)
+                        <option value="{{ $item->id }}" {{ (collect(old('marca'))->contains($item->id)) ? 'selected' : '' }}>
+                            @lang(optional($item->details)->name)
+                        </option>
+                    @endforeach
                 </select>
                 <div class="invalid-feedback">
-                    @error('brand_model_id') @lang($message) @enderror
+                    @error('marca') @lang($message) @enderror
                 </div>
             </div>
+
             <div class="col-md-6">
                 <label for="Listing-Name" class="form-label">@lang('Listing Title') <span class="highlight">*</span></label>
                 <input type="text" class="form-control @error('title') is-invalid @enderror"

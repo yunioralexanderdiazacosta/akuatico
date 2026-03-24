@@ -300,6 +300,16 @@ class ListingController extends Controller
             $image->src = getFile($image->driver, $image->listing_image);
             return $image;
         });
+
+        $marcasCategory = ListingCategory::whereHas('details', function ($q) {
+            $q->where('name', 'Marcas');
+        })->first();
+
+        $data["marcas"] = $marcasCategory ? ListingCategory::with('details')
+            ->where('parent_id', $marcasCategory->id)
+            ->where('status', 1)
+            ->get() : collect();
+
         return view('admin.listings.edit', $data);
     }
 
@@ -312,6 +322,8 @@ class ListingController extends Controller
             'category_id.*' => 'exists:listing_categories,id',
             'subcategory_id' => 'nullable|array',
             'subcategory_id.*' => 'exists:listing_categories,id',
+            'marca' => 'nullable|array',
+            'marca.*' => 'exists:listing_categories,id',
             'email' => 'nullable|email',
             'phone' => 'nullable|string',
             'price' => 'nullable|numeric|min:0',
@@ -383,6 +395,7 @@ class ListingController extends Controller
             $numberOfCategoriesPerListing = min(count($request->category_id), optional($listing->get_package)->no_of_categories_per_listing ?? 1);
             $listing->category_id = array_slice($request->category_id, 0, $numberOfCategoriesPerListing);
             $listing->subcategory_id = $request->subcategory_id;
+            $listing->marca = $request->marca;
 
             $listing->phone = $request->phone;
             $listing->email = $request->email;
