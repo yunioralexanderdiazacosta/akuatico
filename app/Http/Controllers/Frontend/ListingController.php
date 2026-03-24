@@ -82,6 +82,12 @@ class ListingController extends Controller
             ->when(isset($search['max_length']), function ($query) use ($search) {
                 return $query->where('length', '<=', $search['max_length']);
             })
+            ->when(isset($search['min_price']), function ($query) use ($search) {
+                return $query->where('price', '>=', $search['min_price']);
+            })
+            ->when(isset($search['max_price']), function ($query) use ($search) {
+                return $query->where('price', '<=', $search['max_price']);
+            })
             ->when(isset($search['user']) && $search['user'] != 'all', function ($query4) use ($search) {
                 return $query4->where('user_id', $search['user']);
             })

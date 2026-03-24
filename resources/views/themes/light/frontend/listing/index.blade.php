@@ -108,6 +108,22 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('Price ($)')</label>
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <input type="number" name="min_price" class="form-control bg-white"
+                                                   value="{{ request()->min_price }}" min="0"
+                                                   placeholder="@lang('Min')"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number" name="max_price" class="form-control bg-white"
+                                                   value="{{ request()->max_price }}" min="0"
+                                                   placeholder="@lang('Max')"/>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
 
@@ -289,6 +305,11 @@
                                             @if($listing->length)
                                                 <p class="mb-2">
                                                     <span class="">@lang('Length'): </span> {{ $listing->length }} @lang('Feet')
+                                                </p>
+                                            @endif
+                                            @if($listing->price)
+                                                <p class="mb-2">
+                                                    <span class="">@lang('Price'): </span> ${{ $listing->price }}
                                                 </p>
                                             @endif
                                             <p class="address mt-1">

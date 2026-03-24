@@ -234,6 +234,11 @@
                                     <p>
                                         {!! $single_listing_details->description !!}
                                     </p>
+                                    @if($single_listing_details->price)
+                                        <div class="mt-3">
+                                            <h5>@lang('Price'): <span class="text-primary">${{ $single_listing_details->price }}</span></h5>
+                                        </div>
+                                    @endif
                                 </div>
 
                                 @if(optional($single_listing_details->get_package)->is_video != 0 && $single_listing_details->youtube_video_id != null)

@@ -314,6 +314,7 @@ class ListingController extends Controller
             'subcategory_id.*' => 'exists:listing_categories,id',
             'email' => 'nullable|email',
             'phone' => 'nullable|string',
+            'price' => 'nullable|numeric|min:0',
             'description' => 'required|string',
             'country_id' => 'required|exists:countries,id',
             'state_id' => 'required|exists:states,id',
@@ -385,6 +386,7 @@ class ListingController extends Controller
 
             $listing->phone = $request->phone;
             $listing->email = $request->email;
+            $listing->price = $request->price;
             $listing->description = $request->description;
             $listing->country_id = $request->country_id;
             $listing->state_id = $request->state_id;
