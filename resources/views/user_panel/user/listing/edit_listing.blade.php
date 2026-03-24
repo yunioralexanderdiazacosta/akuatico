@@ -276,6 +276,14 @@
                                         </div>
                                     </div>
                                     <div class="input-box col-md-6">
+                                        <input class="form-control @error('price') is-invalid @enderror" type="number" step="0.01"
+                                               placeholder="@lang('Price')" name="price"
+                                               value="{{ old('price', $single_listing_infos->price) }}"/>
+                                        <div class="invalid-feedback">
+                                            @error('price') @lang($message) @enderror
+                                        </div>
+                                    </div>
+                                    <div class="input-box col-md-6">
                                         <input class="form-control @error('length') is-invalid @enderror" type="number" min="10" max="100"
                                                placeholder="@lang('Length (Feet)')" name="length"
                                                value="{{ old('length', $single_listing_infos->length) }}"/>

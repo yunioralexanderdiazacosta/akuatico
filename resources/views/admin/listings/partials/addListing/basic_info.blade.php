@@ -56,6 +56,14 @@
                 </div>
             </div>
             <div class="col-md-4">
+                <label class="form-label">@lang('Price')</label>
+                <input type="number" step="0.01" class="form-control @error('price') is-invalid @enderror"
+                       name="price" value="{{ old('price') }}" placeholder="@lang('Enter Price')">
+                <div class="invalid-feedback">
+                    @error('price') @lang($message) @enderror
+                </div>
+            </div>
+            <div class="col-md-4">
                 <label class="form-label">@lang('Length (Feet)')</label>
                 <input type="number" min="10" max="100" class="form-control @error('length') is-invalid @enderror"
                        name="length" value="{{ old('length') }}" placeholder="@lang('Enter Length')">

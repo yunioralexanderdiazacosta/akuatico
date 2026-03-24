@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('purchase_package_id')->index()->nullable();
             $table->foreignId('place_id')->index()->nullable();
             $table->string('title')->nullable();
+            $table->decimal('price', 12, 2)->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->text('description')->nullable();
