@@ -14,7 +14,7 @@
             </ul>
         </div>
 
-        <div class="navbar-text" style="margin-right: 1rem;">
+        <div class="navbar-text d-flex gap-2">
             @guest
                 <a href="{{ route('login') }}" class="btn-custom" style="font-size: x-small;">@lang('Crear anuncio')</a>
             @endguest
@@ -23,9 +23,7 @@
                 <a href="{{ route('user.listings') }}" class="btn-custom"
                     style="font-size: x-small;">@lang('Crear anuncio')</a>
             @endauth
-        </div>
 
-        <div class="navbar-text">
             @guest
                 <a href="{{ route('login') }}" class="btn-custom" style="font-size: x-small;">@lang('Sign in')</a>
             @endguest
