@@ -227,20 +227,18 @@
 
                                                     <div class="input-box col-md-6">
                                                         <label for="category_id">@lang('Categories')</label>
-                                                        <select class="form-select js-example-basic-multiple"
-                                                                name="category_id[]"
-                                                                id="category_id"
-                                                                multiple="multiple">
-                                                            @foreach($listing_categories as $category)
-                                                                <option value="{{ $category->id }}" 
-                                                                    @if(old('category_id', $user->category_id) && in_array($category->id, old('category_id', $user->category_id))) selected @endif>
-                                                                    @lang(optional($category->details)->name)
-                                                                </option>
+                                                        <select
+                                                            id="category_id"
+                                                            class="listing__category__select2 form-control @error('category_id') is-invalid @enderror"
+                                                            name="category_id[]" multiple data-categories="0">
+                                                            @foreach($listing_categories->whereNull('parent_id') as $category)
+                                                                <option
+                                                                    value="{{ $category->id }}" {{ (collect(old('category_id'))->contains($category->id)) ? 'selected' : '' }}>@lang(optional($category->details)->name)</option>
                                                             @endforeach
                                                         </select>
-                                                        @if($errors->has('category_id'))
-                                                            <div class="error text-danger">@lang($errors->first('category_id'))</div>
-                                                        @endif
+                                                        <div class="invalid-feedback">
+                                                            @error('category_id') @lang($message) @enderror
+                                                        </div>
                                                     </div>
 
                                                     <div class="input-box col-md-6 col-xl-6 col-12">
@@ -783,6 +781,13 @@
             $(document).on('change', "#identity_type", function () {
                 let value = $(this).find('option:selected').val();
                 window.location.href = "{{route('user.profile')}}/?identity_type=" + value
+            });
+
+            let maxSelectCategories = $('.listing__category__select2').data('categories');
+            $(".listing__category__select2").select2({
+                width: '100%',
+                placeholder: '@lang("Select Categories")',
+                maximumSelectionLength: maxSelectCategories,
             });
 
         });
