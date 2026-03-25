@@ -1399,9 +1399,33 @@
             maximumSelectionLength: maxSelectCategories,
         });
 
+        function filterSubcategoriesResults(option) {
+            if (!option.id) {
+                return option.text;
+            }
+            
+            let selectedCategories = $('#category_id').val() || [];
+            let parentId = $(option.element).data('parent');
+            
+            if (!parentId) {
+                return option.text;
+            }
+            
+            if (selectedCategories.length === 0) {
+                return null;
+            }
+            
+            let isRelated = selectedCategories.some(function(catId) {
+                return String(catId) === String(parentId);
+            });
+            
+            return isRelated ? option.text : null;
+        }
+
         $('#subcategory_id').select2({
             width: '100%',
             placeholder: '@lang("Select Subcategories")',
+            templateResult: filterSubcategoriesResults,
         });
 
         $('#marca').select2({
@@ -1410,20 +1434,25 @@
         });
 
         function filterSubcategories() {
-            let selectedParents = $('#category_id').val() || [];
-            $('#subcategory_id option').each(function () {
-                let parentId = $(this).data('parent');
-                if (parentId) {
-                    parentId = parentId.toString();
-                    if (selectedParents.includes(parentId)) {
-                        $(this).removeAttr('disabled');
-                    } else {
-                        $(this).attr('disabled', 'disabled');
-                        $(this).prop('selected', false);
+            let selectedCategories = $('#category_id').val() || [];
+            let $subcategorySelect = $('#subcategory_id');
+            
+            $subcategorySelect.find('option').each(function() {
+                let $option = $(this);
+                let parentId = $option.data('parent');
+                
+                if (parentId && selectedCategories.length > 0) {
+                    let isRelated = selectedCategories.some(function(catId) {
+                        return String(catId) === String(parentId);
+                    });
+                    
+                    if (!isRelated) {
+                        $option.prop('selected', false);
                     }
                 }
             });
-            $('#subcategory_id').trigger('change.select2');
+            
+            $subcategorySelect.trigger('change');
         }
 
         $('#category_id').on('change', function () {
