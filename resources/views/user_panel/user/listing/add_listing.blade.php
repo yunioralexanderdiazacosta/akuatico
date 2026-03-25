@@ -247,7 +247,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="input-box col-md-12">
+                                    <div class="input-box col-md-12 boat-fields" style="display: none;">
                                         <select
                                             id="marca"
                                             class="form-control @error('marca') is-invalid @enderror"
@@ -290,7 +290,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="input-box col-md-6">
+                                    <div class="input-box col-md-6 boat-fields" style="display: none;">
                                         <input class="form-control @error('length') is-invalid @enderror" type="number" min="10" max="100"
                                                name="length" value="{{ old('length') }}" placeholder="@lang('Length (Feet)')"/>
                                         <div class="invalid-feedback">
@@ -1456,11 +1456,27 @@
                 $('#subcategory_id').trigger('change.select2');
             }
 
+            function toggleBoatFields() {
+                let selectedCategories = $('#category_id').select2('data');
+                let hasBotes = selectedCategories.some(function(cat) {
+                    return cat.text.toLowerCase().includes('botes');
+                });
+                
+                if (hasBotes) {
+                    $('.boat-fields').show();
+                } else {
+                    $('.boat-fields').hide();
+                    $('.boat-fields input').val('');
+                }
+            }
+
             $('#category_id').on('change', function() {
                 filterSubcategories();
+                toggleBoatFields();
             });
 
             filterSubcategories();
+            toggleBoatFields();
 
             $(document).on('input', ".change_name_input", function (e) {
                 let inputValue = $(this).val();
