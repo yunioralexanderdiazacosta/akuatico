@@ -4,6 +4,10 @@
         <a class="navbar-brand" href="{{ url('/') }}">
             <img src="{{ getFile(basicControl()->logo_driver, basicControl()->logo) }}" alt="logo">
         </a>
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="top: 45px !important">
+            <i class="fal fa-bars"></i>
+        </button>
         @php
             $uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
             $lastUriSegment = array_pop($uriSegments);
@@ -37,13 +41,7 @@
 </nav>
 
 <!-- Bottom Mobile Menu -->
-<ul class="nav bottom-nav fixed-bottom d-lg-none">
-    <li class="nav-item">
-        <button class="navbar-toggler nav-link" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
-            <i class="far fa-list"></i>
-        </button>
-    </li>
+<!-- <ul class="nav bottom-nav fixed-bottom d-lg-none">
     <li class="nav-item">
         <a class="nav-link @if(request()->is('blogs')) active @endif" href="{{ route('blogs') }}"><i
                 class="far fa-planet-ringed"></i></a>
@@ -59,5 +57,5 @@
         <a class="nav-link @if(request()->routeIs('user.profile')) active @endif" href="{{ route('user.profile') }}"><i
                 class="far fa-user"></i></a>
     </li>
-</ul>
+</ul> -->
 <!-- Bottom Mobile Menu -->
