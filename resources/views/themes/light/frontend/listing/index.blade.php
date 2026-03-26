@@ -22,11 +22,11 @@
                                 <div class="input-group mb-3">
                                     <input type="text" name="name" class="form-control bg-white"
                                            value="{{ old('name', request()->name) }}" autocomplete="off"
-                                           placeholder="@lang('Listing name')"/>
+                                           placeholder="@lang('Name')"/>
                                 </div>
                                 <div class="input-group mb-3">
                                     <select class="js-example-basic-single form-control" name="location">
-                                        <option selected disabled>@lang('Select Country')</option>
+                                        <option selected disabled>@lang('Country')</option>
                                         <option value="all"
                                                 @if(request()->location == 'all') selected @endif>@lang('All Country')
                                         </option>
@@ -42,7 +42,7 @@
 
                                 <div class="input-group mb-3">
                                     <select class="js-example-basic-single form-control" name="city">
-                                        <option selected disabled>@lang('Select City')</option>
+                                        <option selected disabled>@lang('City')</option>
                                         <option value="all"
                                                 @if(request()->city == 'all') selected @endif>@lang('All City')
                                         </option>
@@ -290,10 +290,10 @@
                                             </div>
 
                                             <h5 class="title">@lang(Str::limit($listing->title, 30))</h5>
-                                            <a class="author"
+                                            <!-- <a class="author"
                                                href="{{ route('profile', optional($listing->get_user)->username) }}">
                                                 @lang(optional($listing->get_user)->firstname) @lang(optional($listing->get_user)->lastname)
-                                            </a>
+                                            </a> -->
                                             <p class="mb-2">
                                                 <span class="">@lang('Category'): </span> @lang(optional($listing)->getCategoriesName())
                                             </p>
@@ -312,7 +312,11 @@
                                                     <span class="">@lang('Price'): </span> ${{ $listing->price }}
                                                 </p>
                                             @endif
-                                            <p class="address mt-1">
+                                            <a style="color: var(--primary);"
+                                               href="{{ route('profile', optional($listing->get_user)->username) }}">
+                                                @lang(optional($listing->get_user)->firstname) @lang(optional($listing->get_user)->lastname)
+                                            </a>
+                                            <p class="address mb-1">
                                                 <i class="fal fa-map-marker-alt"></i>
                                                 @lang($listing->city_id != null ? $listing->get_cities?->getAddress() : $listing->address)
                                             </p>
@@ -368,12 +372,12 @@
 
         $(".listing__category__select2").select2({
             width: '100%',
-            placeholder: '@lang("Select Categories")',
+            placeholder: '@lang("Categories")',
         });
 
         $(".listing__subcategory__select2").select2({
             width: '100%',
-            placeholder: '@lang("Select Subcategories")',
+            placeholder: '@lang("Subcategories")',
         });
 
         function filterSubcategories() {
