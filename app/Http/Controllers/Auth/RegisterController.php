@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\User;
 use App\Models\UserLogin;
+use App\Models\Package;
+use App\Models\PurchasePackage;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -42,7 +44,7 @@ class RegisterController extends Controller
 
     protected $maxAttempts = 3; // Change this to 4 if you want 4 tries
     protected $decayMinutes = 5; // Change this according to your
-    protected $redirectTo = '/user/dashboard';
+    protected $redirectTo = '/user/listings';
 
     /**
      * Create a new controller instance.
@@ -63,8 +65,8 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $basic = basicControl();
-        $pageSeo = Page::where('template_name',$basic->theme)->where('slug', 'register')->first();
-        $pageSeo['breadcrumb_image'] = $pageSeo?->breadcrumb_status == 1 ?  getFile($pageSeo->breadcrumb_image_driver, $pageSeo->breadcrumb_image) : null;
+        $pageSeo = Page::where('template_name', $basic->theme)->where('slug', 'register')->first();
+        $pageSeo['breadcrumb_image'] = $pageSeo?->breadcrumb_status == 1 ? getFile($pageSeo->breadcrumb_image_driver, $pageSeo->breadcrumb_image) : null;
         if ($basic->registration == 0) {
             return redirect('/')->with('warning', 'Registration Has Been Disabled.');
         }
@@ -91,12 +93,15 @@ class RegisterController extends Controller
         if ($basicControl->strong_password == 0) {
             $rules['password'] = ['required', 'min:6', 'confirmed'];
         } else {
-            $rules['password'] = ["required", 'confirmed',
+            $rules['password'] = [
+                "required",
+                'confirmed',
                 Password::min(6)->mixedCase()
                     ->letters()
                     ->numbers()
                     ->symbols()
-                    ->uncompromised()];
+                    ->uncompromised()
+            ];
         }
 
         //GoogleRecaptchaService::responseRecaptcha($data['g-recaptcha-response']);
@@ -109,7 +114,8 @@ class RegisterController extends Controller
 
         // Manual Recaptcha
         if (basicControl()->manual_recaptcha && basicControl()->manual_recaptcha_register) {
-            $rules['captcha'] = ['required',
+            $rules['captcha'] = [
+                'required',
                 Rule::when((!empty(request()->captcha) && strcasecmp(session()->get('captcha'), $_POST['captcha']) != 0), ['confirmed']),
             ];
         }
@@ -117,7 +123,7 @@ class RegisterController extends Controller
         $rules['firstname'] = ['required', 'string', 'max:91'];
         $rules['lastname'] = ['required', 'string', 'max:91'];
         $rules['username'] = ['required', 'alpha_dash', 'min:5', 'unique:users,username'];
-        $rules['email'] = ['required', 'string', 'email', 'max:255',  'unique:users,email'];
+        $rules['email'] = ['required', 'string', 'email', 'max:255', 'unique:users,email'];
         $rules['phone'] = ['required', 'string', 'unique:users,phone', new PhoneLength($phoneCode)];
         $rules['phone_code'] = ['required', 'string', 'max:15'];
         return Validator::make($data, $rules, [
@@ -195,6 +201,56 @@ class RegisterController extends Controller
 
         UserLogin::create($ul);
 
+        $this->assignFreePackage($user);
+    }
+
+    protected function assignFreePackage($user)
+    {
+        $freePackage = Package::where(function ($query) {
+            $query->whereNull('price')->orWhere('price', 0);
+        })->where('status', 1)->first();
+
+        if (!$freePackage) {
+            return;
+        }
+
+        $purchasePackage = new PurchasePackage();
+        $purchasePackage->user_id = $user->id;
+        $purchasePackage->package_id = $freePackage->id;
+        $purchasePackage->price = $freePackage->price;
+        $purchasePackage->is_renew = $freePackage->is_renew;
+        $purchasePackage->is_image = $freePackage->is_image;
+        $purchasePackage->is_video = $freePackage->is_video;
+        $purchasePackage->is_amenities = $freePackage->is_amenities;
+        $purchasePackage->is_product = $freePackage->is_product;
+        $purchasePackage->is_create_from = $freePackage->is_create_from;
+        $purchasePackage->is_business_hour = $freePackage->is_business_hour;
+        $purchasePackage->no_of_listing = $freePackage->no_of_listing;
+        $purchasePackage->no_of_img_per_listing = $freePackage->no_of_img_per_listing;
+        $purchasePackage->no_of_categories_per_listing = $freePackage->no_of_categories_per_listing;
+        $purchasePackage->no_of_amenities_per_listing = $freePackage->no_of_amenities_per_listing;
+        $purchasePackage->no_of_product = $freePackage->no_of_product;
+        $purchasePackage->no_of_img_per_product = $freePackage->no_of_img_per_product;
+        $purchasePackage->seo = $freePackage->seo;
+        $purchasePackage->is_whatsapp = $freePackage->is_whatsapp;
+        $purchasePackage->is_messenger = $freePackage->is_messenger;
+        $purchasePackage->status = 1;
+        $purchasePackage->type = 'Purchase';
+        $purchasePackage->purchase_date = Carbon::now();
+        $purchasePackage->expire_date = $this->getExpiryDate($freePackage);
+        $purchasePackage->save();
+    }
+
+    protected function getExpiryDate($package)
+    {
+        if ($package->expiry_time_type == 'Days' || $package->expiry_time_type == 'Day') {
+            return Carbon::now()->addDays((int) $package->expiry_time);
+        } elseif ($package->expiry_time_type == 'Months' || $package->expiry_time_type == 'Month') {
+            return Carbon::now()->addMonths((int) $package->expiry_time);
+        } elseif ($package->expiry_time_type == 'Years' || $package->expiry_time_type == 'Year') {
+            return Carbon::now()->addYears((int) $package->expiry_time);
+        }
+        return null;
     }
 
     protected function guard()
