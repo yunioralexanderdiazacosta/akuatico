@@ -51,8 +51,10 @@ class MyListingController extends Controller
             ->get();
         $data["listingCategories"] = ListingCategory::with("details")
             ->where("status", 1)
-            ->latest()
-            ->get();
+            ->get()
+            ->sortBy(function($cat) {
+                return optional($cat->details)->name ?? '';
+            });
         $data["allAddresses"] = Country::select("id", "name")
             ->where("status", 1)
             ->orderBy("name", "ASC")
@@ -119,7 +121,10 @@ class MyListingController extends Controller
         $data["marcas"] = $marcasCategory ? ListingCategory::with('details')
             ->where('parent_id', $marcasCategory->id)
             ->where('status', 1)
-            ->get() : collect();
+            ->get()
+            ->sortBy(function($cat) {
+                return optional($cat->details)->name ?? '';
+            }) : collect();
 
         $data["all_listings_category"] = ListingCategory::with("details")
             ->where("status", 1)
@@ -130,8 +135,10 @@ class MyListingController extends Controller
                             ->orWhereNull('parent_id');
                     });
             })
-            ->latest()
-            ->get();
+            ->get()
+            ->sortBy(function($cat) {
+                return optional($cat->details)->name ?? '';
+            });
         $data["countries"] = Country::select("id", "name", "iso2")
             ->where("status", 1)
             ->orderBy("name", "ASC")
@@ -509,7 +516,10 @@ class MyListingController extends Controller
         $data["marcas"] = $marcasCategory ? ListingCategory::with('details')
             ->where('parent_id', $marcasCategory->id)
             ->where('status', 1)
-            ->get() : collect();
+            ->get()
+            ->sortBy(function($cat) {
+                return optional($cat->details)->name ?? '';
+            }) : collect();
 
         $data["all_listings_category"] = ListingCategory::with("details")
             ->where("status", 1)
@@ -520,8 +530,10 @@ class MyListingController extends Controller
                             ->orWhereNull('parent_id');
                     });
             })
-            ->latest()
-            ->get();
+            ->get()
+            ->sortBy(function($cat) {
+                return optional($cat->details)->name ?? '';
+            });
         $data["all_places"] = Country::where("status", 1)
             ->orderBy("name", "ASC")
             ->toBase()

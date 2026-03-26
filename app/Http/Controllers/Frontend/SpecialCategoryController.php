@@ -49,12 +49,15 @@ class SpecialCategoryController extends Controller
             "mobile_app_image",
             "image_driver",
         )
+            ->with("details:id,listing_category_id,name")
             ->whereHas("details", function ($q) use ($availableCategories) {
                 $q->whereIn("name", $availableCategories);
             })
             ->where("status", 1)
-            ->latest()
-            ->get();
+            ->get()
+            ->sortBy(function($cat) {
+                return optional($cat->details)->name ?? '';
+            });
         $categorySingle = DB::table("content_details")
             ->join("contents", "contents.id", "=", "content_details.content_id")
             ->where("contents.theme", $selectedTheme)

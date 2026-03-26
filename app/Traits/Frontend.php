@@ -98,7 +98,9 @@ trait Frontend
                             $singleContent->content->only("media"),
                         )
                         : [],
-                    "all_categories" => $listingCategories->sortByDesc("id"),
+                    "all_categories" => $listingCategories->sortBy(function($cat) {
+                        return optional($cat->details)->name ?? '';
+                    }),
                     "all_places" => Country::select("id", "name")
                         ->where("status", 1)
                         ->orderBy("name", "ASC")
@@ -216,7 +218,9 @@ trait Frontend
                         )
                         : [],
 
-                    "popularCategories" => $popularCategories,
+                    "popularCategories" => $popularCategories->sortBy(function($cat) {
+                        return optional($cat->details)->name ?? '';
+                    }),
                 ];
             } else {
                 $multipleContents = $contentData
