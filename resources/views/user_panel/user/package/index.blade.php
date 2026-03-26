@@ -1,9 +1,9 @@
 @extends('user_panel.layouts.user')
-@section('title',trans('All Packages'))
+@section('title', trans('All Packages'))
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/global/css/bootstrap-datepicker.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('assets/global/css/select2.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/global/css/bootstrap-datepicker.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/global/css/select2.min.css') }}" />
 @endpush
 @section('content')
     <div class="container-fluid">
@@ -15,134 +15,143 @@
 
                 <!-- table -->
                 <div class="table-parent table-responsive">
-                    <div class="table-heading py-3 d-flex justify-content-between align-items-center">
+                    <div class="table-heading py-3 d-flex align-items-center gap-2">
                         <h4>@lang('Packages')</h4>
-                        <button type="button" class="cmn-btn customButton" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
-                                aria-controls="offcanvasExample">@lang('Filter')<i class="fal fa-filter"></i>
+                        <button type="button" class="cmn-btn customButton" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
+                            style="margin-left: auto;">@lang('Filter')<i class="fal fa-filter"></i>
                         </button>
+                        <a href="{{ route('pricing') }}" class="cmn-btn customButton">@lang('Upgrade')<i
+                                class="fas fa-rocket"></i></a>
                     </div>
                     <table class="table table-striped">
                         <thead>
-                        <tr>
-                            <th scope="col">@lang('Package')</th>
-                            <th scope="col">@lang('No. of listing')</th>
-                            <th scope="col">@lang('Validity')</th>
-                            <th scope="col">@lang('Subscription Type')</th>
-                            <th scope="col">@lang('Status')</th>
-                            <th scope="col">@lang('Purchased Date')</th>
-                            <th scope="col">@lang('Expired Date')</th>
-                            <th scope="col" class="text-end">@lang('Action')</th>
-                        </tr>
+                            <tr>
+                                <th scope="col">@lang('Package')</th>
+                                <th scope="col">@lang('No. of listing')</th>
+                                <th scope="col">@lang('Validity')</th>
+                                <th scope="col">@lang('Subscription Type')</th>
+                                <th scope="col">@lang('Status')</th>
+                                <th scope="col">@lang('Purchased Date')</th>
+                                <th scope="col">@lang('Expired Date')</th>
+                                <th scope="col" class="text-end">@lang('Action')</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @forelse ($my_packages as $key => $item)
-                            <tr>
-                                <td data-label="Package">
-                                    @lang(optional(optional($item->get_package)->details)->title)
+                            @forelse ($my_packages as $key => $item)
+                                <tr>
+                                    <td data-label="Package">
+                                        @lang(optional(optional($item->get_package)->details)->title)
+                                    </td>
+                                    <td data-label="No. of listing">
+                                        @if ($item->no_of_listing == null)
+                                            <span class="badge rounded-pill bg-primary">@lang('Unlimited')</span>
+                                        @else
+                                            <span
+                                                class="badge rounded-pill bg-light text-secondary">{{ $item->no_of_listing }}</span>
+                                        @endif
+                                    </td>
+
+                                    <td data-label="Validity">
+                                        @if (\Carbon\Carbon::now()->format('Y-m-d') <= \Carbon\Carbon::parse($item->expire_date))
+                                            <span class="badge rounded-pill bg-success">@lang('Active')</span>
+                                        @elseif ($item->expire_date == null)
+                                            <span class="badge rounded-pill bg-success">@lang('Active')</span>
+                                        @else
+                                            <span class="badge rounded-pill bg-danger">@lang('Expired')</span>
+                                        @endif
+                                    </td>
+                                    <td data-label="@lang('Subscription Type')">
+                                        @if($item->api_subscription_id)
+                                            <span class="badge rounded-pill bg-info">@lang('Automatic')</span>
+                                        @else
+                                            <span class="badge rounded-pill bg-warning">@lang('Manual')</span>
+                                        @endif
+                                    </td>
+
+                                    <td data-label="Status">
+                                        @if ($item->status == 0)
+                                            <span class="badge rounded-pill bg-warning">@lang('Pending')</span>
+                                        @elseif($item->status == 1)
+                                            <span class="badge rounded-pill bg-success">@lang('Approved')</span>
+                                        @else
+                                            <span class="badge rounded-pill bg-danger">@lang('Cancelled')</span>
+                                        @endif
+                                    </td>
+
+                                    <td data-label="Purchased Date">
+                                        {{ dateTime($item->purchase_date) }}
+                                    </td>
+
+                                    <td data-label="Expired Date">
+                                        @if ($item->expire_date == null)
+                                            <span class="badge rounded-pill bg-primary">@lang('Unlimited')</span>
+                                        @else
+                                            {{ dateTime($item->expire_date) }}
+                                        @endif
+                                        <p class="expire__date"
+                                            data-date="{{ \Illuminate\Support\Carbon::parse($item->expire_date)->format('Y-m-d') }}"
+                                            data-package="{{ $item->id }}"></p>
+                                    </td>
+
+                                    <td data-label="@lang('Action')">
+                                        <div class="dropdown-btns">
+                                            <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i class="far fa-ellipsis-v"></i>
+                                            </button>
+
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                @if($item->price != null)
+                                                    <li>
+                                                        <a href="{{ route('user.paymentHistory', $item->id) }}"
+                                                            class="btn  dropdown-item">
+                                                            <i class="fal fa-sack-dollar"></i> @lang('Payment History')</a>
+                                                    </li>
+                                                @endif
+
+                                                @if($item->api_subscription_id)
+                                                    <li>
+                                                        <a href="javascript:void(0)" class="btn dropdown-item cancelSubscriptionBtn"
+                                                            data-bs-toggle="modal" data-bs-target="#cancelSubscriptionModal"
+                                                            data-route="{{route('user.subscription.cancel', $item->id)}}">
+                                                            <i class="fal fa-times"></i> @lang('Cancel Subscription')</a>
+                                                    </li>
+                                                @endif
+
+                                                @if($item->expire_date != null && $item->status != 0 && $item->is_renew == 1)
+                                                    <li>
+                                                        <a href="javascript:void(0)"
+                                                            class="btn  notiflix-confirm renewPackage dropdown-item"
+                                                            data-price="{{(optional($item->get_package)->price == null ? 0 : optional($item->get_package)->price)}}"
+                                                            data-plan="{{ optional(optional($item->get_package)->details)->title}}"
+                                                            data-route="{{route('user.pricing.plan.payment', ['id' => $item->package_id, 'type' => 'renew', 'purchase_id' => $item->id])}}"
+                                                            data-listing="{{ $item->no_of_listing }}"
+                                                            data-expiretime="{{ optional($item->get_package)->expiry_time }}"
+                                                            data-expiretype="{{ optional($item->get_package)->expiry_time_type }}"
+                                                            data-purchasepackageexpiredate="{{ \Illuminate\Support\Carbon::parse($item->expire_date)->format('Y-m-d') }}">
+                                                            <i class="fal fa-wind-turbine"></i> @lang('Renew Package')
+                                                        </a>
+                                                    </li>
+                                                @endif
+
+                                                @if(($item->no_of_listing > 0 || $item->no_of_listing == null) && ($item->expire_date == null || \Carbon\Carbon::now() <= \Carbon\Carbon::parse($item->expire_date)) && ($item->status == 1))
+                                                    <li>
+                                                        <a href="{{ route('user.addListing', $item->id) }}"
+                                                            class="btn  dropdown-item"> <i class="fal fa-box-open"></i>
+                                                            @lang('Add Listing')</a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <td class="text-center" colspan="100%">
+                                    <img class="noDataImg" src="{{ asset('assets/admin/img/oc-error.svg') }}" alt="image">
+                                    <p class="mt-3">@lang('No data available')</p>
                                 </td>
-                                <td data-label="No. of listing">
-                                    @if ($item->no_of_listing == null)
-                                        <span class="badge rounded-pill bg-primary">@lang('Unlimited')</span>
-                                    @else
-                                        <span class="badge rounded-pill bg-light text-secondary">{{ $item->no_of_listing }}</span>
-                                    @endif
-                                </td>
-
-                                <td data-label="Validity">
-                                    @if (\Carbon\Carbon::now()->format('Y-m-d') <= \Carbon\Carbon::parse($item->expire_date))
-                                        <span class="badge rounded-pill bg-success">@lang('Active')</span>
-                                    @elseif ($item->expire_date == null)
-                                        <span class="badge rounded-pill bg-success">@lang('Active')</span>
-                                    @else
-                                        <span class="badge rounded-pill bg-danger">@lang('Expired')</span>
-                                    @endif
-                                </td>
-                                <td data-label="@lang('Subscription Type')">
-                                    @if($item->api_subscription_id)
-                                        <span
-                                            class="badge rounded-pill bg-info">@lang('Automatic')</span>
-                                    @else
-                                        <span
-                                            class="badge rounded-pill bg-warning">@lang('Manual')</span>
-                                    @endif
-                                </td>
-
-                                <td data-label="Status">
-                                    @if ($item->status == 0)
-                                        <span class="badge rounded-pill bg-warning">@lang('Pending')</span>
-                                    @elseif($item->status == 1)
-                                        <span class="badge rounded-pill bg-success">@lang('Approved')</span>
-                                    @else
-                                        <span class="badge rounded-pill bg-danger">@lang('Cancelled')</span>
-                                    @endif
-                                </td>
-
-                                <td data-label="Purchased Date">
-                                    {{ dateTime($item->purchase_date) }}
-                                </td>
-
-                                <td data-label="Expired Date">
-                                    @if ($item->expire_date == null)
-                                        <span class="badge rounded-pill bg-primary">@lang('Unlimited')</span>
-                                    @else
-                                        {{ dateTime($item->expire_date) }}
-                                    @endif
-                                    <p class="expire__date" data-date="{{ \Illuminate\Support\Carbon::parse($item->expire_date)->format('Y-m-d') }}" data-package="{{ $item->id }}"></p>
-                                </td>
-
-                                <td data-label="@lang('Action')">
-                                    <div class="dropdown-btns">
-                                        <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="far fa-ellipsis-v"></i>
-                                        </button>
-
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            @if($item->price != null)
-                                                <li>
-                                                    <a href="{{ route('user.paymentHistory', $item->id) }}" class="btn  dropdown-item">
-                                                        <i class="fal fa-sack-dollar"></i> @lang('Payment History')</a>
-                                                </li>
-                                            @endif
-
-                                            @if($item->api_subscription_id)
-                                                <li>
-                                                    <a href="javascript:void(0)" class="btn dropdown-item cancelSubscriptionBtn"
-                                                       data-bs-toggle="modal"
-                                                       data-bs-target="#cancelSubscriptionModal"
-                                                       data-route="{{route('user.subscription.cancel',$item->id)}}">
-                                                        <i class="fal fa-times"></i> @lang('Cancel Subscription')</a>
-                                                </li>
-                                            @endif
-
-                                            @if($item->expire_date != null && $item->status != 0 && $item->is_renew == 1)
-                                                <li>
-                                                    <a href="javascript:void(0)" class="btn  notiflix-confirm renewPackage dropdown-item"
-                                                       data-price="{{(optional($item->get_package)->price == null ? 0 : optional($item->get_package)->price)}}"
-                                                       data-plan="{{ optional(optional($item->get_package)->details)->title}}"
-                                                       data-route="{{route('user.pricing.plan.payment', ['id'=>$item->package_id, 'type'=>'renew', 'purchase_id' => $item->id])}}"
-                                                       data-listing="{{ $item->no_of_listing }}" data-expiretime="{{ optional($item->get_package)->expiry_time }}"
-                                                       data-expiretype="{{ optional($item->get_package)->expiry_time_type }}"
-                                                       data-purchasepackageexpiredate="{{ \Illuminate\Support\Carbon::parse($item->expire_date)->format('Y-m-d') }}">
-                                                        <i class="fal fa-wind-turbine"></i> @lang('Renew Package')
-                                                    </a>
-                                                </li>
-                                            @endif
-
-                                            @if(($item->no_of_listing > 0 || $item->no_of_listing == null) && ($item->expire_date == null ||  \Carbon\Carbon::now() <= \Carbon\Carbon::parse($item->expire_date)) && ($item->status == 1))
-                                                <li>
-                                                    <a href="{{ route('user.addListing', $item->id) }}" class="btn  dropdown-item"> <i class="fal fa-box-open"></i> @lang('Add Listing')</a>
-                                                </li>
-                                            @endif
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <td class="text-center" colspan="100%">
-                                <img class="noDataImg" src="{{ asset('assets/admin/img/oc-error.svg') }}" alt="image">
-                                <p class="mt-3">@lang('No data available')</p>
-                            </td>
-                        @endforelse
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -177,7 +186,8 @@
             </div>
         </div>
 
-        <div class="modal fade" id="cancelSubscriptionModal" tabindex="-1" aria-labelledby="cancelSubscriptionModalLabel" aria-hidden="true">
+        <div class="modal fade" id="cancelSubscriptionModal" tabindex="-1" aria-labelledby="cancelSubscriptionModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-top modal-md">
                 <div class="modal-content">
                     <div class="modal-header modal-primary modal-header-custom">
@@ -201,8 +211,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="renewPackageModal" tabindex="-1" aria-labelledby="addListingmodal"
-             aria-hidden="true">
+        <div class="modal fade" id="renewPackageModal" tabindex="-1" aria-labelledby="addListingmodal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header modal-header-custom">
@@ -220,9 +229,13 @@
                                     <div class="estimation-box">
                                         <div class="details_list">
                                             <ul>
-                                                <li class="d-flex justify-content-between"><span>@lang('Price')</span><span class="plan-price"></span></li>
-                                                <li class="d-flex justify-content-between"><span>@lang('No. Of Listing')</span> <span class="plan-listing"></span></li>
-                                                <li class="d-flex justify-content-between"><span>@lang('Validity')</span> <span class="package-validity"></span></li>
+                                                <li class="d-flex justify-content-between"><span>@lang('Price')</span><span
+                                                        class="plan-price"></span></li>
+                                                <li class="d-flex justify-content-between"><span>@lang('No. Of Listing')</span>
+                                                    <span class="plan-listing"></span>
+                                                </li>
+                                                <li class="d-flex justify-content-between"><span>@lang('Validity')</span> <span
+                                                        class="package-validity"></span></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -232,7 +245,8 @@
                         <hr>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('Close')</button>
-                            <button type="submit" class="rounded-3 text-capitalize btn-custom addCreateListingRoute">@lang('Confirm')</button>
+                            <button type="submit"
+                                class="rounded-3 text-capitalize btn-custom addCreateListingRoute">@lang('Confirm')</button>
                         </div>
                     </form>
                 </div>
@@ -253,22 +267,30 @@
                 <div class="row g-4">
                     <div class="input-box">
                         <label for="search" class="form-label">@lang('Search')</label>
-                        <input type="text" name="name" value="{{ old('name',request()->name) }}" class="form-control" placeholder="@lang('Search')"/>
+                        <input type="text" name="name" value="{{ old('name', request()->name) }}" class="form-control"
+                            placeholder="@lang('Search')" />
                     </div>
                     <div class="input-box">
                         <label for="search" class="form-label">@lang('Purchased Date')</label>
-                        <input type="text" class="form-control datepicker" name="purchase_date" autofocus="off" readonly placeholder="@lang('Purchased Date')" value="{{ old('purchase_date',request()->purchase_date) }}">
+                        <input type="text" class="form-control datepicker" name="purchase_date" autofocus="off" readonly
+                            placeholder="@lang('Purchased Date')"
+                            value="{{ old('purchase_date', request()->purchase_date) }}">
                     </div>
                     <div class="input-box">
                         <label for="search" class="form-label">@lang('Expired Date')</label>
-                        <input type="text" class="form-control datepicker" name="expire_date" autofocus="off" readonly placeholder="@lang('Expired Date')" value="{{ old('expire_date',request()->expire_date) }}">
+                        <input type="text" class="form-control datepicker" name="expire_date" autofocus="off" readonly
+                            placeholder="@lang('Expired Date')" value="{{ old('expire_date', request()->expire_date) }}">
                     </div>
                     <div class="input-box">
                         <label class="form-label">@lang('Validity')</label>
                         <select name="package_status" id="package_status" class="form-control js-example-basic-single">
                             <option selected disabled>@lang('Select Validity')</option>
-                            <option value="active" {{ request()->package_status == 'active' ? 'selected' : '' }}>@lang('Active')</option>
-                            <option value="expired" {{ request()->package_status == 'expired' ? 'selected' : '' }}>@lang('Expired')</option>
+                            <option value="active" {{ request()->package_status == 'active' ? 'selected' : '' }}>
+                                @lang('Active')
+                            </option>
+                            <option value="expired" {{ request()->package_status == 'expired' ? 'selected' : '' }}>
+                                @lang('Expired')
+                            </option>
                         </select>
                     </div>
                     <div class="input-box">
