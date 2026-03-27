@@ -240,6 +240,7 @@ Route::group(['middleware' => ['maintenanceMode']], function () use ($basicContr
 
     Route::get('/listings/{id?}/{type?}', [ListingController::class, 'listings'])->name('listings');
     Route::get('/listing/{slug}', [ListingController::class, 'listingDetails'])->name('listing.details');
+    Route::post('/listing/contact/{id}', [\App\Http\Controllers\Frontend\ListingContactController::class, 'sendMessage'])->name('listing.contact.send');
     Route::get('/listing-reviews/{id?}', [ListingController::class, 'listingReviewsGet'])->name('listing.reviews.get');
     Route::post('/collect-listing-form-data', [ListingController::class, 'collectListingFormData'])->name('collect.listing.form.data');
 

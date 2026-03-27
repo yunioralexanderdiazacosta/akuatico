@@ -696,7 +696,7 @@
 
                             <div class="side-box">
                                 <h5>@lang('Send a Message')</h5>
-                                <form action="{{ route('user.send.listing.message', $single_listing_details->id) }}"
+                                <form action="{{ route('listing.contact.send', $single_listing_details->id) }}"
                                       method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row g-3">
