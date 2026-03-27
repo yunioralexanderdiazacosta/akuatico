@@ -36,7 +36,7 @@ class ListingContactController extends Controller
         $user = $listing->get_user;
 
         $destinatario = $user->email ?? config('mail.from.address');
-        $asunto = "Nuevo lead desde la Landing Page - " . $listing->title;
+        $asunto = "Nuevo lead desde Akuatico - " . $listing->title;
 
         $nombre = strip_tags(trim($request->name));
         $email = filter_var(trim($request->email), FILTER_SANITIZE_EMAIL);
@@ -88,7 +88,7 @@ class ListingContactController extends Controller
         $user = User::findOrFail($id);
 
         $destinatario = $user->email ?? config('mail.from.address');
-        $asunto = "Nuevo lead desde el Perfil";
+        $asunto = "Nuevo lead desde Akuatico";
 
         $nombre = strip_tags(trim($request->name));
         $email = filter_var(trim($request->email), FILTER_SANITIZE_EMAIL);
