@@ -23,13 +23,14 @@ class SpecialCategoryController extends Controller
         $pageSeo = Page::where("template_name", $selectedTheme)
             ->where("slug", "category")
             ->first();
-        $pageSeo["breadcrumb_image"] =
+        /* $pageSeo["breadcrumb_image"] =
             $pageSeo?->breadcrumb_status == 1
-                ? getFile(
-                    $pageSeo->breadcrumb_image_driver,
-                    $pageSeo->breadcrumb_image,
-                )
-                : null;
+            ? getFile(
+                $pageSeo->breadcrumb_image_driver,
+                $pageSeo->breadcrumb_image,
+            )
+            : null; */
+        $pageSeo["breadcrumb_image"] = 'assets/admin/img/default2.webp';
 
         $pageSeo['page_title'] = ucfirst($routeName);
 
@@ -55,7 +56,7 @@ class SpecialCategoryController extends Controller
             })
             ->where("status", 1)
             ->get()
-            ->sortBy(function($cat) {
+            ->sortBy(function ($cat) {
                 return optional($cat->details)->name ?? '';
             });
         $categorySingle = DB::table("content_details")
