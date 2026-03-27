@@ -198,7 +198,7 @@
                 <div class="col-lg-4">
                     <div class="side-box">
                         <h5>@lang('Contact Creator')</h5>
-                        <form action="{{ route('user.viewer.send.message.to.user', $user_information->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('user.contact.send', $user_information->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row g-3">
                                 <div class="input-box col-12">
