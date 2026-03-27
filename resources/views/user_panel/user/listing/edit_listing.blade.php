@@ -60,24 +60,6 @@
 
         <button tab-id="tab3" class="tab">
             @lang('Photos')
-            @if ($errors->has('thumbnail'))
-                @php
-                    $tabThree = ['thumbnail'];
-                @endphp
-                <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
-                    data-bs-html="true" data-bs-title="
-                            <div class='text-start px-3 text-white'>
-                               <ul class=''>
-                                  @foreach ($errors->getMessages() as $key => $error)
-                                    @if(in_array($key, $tabThree))
-                                        <li class='text-white'>{{ $error[0] }}</li>
-                                    @endif
-                                  @endforeach
-                               </ul>
-                            </div>">
-                    <i class="fal fa-info-circle"></i>
-                </span>
-            @endif
         </button>
 
         @if($single_package_infos->is_amenities == 1)
@@ -581,21 +563,6 @@
 
         <div id="tab3" class="add-listing-form content">
             <div class="main row gy-4">
-                <div class="col-xl-5">
-                    <h3 class="mb-3">@lang('Thumbnail')</h3>
-                    <div class="upload-img thumbnail">
-                        <div class="form">
-                            <div class="img-box">
-                                <input accept="image/*" type="file" onchange="previewImage('frame')" name="thumbnail" />
-                                <span class="select-file">@lang('Select Image')</span>
-                                <img id="frame"
-                                    src="{{ getFile($single_listing_infos->thumbnail_driver, $single_listing_infos->thumbnail) }}"
-                                    class="img-fluid" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 @if($single_package_infos->is_image == 1)
                     <div class="col-xl-7 custom-margin">
                         <h3 class="mb-3">@lang('Images')</h3>

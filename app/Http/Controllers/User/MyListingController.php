@@ -191,7 +191,6 @@ class MyListingController extends Controller
             "working_day.*" => "nullable|string|max:20",
             "social_url.*" => "nullable|url|max:180",
             "youtube_video_id" => "nullable|string|max:20",
-            "thumbnail" => "nullable|mimes:jpeg,png,jpg|max:51200",
             "listing_image.*" => "nullable|mimes:jpeg,png,jpg",
             "amenity_id.*" => "nullable|numeric|exists:amenities,id",
             "product_title.*" => "nullable|string|max:150",
@@ -206,12 +205,6 @@ class MyListingController extends Controller
         ];
 
         $message = [
-            "thumbnail.mimes" => __(
-                "The thumbnail must be a file of type: jpg, jpeg, png.",
-            ),
-            "thumbnail.max" => __(
-                "The thumbnail may not be greater than 5 MB.",
-            ),
             "category_id.required" => __("This category field is required."),
             "category_id.array" => __("The category must be an array."),
             "category_id.*.exists" => __("The selected category is invalid."),
@@ -375,6 +368,13 @@ class MyListingController extends Controller
                     $listing,
                     $id,
                 );
+
+                $firstImage = ListingImage::where("listing_id", $listing->id)->orderBy("id", "asc")->first();
+                if ($firstImage) {
+                    $listing->thumbnail = $firstImage->listing_image;
+                    $listing->thumbnail_driver = $firstImage->driver;
+                    $listing->save();
+                }
             }
 
             if (
@@ -593,7 +593,6 @@ class MyListingController extends Controller
             "working_day.*" => "nullable|string|max:20",
             "social_url.*" => "nullable|url|max:180",
             "youtube_video_id" => "nullable|string|max:20",
-            "thumbnail" => "nullable|mimes:jpeg,png,jpg|max:51200",
             "listing_image.*" => "nullable|mimes:jpeg,png,jpg",
             "amenity_id.*" => "nullable|numeric|exists:amenities,id",
             "product_title.*" => "nullable|string|max:150",
@@ -608,12 +607,6 @@ class MyListingController extends Controller
         ];
 
         $message = [
-            "thumbnail.mimes" => __(
-                "The thumbnail must be a file of type: jpg, jpeg, png.",
-            ),
-            "thumbnail.max" => __(
-                "The thumbnail may not be greater than 5 MB.",
-            ),
             "category_id.required" => __("This category field is required."),
             "category_id.array" => __("The category must be an array."),
             "category_id.*.exists" => __("The selected category is invalid."),
@@ -663,30 +656,6 @@ class MyListingController extends Controller
                 ->with("get_package")
                 ->where("user_id", $user->id)
                 ->findOrFail($id);
-
-            if ($request->hasFile("thumbnail")) {
-                try {
-                    $thumbnailImage = $this->fileUpload(
-                        $request->thumbnail,
-                        config("filelocation.listing_thumbnail.path"),
-                        null,
-                        null,
-                        "webp",
-                        99,
-                        $listing->thumbnail,
-                        $listing->thumbnail_driver,
-                    );
-                    if ($thumbnailImage) {
-                        $listing->thumbnail = $thumbnailImage["path"];
-                        $listing->thumbnail_driver = $thumbnailImage["driver"];
-                    }
-                } catch (\Exception $e) {
-                    return back()->with(
-                        "error",
-                        __("Thumbnail could not be uploaded."),
-                    );
-                }
-            }
 
             $listing->user_id = $user->id;
             $listing->title = $request->title;
@@ -777,6 +746,20 @@ class MyListingController extends Controller
                     $listing,
                     $listing->purchase_package_id,
                 );
+
+                $firstImage = ListingImage::where("listing_id", $listing->id)->orderBy("id", "asc")->first();
+                if ($firstImage) {
+                    $listing->thumbnail = $firstImage->listing_image;
+                    $listing->thumbnail_driver = $firstImage->driver;
+                    $listing->save();
+                }
+            } elseif (optional($listing->get_package)->is_image) {
+                $firstImage = ListingImage::where("listing_id", $listing->id)->orderBy("id", "asc")->first();
+                if ($firstImage) {
+                    $listing->thumbnail = $firstImage->listing_image;
+                    $listing->thumbnail_driver = $firstImage->driver;
+                    $listing->save();
+                }
             }
 
             if (
