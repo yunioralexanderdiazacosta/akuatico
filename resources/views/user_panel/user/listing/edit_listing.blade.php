@@ -266,8 +266,8 @@
                                     </div>
                                 </div>
                                 <div class="input-box col-md-6">
-                                    <input class="form-control @error('phone') is-invalid @enderror" type="text"
-                                        placeholder="@lang('phone')" name="phone"
+                                    <input class="form-control @error('phone') is-invalid @enderror" type="tel"
+                                        id="phone" name="phone" placeholder="(787) 382-0627" maxlength="14"
                                         value="{{ old('phone', $single_listing_infos->phone) }}" />
                                     <div class="invalid-feedback">
                                         @error('phone') @lang($message) @enderror
@@ -1726,5 +1726,31 @@
 
         formatNumberInput('price_display', 'price_hidden');
         formatNumberInput('length_display', 'length_hidden');
+
+        // Phone format: (XXX) XXX-XXXX
+        function formatPhone(value) {
+            var digits = value.replace(/\D/g, '').substring(0, 10);
+            var formatted = '';
+            if (digits.length > 0) {
+                formatted = '(' + digits.substring(0, 3);
+            }
+            if (digits.length >= 3) {
+                formatted += ') ' + digits.substring(3, 6);
+            }
+            if (digits.length >= 6) {
+                formatted += '-' + digits.substring(6, 10);
+            }
+            return formatted;
+        }
+
+        // Format existing value on load
+        var $phone = $('#phone');
+        if ($phone.val()) {
+            $phone.val(formatPhone($phone.val()));
+        }
+
+        $phone.on('input', function () {
+            $(this).val(formatPhone($(this).val()));
+        });
     </script>
 @endpush
