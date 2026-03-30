@@ -1,6 +1,6 @@
 <?php
 
-return [
+/*return [
     [
         "name" => "Afghanistan",
         "code" => "AF",
@@ -2089,5 +2089,32 @@ return [
         'lat' => -19.0154,
         'long' => 29.1549
     ],
-];
+];*/
 
+return [
+    [
+        "name" => "United States",
+        "code" => "US",
+        "phone_code" => "+1",
+        "phoneLength" => "10",
+        'flag' => 'assets/admin/img/flags/us.svg',
+        'lat' => 37.0902,
+        'long' => -95.7129
+    ], [
+        "name" => "Puerto Rico",
+        "code" => "PR",
+        "phone_code" => "+1",
+        "phoneLength" => "10",
+        'flag' => 'assets/admin/img/flags/pr.svg',
+        'lat' => 18.2208,
+        'long' => -66.5901
+    ], [
+        "name" => "Dominican Republic",
+        "code" => "DO",
+        "phone_code" => "+1",
+        "phoneLength" => "10",
+        'flag' => 'assets/admin/img/flags/do.svg',
+        'lat' => 18.7357,
+        'long' => -70.1627
+    ],
+];
