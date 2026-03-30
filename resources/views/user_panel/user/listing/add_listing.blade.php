@@ -1,8 +1,8 @@
 @extends('user_panel.layouts.user')
-@section('title',trans('Add Listing'))
+@section('title', trans('Add Listing'))
 @push('css-lib')
-    <link rel="stylesheet" href="{{ asset('assets/global/css/tagsinput.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('assets/global/css/image-uploader.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/global/css/tagsinput.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/global/css/image-uploader.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/global/css/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/global/css/bootstrapicons-iconpicker.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/summernote.min.css')}}">
@@ -16,17 +16,17 @@
                     @php
                         $tabOne = ['title', 'category_id', 'email', 'phone', 'description', 'place_id', 'lat', 'long'];
                     @endphp
-                    <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip"
-                          data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="
-                        <div class='text-start px-3 text-white'>
-                           <ul class=''>
-                              @foreach ($errors->getMessages() as $key => $error)
-                                @if(in_array($key, $tabOne))
-                                    <li class='text-white'>{{ $error[0] }}</li>
-                                @endif
-                              @endforeach
-                           </ul>
-                        </div>">
+                    <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
+                        data-bs-html="true" data-bs-title="
+                                <div class='text-start px-3 text-white'>
+                                   <ul class=''>
+                                      @foreach ($errors->getMessages() as $key => $error)
+                                        @if(in_array($key, $tabOne))
+                                            <li class='text-white'>{{ $error[0] }}</li>
+                                        @endif
+                                      @endforeach
+                                   </ul>
+                                </div>">
                         <i class="fal fa-info-circle"></i>
                     </span>
                 @endif
@@ -39,17 +39,17 @@
                             $tabTwo = ['youtube_video_id'];
                         @endphp
 
-                        <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip"
-                              data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="
-                            <div class='text-start px-3 text-white'>
-                               <ul class=''>
-                                  @foreach ($errors->getMessages() as $key => $error)
-                                    @if(in_array($key, $tabTwo))
-                                        <li class='text-white'>{{ $error[0] }}</li>
-                                    @endif
-                                  @endforeach
-                               </ul>
-                            </div>">
+                        <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
+                            data-bs-html="true" data-bs-title="
+                                        <div class='text-start px-3 text-white'>
+                                           <ul class=''>
+                                              @foreach ($errors->getMessages() as $key => $error)
+                                                @if(in_array($key, $tabTwo))
+                                                    <li class='text-white'>{{ $error[0] }}</li>
+                                                @endif
+                                              @endforeach
+                                           </ul>
+                                        </div>">
                             <i class="fal fa-info-circle"></i>
                         </span>
                     @endif
@@ -67,17 +67,17 @@
                         @php
                             $tabFour = ['amenity_id'];
                         @endphp
-                        <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip"
-                              data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="
-                            <div class='text-start px-3 text-white'>
-                               <ul class=''>
-                                  @foreach ($errors->getMessages() as $key => $error)
-                                    @if(in_array($key, $tabFour))
-                                        <li class='text-white'>{{ $error[0] }}</li>
-                                    @endif
-                                  @endforeach
-                               </ul>
-                            </div>">
+                        <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
+                            data-bs-html="true" data-bs-title="
+                                        <div class='text-start px-3 text-white'>
+                                           <ul class=''>
+                                              @foreach ($errors->getMessages() as $key => $error)
+                                                @if(in_array($key, $tabFour))
+                                                    <li class='text-white'>{{ $error[0] }}</li>
+                                                @endif
+                                              @endforeach
+                                           </ul>
+                                        </div>">
                             <i class="fal fa-info-circle"></i>
                         </span>
                     @endif
@@ -85,29 +85,29 @@
             @endif
 
             <!-- @if($single_package_infos->is_product == 1)
-                <button tab-id="tab5" class="tab">
-                    @lang('Products')
-                    @if ($errors->has('product_title.*') || $errors->has('product_price.*') || $errors->has('product_description.*') || $errors->has('product_thumbnail.*'))
-                        @php
-                            $tabFive = ['product_title', 'product_price', 'product_description', 'product_thumbnail'];
-                        @endphp
-                        <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip"
-                              data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="
-                            <div class='text-start px-3 text-white'>
-                               <ul class=''>
-                                  @foreach ($errors->getMessages() as $key => $error)
+                    <button tab-id="tab5" class="tab">
+                        @lang('Products')
+                        @if ($errors->has('product_title.*') || $errors->has('product_price.*') || $errors->has('product_description.*') || $errors->has('product_thumbnail.*'))
+                            @php
+                                $tabFive = ['product_title', 'product_price', 'product_description', 'product_thumbnail'];
+                            @endphp
+                            <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip"
+                                  data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="
+                                <div class='text-start px-3 text-white'>
+                                   <ul class=''>
+                                      @foreach ($errors->getMessages() as $key => $error)
 
-                                    @if(in_array($key, $tabFive))
-                                        <li class='text-white'>{{ $error[0] }}</li>
-                                    @endif
-                                  @endforeach
-                               </ul>
-                            </div>">
-                            <i class="fal fa-info-circle"></i>
-                        </span>
-                    @endif
-                </button>
-            @endif -->
+                                        @if(in_array($key, $tabFive))
+                                            <li class='text-white'>{{ $error[0] }}</li>
+                                        @endif
+                                      @endforeach
+                                   </ul>
+                                </div>">
+                                <i class="fal fa-info-circle"></i>
+                            </span>
+                        @endif
+                    </button>
+                @endif -->
 
             @if($single_package_infos->seo == 1)
                 <button tab-id="tab6" class="tab">
@@ -116,17 +116,17 @@
                         @php
                             $tabSix = ['seo_image', 'meta_title', 'meta_keywords', 'meta_description'];
                         @endphp
-                        <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip"
-                              data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="
-                            <div class='text-start px-3 text-white'>
-                               <ul class=''>
-                                  @foreach ($errors->getMessages() as $key => $error)
-                                    @if(in_array($key, $tabSix))
-                                        <li class='text-white'>{{ $error[0] }}</li>
-                                    @endif
-                                  @endforeach
-                               </ul>
-                            </div>">
+                        <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
+                            data-bs-html="true" data-bs-title="
+                                        <div class='text-start px-3 text-white'>
+                                           <ul class=''>
+                                              @foreach ($errors->getMessages() as $key => $error)
+                                                @if(in_array($key, $tabSix))
+                                                    <li class='text-white'>{{ $error[0] }}</li>
+                                                @endif
+                                              @endforeach
+                                           </ul>
+                                        </div>">
                             <i class="fal fa-info-circle"></i>
                         </span>
                     @endif
@@ -141,17 +141,17 @@
                             $tabSeven = ['whatsapp_number', 'fb_app_id', 'fb_page_id'];
                         @endphp
 
-                        <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip"
-                              data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="
-                            <div class='text-start px-3 text-white'>
-                               <ul class=''>
-                                  @foreach ($errors->getMessages() as $key => $error)
-                                    @if(in_array($key, $tabSeven))
-                                        <li class='text-white'>{{ $error[0] }}</li>
-                                    @endif
-                                  @endforeach
-                               </ul>
-                            </div>">
+                        <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
+                            data-bs-html="true" data-bs-title="
+                                        <div class='text-start px-3 text-white'>
+                                           <ul class=''>
+                                              @foreach ($errors->getMessages() as $key => $error)
+                                                @if(in_array($key, $tabSeven))
+                                                    <li class='text-white'>{{ $error[0] }}</li>
+                                                @endif
+                                              @endforeach
+                                           </ul>
+                                        </div>">
                             <i class="fal fa-info-circle"></i>
                         </span>
                     @endif
@@ -159,10 +159,10 @@
             @endif
 
             <!-- @if($single_package_infos->is_create_from == 1)
-                <button tab-id="tab8" class="tab">
-                    @lang('Custom Form')
-                </button>
-            @endif -->
+                    <button tab-id="tab8" class="tab">
+                        @lang('Custom Form')
+                    </button>
+                @endif -->
         </div>
 
         <form action="{{ route('user.storeListing', $id) }}" method="post" enctype="multipart/form-data">
@@ -175,8 +175,9 @@
                             <div class="basic-form">
                                 <div class="row g-3">
                                     <div class="input-box col-md-12">
-                                        <input class="form-control change_name_input @error('title') is-invalid @enderror" type="text"
-                                               name="title" value="{{ old('title') }}" placeholder="@lang('Title')"/>
+                                        <input class="form-control change_name_input @error('title') is-invalid @enderror"
+                                            type="text" name="title" value="{{ old('title') }}"
+                                            placeholder="@lang('Title')" />
                                         <div class="invalid-feedback">
                                             @error('title') @lang($message) @enderror
                                         </div>
@@ -187,7 +188,9 @@
                                                 <b>@lang("Permalink : ")</b> <span>{{ url('/listing') }}/</span>
                                             </div>
                                             <div class="col-5">
-                                                <input class="form-control set-slug @error('slug') is-invalid @enderror" type="text" name="slug" value="{{ old('slug') }}" placeholder="@lang('Slug')"/>
+                                                <input class="form-control set-slug @error('slug') is-invalid @enderror"
+                                                    type="text" name="slug" value="{{ old('slug') }}"
+                                                    placeholder="@lang('Slug')" />
                                             </div>
                                         </div>
                                         <div class="invalid-feedback">
@@ -195,13 +198,13 @@
                                         </div>
                                     </div>
                                     <div class="input-box col-md-12">
-                                        <select
-                                            id="category_id"
+                                        <select id="category_id"
                                             class="listing__category__select2 form-control @error('category_id') is-invalid @enderror"
-                                            name="category_id[]" multiple data-categories="{{ $single_package_infos->no_of_categories_per_listing }}">
+                                            name="category_id[]" multiple
+                                            data-categories="{{ $single_package_infos->no_of_categories_per_listing }}">
                                             @foreach ($all_listings_category->whereNull('parent_id') as $item)
-                                                <option
-                                                    value="{{ $item->id }}" {{ (collect(old('category_id'))->contains($item->id)) ? 'selected' : '' }}>@lang(optional($item->details)->name) </option>
+                                                <option value="{{ $item->id }}" {{ (collect(old('category_id'))->contains($item->id)) ? 'selected' : '' }}>
+                                                    @lang(optional($item->details)->name) </option>
                                             @endforeach
                                         </select>
                                         <div class="invalid-feedback">
@@ -210,16 +213,12 @@
                                     </div>
 
                                     <div class="input-box col-md-12 subcategory-field" style="display: none;">
-                                        <select
-                                            id="subcategory_id"
+                                        <select id="subcategory_id"
                                             class="form-control @error('subcategory_id') is-invalid @enderror"
                                             name="subcategory_id[]" multiple>
                                             <option disabled> @lang('Select Subcategory')</option>
                                             @foreach ($all_listings_category->whereNotNull('parent_id') as $item)
-                                                <option
-                                                    value="{{ $item->id }}"
-                                                    data-parent="{{ $item->parent_id }}"
-                                                    {{ (collect(old('subcategory_id'))->contains($item->id)) ? 'selected' : '' }}>
+                                                <option value="{{ $item->id }}" data-parent="{{ $item->parent_id }}" {{ (collect(old('subcategory_id'))->contains($item->id)) ? 'selected' : '' }}>
                                                     @lang(optional($item->details)->name)
                                                 </option>
                                             @endforeach
@@ -230,15 +229,11 @@
                                     </div>
 
                                     <div class="input-box col-md-12 boat-fields" style="display: none;">
-                                        <select
-                                            id="marca"
-                                            class="form-control @error('marca') is-invalid @enderror"
+                                        <select id="marca" class="form-control @error('marca') is-invalid @enderror"
                                             name="marca[]" multiple>
                                             <option disabled> @lang('Select Brand')</option>
                                             @foreach ($marcas as $item)
-                                                <option
-                                                    value="{{ $item->id }}"
-                                                    {{ (collect(old('marca'))->contains($item->id)) ? 'selected' : '' }}>
+                                                <option value="{{ $item->id }}" {{ (collect(old('marca'))->contains($item->id)) ? 'selected' : '' }}>
                                                     @lang(optional($item->details)->name)
                                                 </option>
                                             @endforeach
@@ -250,7 +245,7 @@
 
                                     <div class="input-box col-md-6">
                                         <input class="form-control @error('email') is-invalid @enderror" type="email"
-                                               name="email" value="{{ old('email') }}" placeholder="@lang('Email')"/>
+                                            name="email" value="{{ old('email') }}" placeholder="@lang('Email')" />
                                         <div class="invalid-feedback">
                                             @error('email') @lang($message) @enderror
                                         </div>
@@ -258,7 +253,8 @@
 
                                     <div class="input-box col-md-6">
                                         <input class="form-control @error('phone') is-invalid @enderror" type="tel"
-                                               id="phone" name="phone" value="{{ old('phone') }}" placeholder="(787) 382-0627" maxlength="14"/>
+                                            id="phone" name="phone" value="{{ old('phone') }}" placeholder="(787) 382-0627"
+                                            maxlength="14" />
                                         <div class="invalid-feedback">
                                             @error('phone') @lang($message) @enderror
                                         </div>
@@ -266,8 +262,10 @@
 
                                     <div class="input-box col-md-6">
                                         <input class="form-control @error('price') is-invalid @enderror" type="text"
-                                               id="price_display" value="{{ old('price') ? number_format(old('price'), 2, '.', ',') : '' }}" placeholder="@lang('Price')"/>
-                                        <input type="hidden" name="price" id="price_hidden" value="{{ old('price') }}"/>
+                                            id="price_display"
+                                            value="{{ old('price') ? number_format(old('price'), 2, '.', ',') : '' }}"
+                                            placeholder="@lang('Price')" />
+                                        <input type="hidden" name="price" id="price_hidden" value="{{ old('price') }}" />
                                         <div class="invalid-feedback">
                                             @error('price') @lang($message) @enderror
                                         </div>
@@ -275,15 +273,19 @@
 
                                     <div class="input-box col-md-6 boat-fields" style="display: none;">
                                         <input class="form-control @error('length') is-invalid @enderror" type="text"
-                                               id="length_display" value="{{ old('length') ? number_format(old('length'), 2, '.', ',') : '' }}" placeholder="@lang('Length (Feet)')"/>
-                                        <input type="hidden" name="length" id="length_hidden" value="{{ old('length') }}"/>
+                                            id="length_display"
+                                            value="{{ old('length') ? number_format(old('length'), 2, '.', ',') : '' }}"
+                                            placeholder="@lang('Length (Feet)')" />
+                                        <input type="hidden" name="length" id="length_hidden" value="{{ old('length') }}" />
                                         <div class="invalid-feedback">
                                             @error('length') @lang($message) @enderror
                                         </div>
                                     </div>
 
                                     <div class="input-box col-12 bg-white p-0">
-                                        <textarea class="form-control summernote @error('description') is-invalid @enderror" name="description" id="summernote" rows="15" value="{{ old('description') }}" placeholder="@lang('Description')">{{ old('description') }}</textarea>
+                                        <textarea class="form-control summernote @error('description') is-invalid @enderror"
+                                            name="description" id="summernote" rows="15" value="{{ old('description') }}"
+                                            placeholder="@lang('Description')">{{ old('description') }}</textarea>
                                         <div class="invalid-feedback">
                                             @error('description') @lang($message) @enderror
                                         </div>
@@ -307,10 +309,8 @@
                                                     id="country_id" name="country_id">
                                                     <option selected disabled>@lang('Select Country')</option>
                                                     @foreach ($countries as $item)
-                                                        <option value="{{ $item->id }}"
-                                                                data-name="{{ $item->name }}"
-                                                                data-code="{{ $item->iso2 }}"
-                                                            {{ old('country_id') == $item->id ? 'selected' : '' }}>@lang($item->name)</option>
+                                                        <option value="{{ $item->id }}" data-name="{{ $item->name }}"
+                                                            data-code="{{ $item->iso2 }}" {{ old('country_id') == $item->id ? 'selected' : '' }}>@lang($item->name)</option>
                                                     @endforeach
                                                 </select>
                                                 <div class="invalid-feedback">
@@ -342,10 +342,10 @@
 
                                             <div class="input-box col-md-6">
                                                 <input id="address-search"
-                                                       class="form-control @error('address') is-invalid @enderror"
-                                                       name="address" value="{{ old('address') }}" type="text"
-                                                       placeholder="@lang('Search Location')" autocomplete="off" data-lat="33.93911"
-                                                       data-long="67.709953" data-code="AF"/>
+                                                    class="form-control @error('address') is-invalid @enderror"
+                                                    name="address" value="{{ old('address') }}" type="text"
+                                                    placeholder="@lang('Search Location')" autocomplete="off"
+                                                    data-lat="33.93911" data-long="67.709953" data-code="AF" />
                                                 <div class="invalid-feedback">
                                                     @error('address') @lang($message) @enderror
                                                 </div>
@@ -353,8 +353,8 @@
 
                                             <div class="input-box col-md-6">
                                                 <input class="form-control @error('lat') is-invalid @enderror" id="lat"
-                                                       name="lat" value="{{ old('lat') }}" type="text"
-                                                       placeholder="@lang('Lat')"/>
+                                                    name="lat" value="{{ old('lat') }}" type="text"
+                                                    placeholder="@lang('Lat')" />
                                                 <div class="invalid-feedback">
                                                     @error('lat') @lang($message) @enderror
                                                 </div>
@@ -362,8 +362,8 @@
 
                                             <div class="input-box col-md-6">
                                                 <input class="form-control @error('long') is-invalid @enderror" id="lng"
-                                                       name="long" value="{{ old('long') }}" placeholder="@lang('Long')"
-                                                       type="text"/>
+                                                    name="long" value="{{ old('long') }}" placeholder="@lang('Long')"
+                                                    type="text" />
                                                 <div class="invalid-feedback">
                                                     @error('long') @lang($message) @enderror
                                                 </div>
@@ -399,20 +399,20 @@
                                     class="d-sm-flex justify-content-between delete_this @error('working_day.0') is-invalid @enderror">
                                     <div class="input-box w-100 my-1 mx-sm-1">
                                         <select class="js-example-basic-single form-control" name="working_day[]">
-                                            <option
-                                                value="Monday" {{ old('working_day.0') == 'Monday' ? 'selected' : '' }}>@lang('Monday')</option>
-                                            <option
-                                                value="Tuesday" {{ old('working_day.0') == 'Tuesday' ? 'selected' : '' }}>@lang('Tuesday')</option>
-                                            <option
-                                                value="Wednesday" {{ old('working_day.0') == 'Wednesday' ? 'selected' : '' }}>@lang('Wednesday')</option>
-                                            <option
-                                                value="Thursday" {{ old('working_day.0') == 'Thursday' ? 'selected' : '' }}>@lang('Thursday')</option>
-                                            <option
-                                                value="Friday" {{ old('working_day.0') == 'Friday' ? 'selected' : '' }}>@lang('Friday')</option>
-                                            <option
-                                                value="Saturday" {{ old('working_day.0') == 'Saturday' ? 'selected' : '' }}>@lang('Saturday')</option>
-                                            <option
-                                                value="Sunday" {{ old('working_day.0') == 'Sunday' ? 'selected' : '' }}>@lang('Sunday')</option>
+                                            <option value="Monday" {{ old('working_day.0') == 'Monday' ? 'selected' : '' }}>
+                                                @lang('Monday')</option>
+                                            <option value="Tuesday" {{ old('working_day.0') == 'Tuesday' ? 'selected' : '' }}>
+                                                @lang('Tuesday')</option>
+                                            <option value="Wednesday" {{ old('working_day.0') == 'Wednesday' ? 'selected' : '' }}>
+                                                @lang('Wednesday')</option>
+                                            <option value="Thursday" {{ old('working_day.0') == 'Thursday' ? 'selected' : '' }}>
+                                                @lang('Thursday')</option>
+                                            <option value="Friday" {{ old('working_day.0') == 'Friday' ? 'selected' : '' }}>
+                                                @lang('Friday')</option>
+                                            <option value="Saturday" {{ old('working_day.0') == 'Saturday' ? 'selected' : '' }}>
+                                                @lang('Saturday')</option>
+                                            <option value="Sunday" {{ old('working_day.0') == 'Sunday' ? 'selected' : '' }}>
+                                                @lang('Sunday')</option>
                                         </select>
                                         <div class="invalid-feedback">
                                             @error('working_day.0') @lang($message) @enderror
@@ -422,8 +422,8 @@
                                     <div class="d-flex">
                                         <div class="input-box w-100 my-1 me-1">
                                             <input type="time" name="start_time[]" value="{{ old('start_time.0') }}"
-                                                   class="form-control @error('start_time.0') is-invalid @enderror"
-                                                   placeholder="@lang('Start Hour')"/>
+                                                class="form-control @error('start_time.0') is-invalid @enderror"
+                                                placeholder="@lang('Start Hour')" />
                                             <div class="invalid-feedback">
                                                 @error('start_time.0') @lang($message) @enderror
                                             </div>
@@ -431,15 +431,16 @@
 
                                         <div class="input-box w-100 my-1 me-1">
                                             <input type="time" name="end_time[]" value="{{ old('end_time.0') }}"
-                                                   class="form-control @error('end_time.0') is-invalid @enderror"
-                                                   placeholder="@lang('End Hour')"/>
+                                                class="form-control @error('end_time.0') is-invalid @enderror"
+                                                placeholder="@lang('End Hour')" />
                                             <div class="invalid-feedback">
                                                 @error('end_time.0') @lang($message) @enderror
                                             </div>
                                         </div>
 
                                         <div class="input-box my-1 me-1">
-                                            <button class="btn-custom customButton add-new" type="button" id="add_business_hour">
+                                            <button class="btn-custom customButton add-new" type="button"
+                                                id="add_business_hour">
                                                 <i class="fal fa-plus"></i>
                                             </button>
                                         </div>
@@ -455,22 +456,17 @@
                                             <div
                                                 class="d-sm-flex justify-content-between delete_this removeBusinessHourInputField @error("working_day.$i") is-invalid @enderror">
                                                 <div class="input-box w-100 my-1 mx-sm-1">
-                                                    <select class="js-example-basic-single form-control"
-                                                            name="working_day[]">
-                                                        <option
-                                                            value="Monday" {{ old("working_day.$i") == 'Monday' ? 'selected' : '' }}>@lang('Monday')</option>
-                                                        <option
-                                                            value="Tuesday" {{ old("working_day.$i") == 'Tuesday' ? 'selected' : '' }}>@lang('Tuesday')</option>
-                                                        <option
-                                                            value="Wednesday" {{ old("working_day.$i") == 'Wednesday' ? 'selected' : '' }}>@lang('Wednesday')</option>
-                                                        <option
-                                                            value="Thursday" {{ old("working_day.$i") == 'Thursday' ? 'selected' : '' }}>@lang('Thursday')</option>
-                                                        <option
-                                                            value="Friday" {{ old("working_day.$i") == 'Friday' ? 'selected' : '' }}>@lang('Friday')</option>
-                                                        <option
-                                                            value="Saturday" {{ old("working_day.$i") == 'Saturday' ? 'selected' : '' }}>@lang('Saturday')</option>
-                                                        <option
-                                                            value="Sunday" {{ old("working_day.$i") == 'Sunday' ? 'selected' : '' }}>@lang('Sunday')</option>
+                                                    <select class="js-example-basic-single form-control" name="working_day[]">
+                                                        <option value="Monday" {{ old("working_day.$i") == 'Monday' ? 'selected' : '' }}>
+                                                            @lang('Monday')</option>
+                                                        <option value="Tuesday" {{ old("working_day.$i") == 'Tuesday' ? 'selected' : '' }}>@lang('Tuesday')</option>
+                                                        <option value="Wednesday" {{ old("working_day.$i") == 'Wednesday' ? 'selected' : '' }}>@lang('Wednesday')</option>
+                                                        <option value="Thursday" {{ old("working_day.$i") == 'Thursday' ? 'selected' : '' }}>@lang('Thursday')</option>
+                                                        <option value="Friday" {{ old("working_day.$i") == 'Friday' ? 'selected' : '' }}>
+                                                            @lang('Friday')</option>
+                                                        <option value="Saturday" {{ old("working_day.$i") == 'Saturday' ? 'selected' : '' }}>@lang('Saturday')</option>
+                                                        <option value="Sunday" {{ old("working_day.$i") == 'Sunday' ? 'selected' : '' }}>
+                                                            @lang('Sunday')</option>
                                                     </select>
                                                     <div class="invalid-feedback">
                                                         @error("working_day.$i") @lang($message) @enderror
@@ -479,20 +475,18 @@
 
                                                 <div class="d-flex">
                                                     <div class="input-box w-100 my-1 me-1">
-                                                        <input type="time" name="start_time[]"
-                                                               value="{{ old("start_time.$i") }}"
-                                                               class="form-control @error("start_time.$i") is-invalid @enderror"
-                                                               placeholder="@lang('Start Hour')"/>
+                                                        <input type="time" name="start_time[]" value="{{ old("start_time.$i") }}"
+                                                            class="form-control @error("start_time.$i") is-invalid @enderror"
+                                                            placeholder="@lang('Start Hour')" />
                                                         <div class="invalid-feedback">
                                                             @error("start_time.$i") @lang($message) @enderror
                                                         </div>
                                                     </div>
 
                                                     <div class="input-box w-100 my-1 me-1">
-                                                        <input type="time" name="end_time[]"
-                                                               value="{{ old("end_time.$i") }}"
-                                                               class="form-control @error("end_time.$i") is-invalid @enderror"
-                                                               placeholder="@lang('End Hour')"/>
+                                                        <input type="time" name="end_time[]" value="{{ old("end_time.$i") }}"
+                                                            class="form-control @error("end_time.$i") is-invalid @enderror"
+                                                            placeholder="@lang('End Hour')" />
                                                         <div class="invalid-feedback">
                                                             @error("end_time.$i") @lang($message) @enderror
                                                         </div>
@@ -520,9 +514,9 @@
                             <div class="d-flex justify-content-between">
                                 <div class="input-group mt-1">
                                     <input type="text" name="social_icon[]"
-                                           class="form-control demo__icon__picker iconpicker1 bg-white @error('social_icon.0') is-invalid @enderror"
-                                           placeholder="Pick a icon" aria-label="Pick a icon"
-                                           aria-describedby="basic-addon1" readonly>
+                                        class="form-control demo__icon__picker iconpicker1 bg-white @error('social_icon.0') is-invalid @enderror"
+                                        placeholder="Pick a icon" aria-label="Pick a icon" aria-describedby="basic-addon1"
+                                        readonly>
                                     <div class="invalid-feedback">
                                         @error('social_icon.0') @lang($message) @enderror
                                     </div>
@@ -530,10 +524,10 @@
 
                                 <div class="input-box w-100 my-1 me-1">
                                     <input type="url" name="social_url[]" value="{{ old('social_url.0') }}"
-                                           class="form-control @error('social_url.0') is-invalid @enderror"
-                                           placeholder="@lang('URL')"/>
+                                        class="form-control @error('social_url.0') is-invalid @enderror"
+                                        placeholder="@lang('URL')" />
                                     @error('social_url.0')
-                                    <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
 
@@ -550,14 +544,12 @@
                                 @endphp
                                 @if($oldSocialCounts > 1)
                                     @for($i = 1; $i < $oldSocialCounts; $i++)
-                                        <div
-                                            class="d-flex justify-content-between append_new_social_form removeSocialLinksInput">
+                                        <div class="d-flex justify-content-between append_new_social_form removeSocialLinksInput">
                                             <div class="input-group mt-1">
-                                                <input type="text" name="social_icon[]"
-                                                       value="{{ old("social_icon.$i") }}"
-                                                       class="form-control bg-white demo__icon__picker iconpicker{{$i}} iconpicker @error("social_icon.$i") is-invalid @enderror"
-                                                       placeholder="Pick a icon" aria-label="Pick a icon"
-                                                       aria-describedby="basic-addon1" readonly>
+                                                <input type="text" name="social_icon[]" value="{{ old("social_icon.$i") }}"
+                                                    class="form-control bg-white demo__icon__picker iconpicker{{$i}} iconpicker @error("social_icon.$i") is-invalid @enderror"
+                                                    placeholder="Pick a icon" aria-label="Pick a icon"
+                                                    aria-describedby="basic-addon1" readonly>
                                                 <div class="invalid-feedback">
                                                     @error("social_icon.$i") @lang($message) @enderror
                                                 </div>
@@ -565,16 +557,15 @@
 
                                             <div class="input-box w-100 my-1 me-1">
                                                 <input type="url" name="social_url[]" value="{{ old("social_url.$i") }}"
-                                                       class="form-control @error("social_url.$i") is-invalid @enderror"
-                                                       placeholder="@lang('URL')"/>
+                                                    class="form-control @error("social_url.$i") is-invalid @enderror"
+                                                    placeholder="@lang('URL')" />
                                                 @error("social_url.$i")
-                                                <span class="text-danger">{{ $message }}</span>
+                                                    <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
 
                                             <div class="my-1 me-1">
-                                                <button
-                                                    class="btn btn-outline-danger h-100 add-new remove_social_link_input_field"
+                                                <button class="btn btn-outline-danger h-100 add-new remove_social_link_input_field"
                                                     type="button">
                                                     <i class="fa fa-times"></i>
                                                 </button>
@@ -598,26 +589,25 @@
                             <div class="form">
                                 <div class="row g-3">
                                     <div class="input-box col-md-12">
-                                        <input class="form-control @error('social_url') is-invalid @enderror"
-                                               type="text" placeholder="@lang('URL')"
-                                               value="{{ old('youtube_video_id') }}" name="youtube_video_id"/>
+                                        <input class="form-control @error('social_url') is-invalid @enderror" type="text"
+                                            placeholder="@lang('URL')" value="{{ old('youtube_video_id') }}"
+                                            name="youtube_video_id" />
                                         @error('youtube_video_id')
-                                        <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
 
                                     <div class="col-12">
                                         <div class="youtube nk-plain-video">
                                             <span class="nk-video-plain-toggle">
-                                               <span class="nk-video-icon">
-                                                  <svg class="svg-inline--fa fa-play fa-w-14 pl-5" aria-hidden="true"
-                                                       data-prefix="fa" data-icon="play" role="img"
-                                                       xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-                                                       data-fa-i2svg>
-                                                     <path fill="#184af9"
-                                                           d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"/>
-                                                  </svg>
-                                               </span>
+                                                <span class="nk-video-icon">
+                                                    <svg class="svg-inline--fa fa-play fa-w-14 pl-5" aria-hidden="true"
+                                                        data-prefix="fa" data-icon="play" role="img"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg>
+                                                        <path fill="#184af9"
+                                                            d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z" />
+                                                    </svg>
+                                                </span>
                                             </span>
                                         </div>
                                     </div>
@@ -634,7 +624,7 @@
                         <div class="col-xl-7 custom-margin">
                             <h3 class="mb-3">@lang('Images')</h3>
                             <div class="listing-image no_of_listing_image"
-                                 data-listingimage="{{ $single_package_infos->is_image == 1 && $single_package_infos->no_of_img_per_listing == null  ? 'unlimited' : $single_package_infos->no_of_img_per_listing }}">
+                                data-listingimage="{{ $single_package_infos->is_image == 1 && $single_package_infos->no_of_img_per_listing == null ? 'unlimited' : $single_package_infos->no_of_img_per_listing }}">
                             </div>
                             <span class="text-danger"> @error('listing_image.*') @lang($message) @enderror</span>
                         </div>
@@ -650,13 +640,11 @@
                             <div class="form">
                                 <div class="row g-3">
                                     <div class="input-box col-md-12">
-                                        <select
-                                            class="amenities_select2 form-control @error('amenity_id') is-invalid @enderror"
+                                        <select class="amenities_select2 form-control @error('amenity_id') is-invalid @enderror"
                                             name="amenity_id[]" multiple
                                             data-amenities="{{ $single_package_infos->no_of_amenities_per_listing }}">
                                             @foreach ($all_amenities as $item)
-                                                <option
-                                                    value="{{ $item->id }}" {{ (collect(old('amenity_id'))->contains($item->id)) ? 'selected':'' }}>{{ $item->details->title }}</option>
+                                                <option value="{{ $item->id }}" {{ (collect(old('amenity_id'))->contains($item->id)) ? 'selected' : '' }}>{{ $item->details->title }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -676,8 +664,9 @@
                         <div class="d-flex justify-content-start">
                             <h3 class="me-3">@lang('Product')</h3>
                             <button class="btn-custom-product add-new-product" type="button" id="add_products"
-                                    data-products="{{ $single_package_infos->no_of_product == null ? 'unlimited' : $single_package_infos->no_of_product - 1 }}">
-                                <i class="fal fa-plus"></i> @lang('Add More') (<span class="product_count">@if($single_package_infos->no_of_product == null)
+                                data-products="{{ $single_package_infos->no_of_product == null ? 'unlimited' : $single_package_infos->no_of_product - 1 }}">
+                                <i class="fal fa-plus"></i> @lang('Add More') (<span
+                                    class="product_count">@if($single_package_infos->no_of_product == null)
                                         @lang('unlimited')
                                     @else
                                         {{ $single_package_infos->no_of_product - 1 }}
@@ -689,27 +678,29 @@
                             <div class="form new__product__form">
                                 <div class="row g-3">
                                     <div class="input-box col-md-6">
-                                        <input class="form-control @error('product_title.0') is-invalid @enderror"
-                                               type="text" name="product_title[]" placeholder="@lang('Title')"
-                                               value="{{ old('product_title.0') }}"/>
+                                        <input class="form-control @error('product_title.0') is-invalid @enderror" type="text"
+                                            name="product_title[]" placeholder="@lang('Title')"
+                                            value="{{ old('product_title.0') }}" />
                                         @error('product_title.0')
-                                        <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
 
                                     <div class="input-box col-md-6">
-                                        <input class="form-control @error('product_price.0') is-invalid @enderror"
-                                               type="number" step="0.1" name="product_price[]"
-                                               placeholder="@lang('Price')" value="{{ old('product_price.0') }}"/>
+                                        <input class="form-control @error('product_price.0') is-invalid @enderror" type="number"
+                                            step="0.1" name="product_price[]" placeholder="@lang('Price')"
+                                            value="{{ old('product_price.0') }}" />
                                         @error('product_price.0')
-                                        <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
 
                                     <div class="input-box col-12 bg-white p-0">
-                                        <textarea class="form-control @error('product_description.0') is-invalid @enderror" cols="30" rows="3" name="product_description[]" placeholder="@lang('Description')">{{ old('product_description.0') }}</textarea>
+                                        <textarea class="form-control @error('product_description.0') is-invalid @enderror"
+                                            cols="30" rows="3" name="product_description[]"
+                                            placeholder="@lang('Description')">{{ old('product_description.0') }}</textarea>
                                         @error('product_description.0')
-                                        <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
 
@@ -718,27 +709,26 @@
                                     <div class="pe-2">
                                         <div class="input-box col-12 no-of-img-per-product">
                                             <div class="product-image no_of_product_image" id="product-image1"
-                                                 data-productimage="{{ $single_package_infos->is_product == 1 && $single_package_infos->no_of_img_per_product == null  ? 500 : $single_package_infos->no_of_img_per_product }}"></div>
-                                            <span
-                                                class="text-danger"> @error('product_image.1.*') @lang($message) @enderror</span>
+                                                data-productimage="{{ $single_package_infos->is_product == 1 && $single_package_infos->no_of_img_per_product == null ? 500 : $single_package_infos->no_of_img_per_product }}">
+                                            </div>
+                                            <span class="text-danger"> @error('product_image.1.*') @lang($message)
+                                            @enderror</span>
                                         </div>
                                     </div>
 
                                     <div class="upload-img thumbnail">
                                         <div class="form">
                                             <div class="img-box product-thumbnail">
-                                                <input accept="image/*" type="file"
-                                                       onchange="previewImage('product_thumbnail')"
-                                                       name="product_thumbnail[]"/>
+                                                <input accept="image/*" type="file" onchange="previewImage('product_thumbnail')"
+                                                    name="product_thumbnail[]" />
                                                 <span class="select-file">@lang('Product Thumbnail')</span>
                                                 <img id="product_thumbnail"
-                                                     src="{{ asset(getFile(config('location.default'))) }}"
-                                                     class="img-fluid"/>
+                                                    src="{{ asset(getFile(config('location.default'))) }}" class="img-fluid" />
                                             </div>
                                         </div>
 
                                         @error('product_thumbnail.0')
-                                        <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -755,61 +745,55 @@
                                         <span class="product-form-close"> <i class="fa fa-times"></i> </span>
                                         <div class="row g-3">
                                             <div class="input-box col-md-6">
-                                                <input
-                                                    class="form-control @error('product_title.'.$i) is-invalid @enderror"
-                                                    type="text" name="product_title[]" placeholder="@lang('Title')"
-                                                    value="{{ old('product_title.'.$i) }}"/>
-                                                @error('product_title.'.$i)
-                                                <span class="text-danger">{{ $message }}</span>
+                                                <input class="form-control @error('product_title.' . $i) is-invalid @enderror" type="text"
+                                                    name="product_title[]" placeholder="@lang('Title')"
+                                                    value="{{ old('product_title.' . $i) }}" />
+                                                @error('product_title.' . $i)
+                                                    <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
 
                                             <div class="input-box col-md-6">
-                                                <input
-                                                    class="form-control @error('product_price.'.$i) is-invalid @enderror"
-                                                    type="number" step="0.1" name="product_price[]"
-                                                    placeholder="@lang('Price')"
-                                                    value="{{ old('product_price.'.$i) }}"/>
-                                                @error('product_price.'.$i)
-                                                <span class="text-danger">{{ $message }}</span>
+                                                <input class="form-control @error('product_price.' . $i) is-invalid @enderror"
+                                                    type="number" step="0.1" name="product_price[]" placeholder="@lang('Price')"
+                                                    value="{{ old('product_price.' . $i) }}" />
+                                                @error('product_price.' . $i)
+                                                    <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
 
                                             <div class="input-box col-12">
-                                                <textarea
-                                                    class="form-control @error('product_description.'.$i) is-invalid @enderror"
+                                                <textarea class="form-control @error('product_description.' . $i) is-invalid @enderror"
                                                     cols="30" rows="3" name="product_description[]"
-                                                    placeholder="@lang('Description')">{{ old('product_description.'.$i) }}</textarea>
-                                                @error('product_description.'.$i)
-                                                <span class="text-danger">{{ $message }}</span>
+                                                    placeholder="@lang('Description')">{{ old('product_description.' . $i) }}</textarea>
+                                                @error('product_description.' . $i)
+                                                    <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
 
                                             <div class="pe-2">
                                                 <div class="input-box col-12 no-of-img-per-product">
-                                                    <div class="product-image no_of_product_image"
-                                                         id="product-image{{ $i + 1 }}"
-                                                         data-productimage="{{ $single_package_infos->is_product == 1 && $single_package_infos->no_of_img_per_product == null  ? 500 : $single_package_infos->no_of_img_per_product }}"></div>
-                                                    <span
-                                                        class="text-danger"> @error('product_image.'.($i + 1).'.*') @lang($message) @enderror</span>
+                                                    <div class="product-image no_of_product_image" id="product-image{{ $i + 1 }}"
+                                                        data-productimage="{{ $single_package_infos->is_product == 1 && $single_package_infos->no_of_img_per_product == null ? 500 : $single_package_infos->no_of_img_per_product }}">
+                                                    </div>
+                                                    <span class="text-danger"> @error('product_image.' . ($i + 1) . '.*') @lang($message)
+                                                    @enderror</span>
                                                 </div>
                                             </div>
 
                                             <div class="upload-img thumbnail">
                                                 <div class="form">
                                                     <div class="img-box product-thumbnail">
-                                                        <input accept="image/*" type="file"
-                                                               onchange="previewImage('product_thumbnail')"
-                                                               name="product_thumbnail[]"/>
+                                                        <input accept="image/*" type="file" onchange="previewImage('product_thumbnail')"
+                                                            name="product_thumbnail[]" />
                                                         <span class="select-file">@lang('Product Thumbnail')</span>
                                                         <img id="product_thumbnail"
-                                                             src="{{ asset(getFile(config('location.default'))) }}"
-                                                             class="img-fluid"/>
+                                                            src="{{ asset(getFile(config('location.default'))) }}" class="img-fluid" />
                                                     </div>
                                                 </div>
 
-                                                @error('product_thumbnail.'.$i)
-                                                <span class="text-danger">{{ $message }}</span>
+                                                @error('product_thumbnail.' . $i)
+                                                    <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                         </div>
@@ -832,10 +816,10 @@
                                 <div class="form">
                                     <div class="img-box">
                                         <input accept="image/*" type="file" onchange="previewImage('meta_image')"
-                                               name="seo_image"/>
+                                            name="seo_image" />
                                         <span class="select-file">@lang('Select Image')</span>
                                         <img id="meta_image" src="{{ asset(getFile(config('location.default'))) }}"
-                                             class="img-fluid"/>
+                                            class="img-fluid" />
                                     </div>
                                 </div>
                             </div>
@@ -844,48 +828,45 @@
                             <div class="form">
                                 <div class="row g-3">
                                     <div class="input-box col-md-12">
-                                        <input class="form-control @error('meta_title') is-invalid @enderror"
-                                               type="text" name="meta_title" value="{{ old('meta_title') }}"
-                                               placeholder="@lang('title')"/>
+                                        <input class="form-control @error('meta_title') is-invalid @enderror" type="text"
+                                            name="meta_title" value="{{ old('meta_title') }}" placeholder="@lang('title')" />
                                         <div class="invalid-feedback">
                                             @error('meta_title') {{ $message }} @enderror
                                         </div>
                                     </div>
 
                                     <div class="input-box col-md-12">
-                                        <input
-                                            class="form-control mb-1 tags_input @error('meta_keywords') is-invalid @enderror"
+                                        <input class="form-control mb-1 tags_input @error('meta_keywords') is-invalid @enderror"
                                             type="text" name="meta_keywords" value="{{ old('meta_keywords') }}"
-                                            data-role="tagsinput" placeholder="@lang('keywords')"/>
+                                            data-role="tagsinput" placeholder="@lang('keywords')" />
                                         @error('meta_keywords')
-                                        <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="input-box col-md-12">
-                                        <input
-                                            class="form-control mb-1 tags_input @error('meta_robots') is-invalid @enderror"
+                                        <input class="form-control mb-1 tags_input @error('meta_robots') is-invalid @enderror"
                                             type="text" name="meta_robots" value="{{ old('meta_robots') }}"
-                                            data-role="tagsinput" placeholder="@lang('meta robots')"/>
+                                            data-role="tagsinput" placeholder="@lang('meta robots')" />
                                         @error('meta_robots')
-                                        <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
 
                                     <div class="input-box col-12">
                                         <textarea class="form-control" cols="30" rows="3" name="meta_description"
-                                                  value="{{ old('meta_description') }}"
-                                                  placeholder="@lang('Description')">{{ old('meta_description') }}</textarea>
+                                            value="{{ old('meta_description') }}"
+                                            placeholder="@lang('Description')">{{ old('meta_description') }}</textarea>
                                         @error('meta_description')
-                                        <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
 
                                     <div class="input-box col-12">
                                         <textarea class="form-control" cols="30" rows="3" name="og_description"
-                                                  value="{{ old('og_description') }}"
-                                                  placeholder="@lang('OG Description')">{{ old('og_description') }}</textarea>
+                                            value="{{ old('og_description') }}"
+                                            placeholder="@lang('OG Description')">{{ old('og_description') }}</textarea>
                                         @error('og_description')
-                                        <span class="text-danger">{{ $message }}</span>
+                                            <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -905,22 +886,17 @@
                                     <div class="basic-form p-4">
                                         <div class="row g-3">
                                             <div class="input-box col-md-6">
-                                                <input
-                                                    class="form-control @error('fb_app_id') is-invalid @enderror"
-                                                    type="text" name="fb_app_id"
-                                                    value="{{ old('fb_app_id') }}"
-                                                    placeholder="@lang('App Id')"/>
+                                                <input class="form-control @error('fb_app_id') is-invalid @enderror" type="text"
+                                                    name="fb_app_id" value="{{ old('fb_app_id') }}" placeholder="@lang('App Id')" />
                                                 <div class="invalid-feedback">
                                                     @error('fb_app_id') @lang($message) @enderror
                                                 </div>
                                             </div>
 
                                             <div class="input-box col-md-6">
-                                                <input
-                                                    class="form-control @error('fb_page_id') is-invalid @enderror"
-                                                    type="text" name="fb_page_id"
-                                                    value="{{ old('fb_page_id') }}"
-                                                    placeholder="@lang('Page Id')"/>
+                                                <input class="form-control @error('fb_page_id') is-invalid @enderror" type="text"
+                                                    name="fb_page_id" value="{{ old('fb_page_id') }}"
+                                                    placeholder="@lang('Page Id')" />
                                                 <div class="invalid-feedback">
                                                     @error('fb_page_id') @lang($message) @enderror
                                                 </div>
@@ -938,7 +914,7 @@
                                         <h5 class="m-0 font-weight-bold text-white">@lang('Instructions')</h5>
                                         <div class="col-md-6 d-flex justify-content-end">
                                             <a href="https://www.youtube.com/watch?v=MQszEDuWFeQ" target="_blank"
-                                               class="btn btn-dark btn-sm text-white float-right " type="button">
+                                                class="btn btn-dark btn-sm text-white float-right " type="button">
                                                 <span class="btn-label"><i class="fab fa-youtube"></i></span>
                                                 @lang('How to set up it?')
                                             </a>
@@ -946,8 +922,10 @@
                                     </div>
 
                                     <div class="card-body">
-                                        Step One: Visit The Facebook Developers Page. To start with, navigate your browser to the Facebook Developers page. ...
-                                        Step Three: Add Products In Your App. Now you have to add “Facebook Login” product in your app. ...
+                                        Step One: Visit The Facebook Developers Page. To start with, navigate your browser to the
+                                        Facebook Developers page. ...
+                                        Step Three: Add Products In Your App. Now you have to add “Facebook Login” product in your
+                                        app. ...
                                         Step Four: Set Up Your Product. ...
                                         Step Five: Make Your App Live.
                                     </div>
@@ -964,27 +942,27 @@
                                     <div class="basic-form p-4">
                                         <div class="row g-3">
                                             <div class="input-box col-md-6">
-                                                <input
-                                                    class="form-control @error('whatsapp_number') is-invalid @enderror"
-                                                    type="text" name="whatsapp_number"
-                                                    value="{{ old('whatsapp_number') }}" placeholder="@lang('whatsapp number')"/>
+                                                <input class="form-control @error('whatsapp_number') is-invalid @enderror"
+                                                    type="text" name="whatsapp_number" value="{{ old('whatsapp_number') }}"
+                                                    placeholder="@lang('whatsapp number')" />
                                                 <div class="invalid-feedback">
                                                     @error('whatsapp_number') @lang($message) @enderror
                                                 </div>
                                             </div>
 
                                             <div class="input-box col-md-6">
-                                                <input
-                                                    class="form-control @error('replies_text') is-invalid @enderror"
-                                                    type="text" name="replies_text"
-                                                    value="{{ old('replies_text') }}" placeholder="@lang('Typically replies within a day')"/>
+                                                <input class="form-control @error('replies_text') is-invalid @enderror" type="text"
+                                                    name="replies_text" value="{{ old('replies_text') }}"
+                                                    placeholder="@lang('Typically replies within a day')" />
                                                 <div class="invalid-feedback">
                                                     @error('replies_text') @lang($message) @enderror
                                                 </div>
                                             </div>
 
                                             <div class="input-box col-md-12 bg-white p-0">
-                                                <textarea class="form-control summernote @error('body_text') is-invalid @enderror" name="body_text" id="summernote" rows="15">@lang('Hi there 👋 <br> <br> How can i help you?')</textarea>
+                                                <textarea class="form-control summernote @error('body_text') is-invalid @enderror"
+                                                    name="body_text" id="summernote"
+                                                    rows="15">@lang('Hi there 👋 <br> <br> How can i help you?')</textarea>
                                                 <div class="invalid-feedback">
                                                     @error('body_text') @lang($message) @enderror
                                                 </div>
@@ -1006,16 +984,20 @@
                                 <div class="basic-form p-4">
                                     <div class="row g-3 showField">
                                         <div class="input-box col-6">
-                                            <input class="form-control change_name_input @error('form_name') is-invalid @enderror" type="text"
-                                                   name="form_name" value="{{ old('form_name') }}" placeholder="@lang('From Name')"/>
+                                            <input
+                                                class="form-control change_name_input @error('form_name') is-invalid @enderror"
+                                                type="text" name="form_name" value="{{ old('form_name') }}"
+                                                placeholder="@lang('From Name')" />
                                             <div class="invalid-feedback">
                                                 @error('form_name') @lang($message) @enderror
                                             </div>
                                         </div>
 
                                         <div class="input-box col-6">
-                                            <input class="form-control change_name_input @error('form_btn_text') is-invalid @enderror" type="text"
-                                                   name="form_btn_text" value="{{ old('form_btn_text') }}" placeholder="@lang('From Button Text')"/>
+                                            <input
+                                                class="form-control change_name_input @error('form_btn_text') is-invalid @enderror"
+                                                type="text" name="form_btn_text" value="{{ old('form_btn_text') }}"
+                                                placeholder="@lang('From Button Text')" />
                                             <div class="invalid-feedback">
                                                 @error('form_btn_text') @lang($message) @enderror
                                             </div>
@@ -1025,8 +1007,10 @@
                                             <div class="card">
                                                 <div class="card-header">
                                                     <div class="d-flex justify-content-between">
-                                                        <button type="button" class="cmn-btn py-1 rounded copyFormData">Copy</button>
-                                                        <button type="button" class="btn btn-sm btn-danger removeContentDiv d-none">Remove</button>
+                                                        <button type="button"
+                                                            class="cmn-btn py-1 rounded copyFormData">Copy</button>
+                                                        <button type="button"
+                                                            class="btn btn-sm btn-danger removeContentDiv d-none">Remove</button>
                                                     </div>
                                                 </div>
 
@@ -1035,7 +1019,8 @@
                                                         <input type="hidden" class="copyFieldLength" value="1">
                                                         <div class="col-md-6">
                                                             <label class="form-label">Field Name</label>
-                                                            <input type="text" name="field_name[1]" class="form-control nameClass" placeholder="Enter Field Name">
+                                                            <input type="text" name="field_name[1]"
+                                                                class="form-control nameClass" placeholder="Enter Field Name">
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label class="form-label">Validation Type</label>
@@ -1082,7 +1067,9 @@
 @push('script')
     @if(basicControl()->is_google_map == 1)
         <script src="{{ asset('assets/global/js/google_map.js') }}"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key={{ basicControl()->google_map_app_key }}&callback=initMap&libraries=places&v=weekly" defer></script>
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key={{ basicControl()->google_map_app_key }}&callback=initMap&libraries=places&v=weekly"
+            defer></script>
     @else
         <script src="{{ asset('assets/global/js/map.js') }}"></script>
     @endif
@@ -1097,19 +1084,18 @@
         $('.summernote').summernote({
             height: 100,
             callbacks: {
-                onBlurCodeview: function() {
+                onBlurCodeview: function () {
                     let codeviewHtml = $(this).siblings('div.note-editor').find('.note-codable').val();
                     $(this).val(codeviewHtml);
                 }
             },
-            placeholder: 'Enter your details here...',
+            placeholder: 'Escribe los detalles aqui...',
         });
 
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-        $(document).ready(function (e)
-        {
+        $(document).ready(function (e) {
             let maximum_no_of_image_per_listing = $('.no_of_listing_image').data('listingimage');
             let listingImageOptions = {
                 imagesInputName: 'listing_image',
@@ -1148,39 +1134,39 @@
 
                 if (dataProducts >= 1 || dataProducts == 'unlimited') {
                     var productForm = `<div class="col-xl-6 removeProductForm">
-                        <div class="form new__product__form">
-                            <span class="product-form-close"> <i class="fa fa-times"></i> </span>
-                            <div class="row g-3">
-                                <div class="input-box col-md-6">
-                                    <input class="form-control" name="product_title[]" type="text" placeholder="@lang('Title')"
-                                    />
-                                </div>
-                                <div class="input-box col-md-6">
-                                    <input class="form-control" name="product_price[]" type="number" step="0.1" placeholder="@lang('Price')"/>
-                                </div>
-
-                                <div class="input-box col-12">
-                                     <textarea class="form-control" name="product_description[]" cols="30" rows="3" placeholder="@lang('Description')"
-                                     ></textarea>
-                                </div>
-                                <div class="pe-2">
-                                    <div class="input-box col-12 no-of-img-per-product">
-                                        <div class="product-image no_of_product_image" id="product-image${productLenght}" data-productimage="{{ $single_package_infos->is_product == 1 && $single_package_infos->no_of_img_per_product == null  ? 500 : $single_package_infos->no_of_img_per_product }}"></div>
-                                        <span class="text-danger"> @error('product_image.*') @lang($message) @enderror</span>
+                            <div class="form new__product__form">
+                                <span class="product-form-close"> <i class="fa fa-times"></i> </span>
+                                <div class="row g-3">
+                                    <div class="input-box col-md-6">
+                                        <input class="form-control" name="product_title[]" type="text" placeholder="@lang('Title')"
+                                        />
                                     </div>
-                                </div>
-                                <div class="upload-img thumbnail">
-                                    <div class="form">
-                                        <div class="img-box product-thumbnail">
-                                            <input accept="image/*" type="file" onchange="previewImage('product_thumbnail` + string + `')" name="product_thumbnail[]"/>
-                                            <span class="select-file">@lang('Product Thumbnail')</span>
-                                            <img id="product_thumbnail` + string + `" src="{{ getFile(config('location.default')) }}" class="img-fluid"/>
+                                    <div class="input-box col-md-6">
+                                        <input class="form-control" name="product_price[]" type="number" step="0.1" placeholder="@lang('Price')"/>
+                                    </div>
+
+                                    <div class="input-box col-12">
+                                         <textarea class="form-control" name="product_description[]" cols="30" rows="3" placeholder="@lang('Description')"
+                                         ></textarea>
+                                    </div>
+                                    <div class="pe-2">
+                                        <div class="input-box col-12 no-of-img-per-product">
+                                            <div class="product-image no_of_product_image" id="product-image${productLenght}" data-productimage="{{ $single_package_infos->is_product == 1 && $single_package_infos->no_of_img_per_product == null ? 500 : $single_package_infos->no_of_img_per_product }}"></div>
+                                            <span class="text-danger"> @error('product_image.*') @lang($message) @enderror</span>
+                                        </div>
+                                    </div>
+                                    <div class="upload-img thumbnail">
+                                        <div class="form">
+                                            <div class="img-box product-thumbnail">
+                                                <input accept="image/*" type="file" onchange="previewImage('product_thumbnail` + string + `')" name="product_thumbnail[]"/>
+                                                <span class="select-file">@lang('Product Thumbnail')</span>
+                                                <img id="product_thumbnail` + string + `" src="{{ getFile(config('location.default')) }}" class="img-fluid"/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>`;
+                        </div>`;
 
                     $('.new_product_form').append(productForm)
 
@@ -1221,31 +1207,31 @@
 
             $("#add_business_hour").on('click', function () {
                 var form = `<div class="d-sm-flex justify-content-between removeBusinessHourInputField">
-                                <div class="input-box w-100 my-1 mx-sm-1">
-                                    <select class="js-example-basic-single form-control" name="working_day[]">
-                                        <option value="Monday">@lang('Monday')</option>
-                                        <option value="Tuesday">@lang('Tuesday')</option>
-                                        <option value="Wednesday">@lang('Wednesday')</option>
-                                        <option value="Thursday">@lang('Thursday')</option>
-                                        <option value="Friday">@lang('Friday')</option>
-                                        <option value="Saturday">@lang('Saturday')</option>
-                                        <option value="Sunday">@lang('Sunday')</option>
-                                    </select>
-                                </div>
-                                <div class="d-flex input-box-two">
-                                    <div class="input-box w-100 my-1 me-1">
-                                        <input type="time" name="start_time[]" class="form-control" placeholder="@lang('Start Hour')" />
+                                    <div class="input-box w-100 my-1 mx-sm-1">
+                                        <select class="js-example-basic-single form-control" name="working_day[]">
+                                            <option value="Monday">@lang('Monday')</option>
+                                            <option value="Tuesday">@lang('Tuesday')</option>
+                                            <option value="Wednesday">@lang('Wednesday')</option>
+                                            <option value="Thursday">@lang('Thursday')</option>
+                                            <option value="Friday">@lang('Friday')</option>
+                                            <option value="Saturday">@lang('Saturday')</option>
+                                            <option value="Sunday">@lang('Sunday')</option>
+                                        </select>
                                     </div>
-                                    <div class="input-box w-100 my-1 me-1">
-                                        <input type="time" name="end_time[]" class="form-control" placeholder="@lang('End Hour')" />
+                                    <div class="d-flex input-box-two">
+                                        <div class="input-box w-100 my-1 me-1">
+                                            <input type="time" name="start_time[]" class="form-control" placeholder="@lang('Start Hour')" />
+                                        </div>
+                                        <div class="input-box w-100 my-1 me-1">
+                                            <input type="time" name="end_time[]" class="form-control" placeholder="@lang('End Hour')" />
+                                        </div>
+                                        <div class="input-box my-1 me-1">
+                                            <button class="btn btn-outline-danger h-100 add-new remove_business_hour_input_field_block" type="button">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="input-box my-1 me-1">
-                                        <button class="btn btn-outline-danger h-100 add-new remove_business_hour_input_field_block" type="button">
-                                            <i class="fa fa-times"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>`;
+                                </div>`;
 
                 $('.new_business_hour_form').append(form)
             });
@@ -1364,20 +1350,20 @@
                 let newSocialForm = $('.append_new_social_form').length + 2;
 
                 var form = `<div class="d-flex justify-content-between append_new_social_form removeSocialLinksInput">
-                                <div class="input-group mt-1">
-                                    <input type="text" name="social_icon[]" class="form-control bg-white demo__icon__picker iconpicker${newSocialForm}" placeholder="Pick a icon" aria-label="Pick a icon"
-                                           aria-describedby="basic-addon1" readonly>
-                                </div>
+                                    <div class="input-group mt-1">
+                                        <input type="text" name="social_icon[]" class="form-control bg-white demo__icon__picker iconpicker${newSocialForm}" placeholder="Pick a icon" aria-label="Pick a icon"
+                                               aria-describedby="basic-addon1" readonly>
+                                    </div>
 
-                                <div class="input-box w-100 my-1 me-1">
-                                    <input type="url" name="social_url[]" class="form-control" placeholder="@lang('URL')"/>
-                                </div>
-                                <div class="my-1 me-1">
-                                    <button class="btn btn-outline-danger h-100 add-new remove_social_link_input_field" type="button">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>`;
+                                    <div class="input-box w-100 my-1 me-1">
+                                        <input type="url" name="social_url[]" class="form-control" placeholder="@lang('URL')"/>
+                                    </div>
+                                    <div class="my-1 me-1">
+                                        <button class="btn btn-outline-danger h-100 add-new remove_social_link_input_field" type="button">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>`;
 
                 $('.new_social_links_form').append(form)
                 setIconpicker(`.iconpicker${newSocialForm}`);
@@ -1398,22 +1384,22 @@
                 if (!option.id) {
                     return option.text;
                 }
-                
+
                 let selectedCategories = $('#category_id').val() || [];
                 let parentId = $(option.element).data('parent');
-                
+
                 if (!parentId) {
                     return option.text;
                 }
-                
+
                 if (selectedCategories.length === 0) {
                     return null;
                 }
-                
-                let isRelated = selectedCategories.some(function(catId) {
+
+                let isRelated = selectedCategories.some(function (catId) {
                     return String(catId) === String(parentId);
                 });
-                
+
                 return isRelated ? option.text : null;
             }
 
@@ -1441,12 +1427,12 @@
                 $('.subcategory-field').show();
 
                 // Limpiar selecciones que ya no son válidas
-                $subcategorySelect.find('option').each(function() {
+                $subcategorySelect.find('option').each(function () {
                     let $option = $(this);
                     let parentId = $option.data('parent');
 
                     if (parentId) {
-                        let isRelated = selectedCategories.some(function(catId) {
+                        let isRelated = selectedCategories.some(function (catId) {
                             return String(catId) === String(parentId);
                         });
 
@@ -1461,10 +1447,10 @@
 
             function toggleBoatFields() {
                 let selectedCategories = $('#category_id').select2('data');
-                let hasBotes = selectedCategories.some(function(cat) {
+                let hasBotes = selectedCategories.some(function (cat) {
                     return cat.text.toLowerCase().includes('botes');
                 });
-                
+
                 if (hasBotes) {
                     $('.boat-fields').show();
                 } else {
@@ -1473,7 +1459,7 @@
                 }
             }
 
-            $('#category_id').on('change', function() {
+            $('#category_id').on('change', function () {
                 filterSubcategories();
                 toggleBoatFields();
             });
@@ -1489,13 +1475,13 @@
         });
 
         @if(old('country_id'))
-            setTimeout(function() {
+            setTimeout(function () {
                 $('#country_id').val('{{ old('country_id') }}').trigger('change');
             }, 100); // Delay to ensure the select element is ready
         @endif
 
         @if(old('state_id'))
-            setTimeout(function() {
+            setTimeout(function () {
                 $('#state_id').val('{{ old('state_id') }}').trigger('change');
             }, 100);
         @endif
@@ -1514,20 +1500,20 @@
             $('#address-search').attr('data-long', long);
             $('#address-search').val(value);
             @if(basicControl()->is_google_map == 1)
-            initMap();
+                initMap();
             @else
-            $('#address-search').val($("#city_id").select2().find(":selected").data("name"));
+                $('#address-search').val($("#city_id").select2().find(":selected").data("name"));
             @endif
 
-        });
+            });
 
         //get state of selected Country
-        $(document).on('change', '#country_id', function (){
+        $(document).on('change', '#country_id', function () {
             let countryId = this.value;
             let countryCode = $("#country_id").select2().find(":selected").data("code");
             $('#address-search').attr('data-code', countryCode);
             @if(basicControl()->is_google_map == 1)
-            initMap();
+                initMap();
             @endif
 
             $("#state_id").html('');
@@ -1554,7 +1540,7 @@
         });
 
         //get city of selected state
-        $(document).on('change', '#state_id', function (){
+        $(document).on('change', '#state_id', function () {
             let stateId = this.value;
             $("#city_id").html('');
             $.ajax({
@@ -1578,7 +1564,7 @@
                     @if(old('city_id'))
                         $('#city_id').val('{{ old('city_id') }}');
                     @endif
-                }
+                    }
             });
         });
 
@@ -1586,13 +1572,13 @@
 
         //Dynamic form
         var highestFieldLength = 0;
-        $('.copyField').each(function() {
+        $('.copyField').each(function () {
             var currentLength = parseInt($(this).find('.copyFieldLength').val());
             highestFieldLength = Math.max(highestFieldLength, currentLength);
         });
 
 
-        $('.showField').on('click', '.copyFormData', function() {
+        $('.showField').on('click', '.copyFormData', function () {
             highestFieldLength++;
             var newRow = $(this).closest('.copyField').clone();
 
@@ -1608,12 +1594,12 @@
             newRow.find('.typeClass').trigger('change');
         });
 
-        $('.showField').on('click', '.removeContentDiv', function() {
+        $('.showField').on('click', '.removeContentDiv', function () {
             $(this).closest('.copyField').remove();
         });
 
         var optionIndex = 1;
-        $('.showField').on('change', '.typeClass', function() {
+        $('.showField').on('change', '.typeClass', function () {
             var $this = $(this);
             var additionalOptionsDiv = $this.closest('.card-body').find('.additional-options');
             var fieldIndex = $this.closest('.copyField').find('.copyFieldLength').val();
@@ -1621,6 +1607,27 @@
 
             if ($this.val() == 'select') {
                 additionalOptionsDiv.html(`
+                    <div class="row mb-2 optionRow">
+                        <div class="col-md-5">
+                            <input type="text" name="option_name[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Name">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" name="option_value[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Value">
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-success addOptionField">+</button>
+                        </div>
+                    </div>
+                `);
+            } else {
+                additionalOptionsDiv.empty();
+            }
+        });
+
+        $('.showField').on('click', '.addOptionField', function () {
+            var fieldIndex = $(this).closest('.copyField').find('.copyFieldLength').val();
+            optionIndex++;
+            var newOptionRow = `
                 <div class="row mb-2 optionRow">
                     <div class="col-md-5">
                         <input type="text" name="option_name[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Name">
@@ -1629,34 +1636,13 @@
                         <input type="text" name="option_value[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Value">
                     </div>
                     <div class="col-md-2 d-flex align-items-center">
-                        <button type="button" class="btn btn-sm btn-success addOptionField">+</button>
+                        <button type="button" class="btn btn-sm btn-danger removeOptionField">-</button>
                     </div>
-                </div>
-            `);
-            } else {
-                additionalOptionsDiv.empty();
-            }
-        });
-
-        $('.showField').on('click', '.addOptionField', function() {
-            var fieldIndex = $(this).closest('.copyField').find('.copyFieldLength').val();
-            optionIndex++;
-            var newOptionRow = `
-            <div class="row mb-2 optionRow">
-                <div class="col-md-5">
-                    <input type="text" name="option_name[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Name">
-                </div>
-                <div class="col-md-5">
-                    <input type="text" name="option_value[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Value">
-                </div>
-                <div class="col-md-2 d-flex align-items-center">
-                    <button type="button" class="btn btn-sm btn-danger removeOptionField">-</button>
-                </div>
-            </div>`;
+                </div>`;
             $(this).closest('.additional-options').append(newOptionRow);
         });
 
-        $('.showField').on('click', '.removeOptionField', function() {
+        $('.showField').on('click', '.removeOptionField', function () {
             $(this).closest('.optionRow').remove();
         });
 
@@ -1665,7 +1651,7 @@
             var $display = $('#' + displayId);
             var $hidden = $('#' + hiddenId);
 
-            $display.on('input', function() {
+            $display.on('input', function () {
                 var raw = $(this).val().replace(/[^0-9.]/g, '');
                 // Allow only one decimal point
                 var parts = raw.split('.');
@@ -1681,7 +1667,7 @@
                 }
             });
 
-            $display.on('blur', function() {
+            $display.on('blur', function () {
                 var raw = $hidden.val();
                 if (raw && !isNaN(parseFloat(raw))) {
                     var num = parseFloat(raw).toFixed(2);
