@@ -25,7 +25,7 @@
                                     <div class="img">
                                         <img id="cover profile-cover-preview" class="profile-cover-preview"
                                              src="{{getFile($user->cover_image_driver, $user->cover_image)}}"
-                                             alt="image" class="img-fluid"/>
+                                             alt="image" class="img-fluid" style="object-fit: scale-down;" />
                                         <button class="upload-img">
                                             <i class="fal fa-camera" aria-hidden="true"></i>
                                             <input class="form-control" id="userCoverPhoto" accept="image/*"
