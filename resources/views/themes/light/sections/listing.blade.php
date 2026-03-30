@@ -22,19 +22,20 @@
                         @php
                             $total = $listing->reviews()[0]->total;
                             $average_review = $listing->reviews()[0]->average;
-                        @endphp
+			@endphp
+		     <a class="title" href="{{ route('listing.details',$listing->slug) }}">
                         <div class="col-lg-3 col-md-6">
                             <div class="listing-box">
                                 <div class="img-box">
                                     <img class="img-fluid" src="{{ getFile($listing->thumbnail_driver, $listing->thumbnail) }}" alt="image"/>
-                                    <button class="save wishList" type="button" id="{{$key}}" data-user="{{ optional($listing->get_user)->id }}"
+                                    <!--button class="save wishList" type="button" id="{{$key}}" data-user="{{ optional($listing->get_user)->id }}"
                                             data-purchase="{{ $listing->purchase_package_id }}" data-listing="{{ $listing->id }}">
                                         @if($listing->get_favourite_count > 0)
                                             <i class="fas fa-heart save{{$key}}"></i>
                                         @else
                                             <i class="fal fa-heart save{{$key}}"></i>
                                         @endif
-                                    </button>
+                                    </button-->
                                 </div>
                                 <div class="text-box">
                                     <div class="review">
@@ -69,14 +70,15 @@
                                         @endif
                                         <span>(@lang($total.' reviews'))</span>
                                     </div>
-                                    <a class="title"
-                                       href="{{ route('listing.details',$listing->slug) }}">
+                                    <p class="title">
                                         @lang(Str::limit($listing->title, 20))
-                                    </a>
+                                    </p>
                                     <p class="mb-2 mt-2">
                                         <span class="">@lang('Category'): </span> @lang(optional($listing)->getCategoriesName())
                                     </p>
-                                    <a class="author" href="{{ route('profile', optional($listing->get_user)->username) }}"> @lang(optional($listing->get_user)->firstname) @lang(optional($listing->get_user)->lastname) </a>
+                                    <p style="color: var(--primary);">
+                                     @lang(optional($listing->get_user)->firstname) @lang(optional($listing->get_user)->lastname)
+                                    </p>
                                     <p class="address">
                                         <i class="fal fa-map-marker-alt"></i>
                                         @lang($listing->city_id != null ? $listing->get_cities?->getAddress() : $listing->address)
@@ -84,6 +86,7 @@
                                 </div>
                             </div>
                         </div>
+                       </a>
                     @empty
                     @endforelse
                 </div>
