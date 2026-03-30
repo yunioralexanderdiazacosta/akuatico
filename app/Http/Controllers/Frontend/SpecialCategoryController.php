@@ -39,7 +39,7 @@ class SpecialCategoryController extends Controller
         } elseif ($routeName === 'directorio') {
             $availableCategories = ['Piezas', 'Financiamiento', 'Seguros', 'Marinas'];
         } elseif ($routeName === 'servicios') {
-            $availableCategories = ['Mantenimiento/Limpieza', 'Mecánica', 'Tapicería', 'Instalaciones'];
+            $availableCategories = ['Mantenimiento', 'Mecánica', 'Tapicería', 'Instalaciones'];
         } else {
             $availableCategories = [];
         }
