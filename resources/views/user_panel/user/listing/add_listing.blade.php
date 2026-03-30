@@ -1459,9 +1459,81 @@
                 }
             }
 
+            function isBotesSelected() {
+                let selectedCategories = $('#category_id').select2('data');
+                return selectedCategories.some(function (cat) {
+                    return cat.text.toLowerCase().includes('botes');
+                });
+            }
+
+            function generateBoatDetails() {
+                if (!isBotesSelected()) return;
+
+                let marca = $('#marca').select2('data').map(function (item) { return item.text.trim(); }).join(', ') || '';
+                let title = $('.change_name_input').val() || '';
+                let priceVal = $('#price_display').val() || '';
+                let lengthVal = $('#length_display').val() || '';
+                let subcategory = $('#subcategory_id').select2('data').map(function (item) { return item.text.trim(); }).join(', ') || '';
+                let city = $('#city_id').select2('data').length ? $('#city_id').select2('data')[0].text.trim() : '';
+                let country = $('#country_id').select2('data').length ? $('#country_id').select2('data')[0].text.trim() : '';
+                let ubicacion = [city, country].filter(Boolean).join(', ');
+
+                let priceFormatted = priceVal ? 'US$' + priceVal : '';
+
+                // Convert feet to meters for eslora display
+                let esloraMetros = '';
+                if (lengthVal) {
+                    let feet = parseFloat(lengthVal.replace(/,/g, ''));
+                    if (!isNaN(feet)) {
+                        esloraMetros = (feet * 0.3048).toFixed(2) + ' m';
+                    }
+                }
+
+                let html = '<p><strong>Detalles de la embarcación</strong></p>' +
+                    '<p>Marca: ' + marca + '</p>' +
+                    '<p>Tipo: ' + title + '</p>' +
+                    '<p>Construcción: </p>' +
+                    '<p>Estado del barco: </p>' +
+                    '<p>Precio: ' + priceFormatted + '</p>' +
+                    '<p>Clase de oferta: </p>' +
+                    '<p>Categoría: ' + subcategory + '</p>' +
+                    '<p>Eslora: ' + esloraMetros + '</p>' +
+                    '<p>Combustible: </p>' +
+                    '<p>Material del casco: </p>' +
+                    '<p>Ubicación de la embarcación: ' + ubicacion + '</p>' +
+                    '<br>' +
+                    '<p><strong>Medidas</strong></p>' +
+                    '<p>Eslora total: ' + esloraMetros + '</p>' +
+                    '<p>Manga: </p>' +
+                    '<br>' +
+                    '<p><strong>Propulsión</strong></p>' +
+                    '<p>Tipo de motor: </p>' +
+                    '<p>Marca Motor: </p>' +
+                    '<p>Combustible: </p>' +
+                    '<p>Propulsión: </p>' +
+                    '<p>Tipo de transmisión: </p>' +
+                    '<p>Localización del motor: </p>' +
+                    '<p>Horas de motor: </p>' +
+                    '<br>' +
+                    '<p><strong>Características adicionales</strong></p>' +
+                    '<p>Astillero: </p>' +
+                    '<p>Forma del casco: </p>';
+
+                $('#summernote').summernote('code', html);
+            }
+
             $('#category_id').on('change', function () {
                 filterSubcategories();
                 toggleBoatFields();
+                generateBoatDetails();
+            });
+
+            // Update boat details when relevant fields change
+            $(document).on('change', '#marca, #subcategory_id, #city_id, #country_id', function () {
+                generateBoatDetails();
+            });
+            $(document).on('input', '#price_display, #length_display', function () {
+                generateBoatDetails();
             });
 
             filterSubcategories();
@@ -1471,6 +1543,7 @@
                 let inputValue = $(this).val();
                 let final_value = inputValue.toLowerCase().replace(/\s+/g, '-');
                 $('.set-slug').val(final_value);
+                generateBoatDetails();
             });
         });
 
