@@ -648,7 +648,9 @@
                                     @if(optional($single_listing_details->get_user)->phone)
                                         <li>
                                             <i class="far fa-phone-alt" aria-hidden="true"></i>
-                                            <span>{{ optional($single_listing_details->get_user)->phone }}</span>
+                                            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', optional($single_listing_details->get_user)->phone) }}" target="_blank">
+                                                <span>{{ optional($single_listing_details->get_user)->phone }}</span>
+                                            </a>
                                         </li>
                                     @endif
                                     @if(optional($single_listing_details->get_user)->email)
