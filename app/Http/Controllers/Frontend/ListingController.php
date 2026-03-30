@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Analytics;
 use App\Models\CollectDynamicFormData;
 use App\Models\Country;
+use App\Models\CountryCities;
 use App\Models\DynamicForm;
 use App\Models\Follower;
 use App\Models\Listing;
@@ -43,7 +44,7 @@ class ListingController extends Controller
                 $query->where(function ($query) use ($categoryIds) {
                     foreach ($categoryIds as $category_id) {
                         $query->orWhereJsonContains('category_id', $category_id)
-                              ->orWhereJsonContains('subcategory_id', $category_id);
+                            ->orWhereJsonContains('subcategory_id', $category_id);
                     }
                 });
             })
@@ -51,14 +52,14 @@ class ListingController extends Controller
                 $query->where(function ($query) use ($subcategoryIds) {
                     foreach ($subcategoryIds as $subcategory_id) {
                         $query->orWhereJsonContains('subcategory_id', $subcategory_id)
-                              ->orWhereJsonContains('category_id', $subcategory_id);
+                            ->orWhereJsonContains('category_id', $subcategory_id);
                     }
                 });
             })
             ->when(isset($id), function ($query) use ($id) {
-                return $query->where(function($q) use ($id) {
+                return $query->where(function ($q) use ($id) {
                     $q->whereJsonContains('category_id', $id)
-                      ->orWhereJsonContains('subcategory_id', $id);
+                        ->orWhereJsonContains('subcategory_id', $id);
                 });
             })
             ->when(isset($search['name']), function ($query) use ($search) {
@@ -96,9 +97,12 @@ class ListingController extends Controller
                     $q->whereIn('rating', $search['rating']);
                 });
             })
-            ->withCount(['getFavourite', 'get_reviews as average_rating' => function ($query) {
-                $query->select(DB::raw('coalesce(avg(rating),0)'));
-            }])
+            ->withCount([
+                'getFavourite',
+                'get_reviews as average_rating' => function ($query) {
+                    $query->select(DB::raw('coalesce(avg(rating),0)'));
+                }
+            ])
             ->whereHas('get_package', function ($query5) use ($today) {
                 return $query5->where('expire_date', '>=', $today)->orWhereNull('expire_date');
             })
@@ -118,17 +122,26 @@ class ListingController extends Controller
         $data['all_categories'] = ListingCategory::onlyParent()->select('id')->with('details:id,listing_category_id,name')->where('status', 1)->latest()->get();
         $data['all_subcategories'] = ListingCategory::onlySubcategories()->with('details:id,listing_category_id,name')->where('status', 1)->get();
         $pageSeo = Page::where('template_name', $selectedTheme)->where('slug', 'listings')->first();
-        $pageSeo['breadcrumb_image'] = $pageSeo?->breadcrumb_status == 1 ?  getFile($pageSeo->breadcrumb_image_driver, $pageSeo->breadcrumb_image) : null;
+        $pageSeo['breadcrumb_image'] = $pageSeo?->breadcrumb_status == 1 ? getFile($pageSeo->breadcrumb_image_driver, $pageSeo->breadcrumb_image) : null;
         return view(template() . 'frontend.listing.index', $data, compact('pageSeo'));
     }
 
     public function listingDetails($slug)
     {
         $selectedTheme = getTheme();
-        $single_listing_details = Listing::with(['get_package',
-            'get_user', 'get_user.get_social_links_user',
-            'get_listing_images', 'get_listing_amenities.get_amenity.details',
-            'get_products.get_product_image', 'get_business_hour', 'get_social_info', 'get_reviews', 'listingSeo','form'])
+        $single_listing_details = Listing::with([
+            'get_package',
+            'get_user',
+            'get_user.get_social_links_user',
+            'get_listing_images',
+            'get_listing_amenities.get_amenity.details',
+            'get_products.get_product_image',
+            'get_business_hour',
+            'get_social_info',
+            'get_reviews',
+            'listingSeo',
+            'form'
+        ])
             ->where('status', 1)
             ->where('slug', $slug)
             ->firstOrFail();
@@ -191,13 +204,13 @@ class ListingController extends Controller
         $listingAnalytics->code = empty($browserInfo['code']) ? null : $browserInfo['code'];
         $listingAnalytics->lat = empty($browserInfo['lat']) ? null : $browserInfo['lat'];
         $listingAnalytics->long = empty($browserInfo['long']) ? null : $browserInfo['long'];
-        $listingAnalytics->os_platform =  UserSystemInfo::get_os();
+        $listingAnalytics->os_platform = UserSystemInfo::get_os();
         $listingAnalytics->browser = UserSystemInfo::get_browsers();
         $listingAnalytics->device_name = UserSystemInfo::get_device();
         $listingAnalytics->save();
 
         $pageSeo = Page::where('template_name', $selectedTheme)->where('slug', 'listing-details')->first();
-        $pageSeo['breadcrumb_image'] = $pageSeo?->breadcrumb_status == 1 ?  getFile($pageSeo->breadcrumb_image_driver, $pageSeo->breadcrumb_image) : null;
+        $pageSeo['breadcrumb_image'] = $pageSeo?->breadcrumb_status == 1 ? getFile($pageSeo->breadcrumb_image_driver, $pageSeo->breadcrumb_image) : null;
         return view(template() . 'frontend.listing.listing_details', $data, compact('pageSeo'));
     }
 
@@ -214,7 +227,7 @@ class ListingController extends Controller
     {
         $dynamicForm = DynamicForm::findOrFail($request->dynamic_forms_id);
         $params = $dynamicForm->input_form;
-        $reqData = $request->except('_token', '_method','dynamic_forms_id', 'listing_id');
+        $reqData = $request->except('_token', '_method', 'dynamic_forms_id', 'listing_id');
         $rules = [];
         $customMessages = [];
 
@@ -232,19 +245,19 @@ class ListingController extends Controller
                 } elseif ($cus->type == 'file') {
                     $fieldRule .= '|max:4048';
                 }
-                $rules['key'.$key] = $fieldRule;
+                $rules['key' . $key] = $fieldRule;
 
-                $customMessages['key'.$key.'.required'] = "The {$cus->field_name} field is required.";
-                $customMessages['key'.$key.'.max'] = "The {$cus->field_name} may not be greater than :max characters.";
-                $customMessages['key'.$key.'.min'] = "The {$cus->field_name} must be at least :min characters.";
-                $customMessages['key'.$key.'.integer'] = "The {$cus->field_name} must be a valid number.";
-                $customMessages['key'.$key.'.nullable'] = "The {$cus->field_name} can be left empty, but if filled, it must be valid.";
-                $customMessages['key'.$key.'.file'] = "The {$cus->field_name} must be a valid file.";
+                $customMessages['key' . $key . '.required'] = "The {$cus->field_name} field is required.";
+                $customMessages['key' . $key . '.max'] = "The {$cus->field_name} may not be greater than :max characters.";
+                $customMessages['key' . $key . '.min'] = "The {$cus->field_name} must be at least :min characters.";
+                $customMessages['key' . $key . '.integer'] = "The {$cus->field_name} must be a valid number.";
+                $customMessages['key' . $key . '.nullable'] = "The {$cus->field_name} can be left empty, but if filled, it must be valid.";
+                $customMessages['key' . $key . '.file'] = "The {$cus->field_name} must be a valid file.";
             }
         }
 
         foreach ($reqData as $index => $value) {
-            $transformedData['key' .$index] = $value;
+            $transformedData['key' . $index] = $value;
         }
 
         $validator = Validator::make($transformedData, $rules, $customMessages);
@@ -290,7 +303,31 @@ class ListingController extends Controller
             'form_name' => $dynamicForm->name,
             'input_form' => $reqField
         ]);
-        return back()->with('success', $dynamicForm->name.' submit successfully');
+        return back()->with('success', $dynamicForm->name . ' submit successfully');
+    }
+
+    public function getCitiesByCountry(Request $request)
+    {
+
+
+        $cities = CountryCities::where('country_id', $request->country_id)
+            ->where('status', 1)
+            ->orderBy('name', 'ASC')
+            ->get(['id', 'country_id', 'name', 'country_code']);
+
+        if ($cities->isNotEmpty() && $cities[0]->country_code != 'PR') {
+            $cities = Listing::with('get_cities:id,country_id,name')
+                ->whereHas('get_cities', function ($query) use ($request) {
+                    $query->where('country_id', $request->country_id);
+                })
+                ->where('city_id', '!=', null)
+                ->get()
+                ->pluck('get_cities')
+                ->unique('id')
+                ->values();
+        }
+
+        return response()->json(['cities' => $cities]);
     }
 
 }

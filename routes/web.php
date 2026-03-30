@@ -195,6 +195,7 @@ Route::group(['middleware' => ['maintenanceMode']], function () use ($basicContr
 
     Route::post('/get-states-of-country', [MyListingController::class, 'getStates'])->name('get.states');
     Route::post('/get-cities-of-state', [MyListingController::class, 'getCities'])->name('get.cities');
+    Route::post('/get-cities-of-country', [ListingController::class, 'getCitiesByCountry'])->name('get.cities.by.country');
 
     Route::get('captcha', [ManualRecaptchaController::class, 'reCaptCha'])->name('captcha');
 

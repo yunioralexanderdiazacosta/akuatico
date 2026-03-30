@@ -57,8 +57,8 @@
                                                  <span class="input-group-prepend">
                                                     <i class="fal fa-map-marker-alt"></i>
                                                  </span>
-                                                <select class="js-example-basic-single form-control" name="location"
-                                                        autocomplete="off">
+                                                 <select class="js-example-basic-single form-control" name="location"
+                                                        id="country-select" autocomplete="off">
                                                     <option value="all"
                                                             @if(request()->location == 'all') selected @endif>@lang('All Country')</option>
                                                     @foreach($hero['all_places'] as $place)
@@ -76,8 +76,8 @@
                                                  <span class="input-group-prepend">
                                                     <i class="fal fa-map-marker-alt"></i>
                                                  </span>
-                                                <select class="js-example-basic-single form-control" name="city"
-                                                        autocomplete="off">
+                                                 <select class="js-example-basic-single form-control" name="city"
+                                                        id="city-select" autocomplete="off">
                                                     <option value="all"
                                                             @if(request()->city == 'all') selected @endif>@lang('All City')</option>
                                                     @foreach($hero['uniqueCities'] as $city)
@@ -137,6 +137,51 @@
         $(".listing__category__select2").select2({
             width: '100%',
             placeholder: '@lang("Select Category")',
+        });
+
+        $('#country-select').on('change', function() {
+            const countryId = $(this).val();
+            const $citySelect = $('#city-select');
+            
+            if (countryId && countryId !== 'all') {
+                $.ajax({
+                    url: '{{ route("get.cities.by.country") }}',
+                    type: 'POST',
+                    data: {
+                        country_id: countryId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        $citySelect.empty();
+                        $citySelect.append('<option value="all">@lang("All City")</option>');
+                        
+                        if (response.cities && response.cities.length > 0) {
+                            response.cities.forEach(function(city) {
+                                $citySelect.append('<option value="' + city.id + '">' + city.name + '</option>');
+                            });
+                        }
+                        
+                        if ($citySelect.hasClass('select2-hidden-accessible')) {
+                            $citySelect.trigger('change');
+                        }
+                    },
+                    error: function() {
+                        console.error('Error loading cities');
+                    }
+                });
+            } else {
+                $citySelect.empty();
+                $citySelect.append('<option value="all">@lang("All City")</option>');
+                
+                const allCities = @json($hero['uniqueCities']->toArray());
+                allCities.forEach(function(city) {
+                    $citySelect.append('<option value="' + city.id + '">' + city.name + '</option>');
+                });
+                
+                if ($citySelect.hasClass('select2-hidden-accessible')) {
+                    $citySelect.trigger('change');
+                }
+            }
         });
     })
 </script>
