@@ -209,7 +209,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="input-box col-md-12">
+                                    <div class="input-box col-md-12 subcategory-field" style="display: none;">
                                         <select
                                             id="subcategory_id"
                                             class="form-control @error('subcategory_id') is-invalid @enderror"
@@ -1431,23 +1431,31 @@
             function filterSubcategories() {
                 let selectedCategories = $('#category_id').val() || [];
                 let $subcategorySelect = $('#subcategory_id');
-                
+
+                if (selectedCategories.length === 0) {
+                    $('.subcategory-field').hide();
+                    $subcategorySelect.val(null).trigger('change');
+                    return;
+                }
+
+                $('.subcategory-field').show();
+
                 // Limpiar selecciones que ya no son válidas
                 $subcategorySelect.find('option').each(function() {
                     let $option = $(this);
                     let parentId = $option.data('parent');
-                    
-                    if (parentId && selectedCategories.length > 0) {
+
+                    if (parentId) {
                         let isRelated = selectedCategories.some(function(catId) {
                             return String(catId) === String(parentId);
                         });
-                        
+
                         if (!isRelated) {
                             $option.prop('selected', false);
                         }
                     }
                 });
-                
+
                 $subcategorySelect.trigger('change');
             }
 
