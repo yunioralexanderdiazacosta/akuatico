@@ -274,16 +274,20 @@
                                     </div>
                                 </div>
                                 <div class="input-box col-md-6">
-                                    <input class="form-control @error('price') is-invalid @enderror" type="number"
-                                        step="0.01" placeholder="@lang('Price')" name="price"
+                                    <input class="form-control @error('price') is-invalid @enderror" type="text"
+                                        id="price_display" placeholder="@lang('Price')"
+                                        value="{{ old('price', $single_listing_infos->price) ? number_format(old('price', $single_listing_infos->price), 2, '.', ',') : '' }}" />
+                                    <input type="hidden" name="price" id="price_hidden"
                                         value="{{ old('price', $single_listing_infos->price) }}" />
                                     <div class="invalid-feedback">
                                         @error('price') @lang($message) @enderror
                                     </div>
                                 </div>
                                 <div class="input-box col-md-6 boat-fields">
-                                    <input class="form-control @error('length') is-invalid @enderror" type="number"
-                                        min="10" max="100" placeholder="@lang('Length (Feet)')" name="length"
+                                    <input class="form-control @error('length') is-invalid @enderror" type="text"
+                                        id="length_display" placeholder="@lang('Length (Feet)')"
+                                        value="{{ old('length', $single_listing_infos->length) ? number_format(old('length', $single_listing_infos->length), 2, '.', ',') : '' }}" />
+                                    <input type="hidden" name="length" id="length_hidden"
                                         value="{{ old('length', $single_listing_infos->length) }}" />
                                     <div class="invalid-feedback">
                                         @error('length') @lang($message) @enderror
@@ -1688,5 +1692,39 @@
             document.getElementById('edit-button').style.display = 'block';
             document.getElementById('action-buttons').style.display = 'none';
         }
+
+        // Format price and length fields with commas and decimals
+        function formatNumberInput(displayId, hiddenId) {
+            var $display = $('#' + displayId);
+            var $hidden = $('#' + hiddenId);
+
+            $display.on('input', function() {
+                var raw = $(this).val().replace(/[^0-9.]/g, '');
+                var parts = raw.split('.');
+                if (parts.length > 2) {
+                    raw = parts[0] + '.' + parts.slice(1).join('');
+                }
+                $hidden.val(raw);
+                if (raw) {
+                    var intPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    var formatted = parts.length > 1 ? intPart + '.' + parts[1] : intPart;
+                    $(this).val(formatted);
+                }
+            });
+
+            $display.on('blur', function() {
+                var raw = $hidden.val();
+                if (raw && !isNaN(parseFloat(raw))) {
+                    var num = parseFloat(raw).toFixed(2);
+                    $hidden.val(num);
+                    var parts = num.split('.');
+                    var intPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    $(this).val(intPart + '.' + parts[1]);
+                }
+            });
+        }
+
+        formatNumberInput('price_display', 'price_hidden');
+        formatNumberInput('length_display', 'length_hidden');
     </script>
 @endpush
