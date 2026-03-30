@@ -1070,7 +1070,7 @@
 
             <div class="col-12 mb-3 justify-content-strat d-flex mt-4 mb-4">
                 <button type="submit" class="cmn-btn customButton">
-                    <i class="fal fa-check-circle" aria-hidden="true"></i>@lang('Submit changes')
+                    <i class="fal fa-check-circle" aria-hidden="true"></i>@lang('Save')
                 </button>
             </div>
         </form>
