@@ -1,5 +1,5 @@
 @foreach ($categories as $category)
-    <div class="col-lg-3 col-md-4 col-6 ">
+    <div class="col-lg-3 col-md-4 col-12">
         <a href="{{ route('listings',$category->id) }}">
             <div class="category-box d-flex justify-content-start">
                 <div class="icon-box p-0">
