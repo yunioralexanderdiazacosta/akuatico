@@ -296,12 +296,12 @@
                                             @endif
                                             @if($listing->length)
                                                 <p class="mb-2">
-                                                    <span class="">@lang('Length'): </span> {{ $listing->length }} @lang('Feet')
+                                                    <span class="">@lang('Length'): </span> {{ number_format($listing->length) }} @lang('Feet')
                                                 </p>
                                             @endif
                                             @if($listing->price)
                                                 <p class="mb-2">
-                                                    <span class="">@lang('Price'): </span> ${{ $listing->price }}
+                                                    <span class="">@lang('Price'): </span> ${{ number_format($listing->price) }}
                                                 </p>
                                             @endif
                                             <a style="color: var(--primary);"

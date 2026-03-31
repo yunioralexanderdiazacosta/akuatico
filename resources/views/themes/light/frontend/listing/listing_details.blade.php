@@ -236,7 +236,7 @@
                                     </p>
                                     @if($single_listing_details->price)
                                         <div class="mt-3">
-                                            <h5>@lang('Price'): <span class="text-primary">${{ $single_listing_details->price }}</span></h5>
+                                            <h5>@lang('Price'): <span class="text-primary">${{ number_format($single_listing_details->price) }}</span></h5>
                                         </div>
                                     @endif
                                 </div>
@@ -282,7 +282,7 @@
                                                                  src="{{ getFile($listing_product->driver, $listing_product->product_thumbnail) }}"
                                                                  alt="image"/>
                                                             <span
-                                                                class="price"> $@lang($listing_product->product_price) </span>
+                                                                class="price"> ${{ number_format($listing_product->product_price) }} </span>
                                                         </div>
 
                                                         <div class="text-box">
@@ -383,7 +383,7 @@
                                                                                 <h4>
                                                                                 <span
                                                                                     class="text-primary">@lang('Price'):</span>
-                                                                                    <span>${{ $listing_product->product_price }}</span>
+                                                                                    <span>${{ number_format($listing_product->product_price) }}</span>
                                                                                 </h4>
                                                                                 <div class="make-query">
                                                                                     <h5>@lang('Make Query')</h5>
