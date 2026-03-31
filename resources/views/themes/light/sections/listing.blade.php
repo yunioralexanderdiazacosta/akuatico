@@ -23,8 +23,8 @@
                             $total = $listing->reviews()[0]->total;
                             $average_review = $listing->reviews()[0]->average;
 			@endphp
-		     <a class="title" href="{{ route('listing.details',$listing->slug) }}">
                         <div class="col-lg-3 col-md-6">
+                        <a class="title d-block h-100" href="{{ route('listing.details',$listing->slug) }}">
                             <div class="listing-box">
                                 <div class="img-box">
                                     <img class="img-fluid" src="{{ getFile($listing->thumbnail_driver, $listing->thumbnail) }}" alt="image"/>
@@ -84,9 +84,9 @@
                                         @lang($listing->city_id != null ? $listing->get_cities?->getAddress() : $listing->address)
                                     </p>
                                 </div>
+                        </a>
                             </div>
                         </div>
-                       </a>
                     @empty
                     @endforelse
                 </div>
