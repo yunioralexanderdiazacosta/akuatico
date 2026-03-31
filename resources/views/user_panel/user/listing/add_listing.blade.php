@@ -1082,7 +1082,7 @@
         "use strict";
 
         $('.summernote').summernote({
-            height: 100,
+            height: 300,
             callbacks: {
                 onBlurCodeview: function () {
                     let codeviewHtml = $(this).siblings('div.note-editor').find('.note-codable').val();
