@@ -240,10 +240,12 @@
                                          data-location="@lang($listing->address . ($listing->city_id != null ? ', '.$listing->get_cities?->getAddress() : ''))"
                                          data-route="{{ route('listing.details', $listing->slug) }}">
                                         <div class="img-box">
-                                            <img class="img-fluid" style="object-fit: cover;"
-                                                 src="{{ getFile($listing->thumbnail_driver, $listing->thumbnail) }}"
-                                                 alt="{{ basicControl()->site_title }}"/>
-                                            <button class="save wishList" type="button" id="{{$key}}"
+                                            <a href="{{ route('listing.details', $listing->slug) }}">
+                                                <img class="img-fluid" style="object-fit: cover;"
+                                                     src="{{ getFile($listing->thumbnail_driver, $listing->thumbnail) }}"
+                                                     alt="{{ basicControl()->site_title }}"/>
+                                            </a>
+{{--                                            <button class="save wishList" type="button" id="{{$key}}"
                                                     data-user="{{ optional($listing->get_user)->id }}"
                                                     data-purchase="{{ $listing->purchase_package_id }}"
                                                     data-listing="{{ $listing->id }}">
@@ -252,7 +254,7 @@
                                                 @else
                                                     <i class="fal fa-heart save{{$key}}"></i>
                                                 @endif
-                                            </button>
+                                            </button>--}
                                         </div>
 
                                         <div class="text-box">
