@@ -245,16 +245,6 @@
                                                      src="{{ getFile($listing->thumbnail_driver, $listing->thumbnail) }}"
                                                      alt="{{ basicControl()->site_title }}"/>
                                             </a>
-{{--                                            <button class="save wishList" type="button" id="{{$key}}"
-                                                    data-user="{{ optional($listing->get_user)->id }}"
-                                                    data-purchase="{{ $listing->purchase_package_id }}"
-                                                    data-listing="{{ $listing->id }}">
-                                                @if($listing->get_favourite_count > 0)
-                                                    <i class="fas fa-heart save{{$key}}"></i>
-                                                @else
-                                                    <i class="fal fa-heart save{{$key}}"></i>
-                                                @endif
-                                            </button>--}
                                         </div>
 
                                         <div class="text-box">
