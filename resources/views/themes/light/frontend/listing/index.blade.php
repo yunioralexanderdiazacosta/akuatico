@@ -281,7 +281,7 @@
                                                 <span>( @lang($total.' reviews') )</span>
                                             </div>
 
-                                            <h5 class="title">@lang(Str::limit($listing->title, 30))</h5>
+                                            <h5 class="title"><a href="{{ route('listing.details', $listing->slug) }}">@lang(Str::limit($listing->title, 30))</a></h5>
                                             <!-- <a class="author"
                                                href="{{ route('profile', optional($listing->get_user)->username) }}">
                                                 @lang(optional($listing->get_user)->firstname) @lang(optional($listing->get_user)->lastname)
