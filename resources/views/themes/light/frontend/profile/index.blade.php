@@ -1,5 +1,5 @@
-@extends(template().'layouts.app')
-@section('title',trans('Profile'))
+@extends(template() . 'layouts.app')
+@section('title', trans('Profile'))
 
 @section('banner_heading')
     @lang('Profile')
@@ -14,11 +14,12 @@
                         <div class="row gy-4">
                             <div class="col-lg-6">
                                 <div class="about d-md-flex">
-                                    <img src="{{ getFile(optional($user_information)->image_driver, optional($user_information)->image) }}" class="img-fluid profile" alt="image"/>
+                                    <img src="{{ getFile(optional($user_information)->image_driver, optional($user_information)->image) }}"
+                                        class="img-fluid profile" alt="image" />
                                     <div>
                                         <h4 class="name">
                                             @lang($user_information->firstname) @lang($user_information->lastname)
-                                            @if($user_information->identity_verify ==  2 && $user_information->address_verify ==  2)
+                                            @if($user_information->identity_verify == 2 && $user_information->address_verify == 2)
                                                 <i class="fas fa-check-circle" aria-hidden="true"></i>
                                             @endif
                                         </h4>
@@ -28,26 +29,36 @@
                                         @if($user_information->category_id)
                                             <p class="mb-2 text-primary small">
                                                 <i class="fas fa-tags me-1"></i>
-                                                <span class="">@lang('Category') : </span> {{ $user_information->getCategoriesName() }}
+                                                <span class="">@lang('Category') : </span>
+                                                {{ $user_information->getCategoriesName() }}
                                             </p>
                                         @endif
                                         @if($user_information->getSubCategoriesName())
                                             <p class="mb-2 text-primary small">
                                                 <i class="fas fa-tags me-1"></i>
-                                                <span class="">@lang('Subcategory') : </span> {{ $user_information->getSubCategoriesName() }}
+                                                <span class="">@lang('Subcategory') : </span>
+                                                {{ $user_information->getSubCategoriesName() }}
                                             </p>
                                         @endif
 
                                         <div class="links">
                                             @if($user_information->website)
-                                                <a href="javascript:void(0)"><i class="fas fa-globe"></i>@lang($user_information->website)</a>
+                                                <a href="javascript:void(0)"><i
+                                                        class="fas fa-globe me-1"></i>@lang($user_information->website)</a>
+                                            @endif
+                                            @if($user_information->phone)
+                                                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $user_information->phone) }}"
+                                                    target="_blank"><i
+                                                        class="fas fa-phone me-1"></i>@lang($user_information->phone)</a>
                                             @endif
 
                                             @if($user_information->fullAddress)
-                                                <a href="javascript:void(0)"><i class="fas fa-location-arrow"></i>@lang($user_information->fullAddress)</a>
+                                                <a href="javascript:void(0)"><i
+                                                        class="fas fa-location-arrow me-1"></i>@lang($user_information->fullAddress)</a>
                                             @endif
                                             @if($user_information->created_at)
-                                                <a href="javascript:void(0)" ><i class="fas fa-calendar-alt"></i>@lang('Joined '){{ dateTime($user_information->created_at) }}</a>
+                                                <a href="javascript:void(0)"><i
+                                                        class="fas fa-calendar-alt me-1"></i>@lang('Joined '){{ dateTime($user_information->created_at) }}</a>
                                             @endif
                                         </div>
                                     </div>
@@ -60,8 +71,9 @@
                             <div class="col-lg-6" id="user_copy_id">
                                 <div class="right-wrapper">
                                     <div class="button-group">
-                                        <input type="text" class="form-control copyText copy__profile__url opacity-0" value="{{ $profileUrl }}">
-                                        <button  class="copy-btn">
+                                        <input type="text" class="form-control copyText copy__profile__url opacity-0"
+                                            value="{{ $profileUrl }}">
+                                        <button class="copy-btn">
                                             <span id="profileId">@lang('Copy profile')</span>
                                             <i class="fal fa-copy" aria-hidden="true"></i>
                                         </button>
@@ -72,22 +84,25 @@
 
                                         @if(Auth::check())
                                             @if(count($check_follower) < 1)
-                                                <form action="{{ route('user.profile.follow', $user_information->id) }}" method="post" class="d-inline-block">
+                                                <form action="{{ route('user.profile.follow', $user_information->id) }}"
+                                                    method="post" class="d-inline-block">
                                                     @csrf
                                                     <button class="btn-custom follow-btn disabled cursor-follow-btn" type="submit">
                                                         <i class="fal fa-plus" aria-hidden="true"></i>@lang('follow')
                                                     </button>
                                                 </form>
                                             @else
-                                                <form action="{{ route('user.profile.unfollow', $user_information->id) }}" method="post" class="d-inline-block">
+                                                <form action="{{ route('user.profile.unfollow', $user_information->id) }}"
+                                                    method="post" class="d-inline-block">
                                                     @csrf
-                                                    <button class="btn-custom follow-btn disabled cursor-follow-btn" type="submit" >
+                                                    <button class="btn-custom follow-btn disabled cursor-follow-btn" type="submit">
                                                         <i class="fal fa-minus" aria-hidden="true"></i>@lang('unFollow')
                                                     </button>
                                                 </form>
                                             @endif
                                         @else
-                                            <form action="{{ route('user.profile.follow', $user_information->id) }}" method="post" class="d-inline-block">
+                                            <form action="{{ route('user.profile.follow', $user_information->id) }}"
+                                                method="post" class="d-inline-block">
                                                 @csrf
                                                 <button class="btn-custom follow-btn disabled cursor-follow-btn" type="submit">
                                                     <i class="fal fa-plus" aria-hidden="true"></i>@lang('Follow')
@@ -148,19 +163,25 @@
                         @forelse($user_information->follower as $follower)
                             <div class="follower">
                                 <a href="{{ route('profile', optional($follower->get_follwer_user)->username) }}">
-                                    <img src="{{ getFile(optional($follower->get_follwer_user)->image_driver, optional($follower->get_follwer_user)->image) }}" class="img-fluid" alt="@lang('follower')"/>
+                                    <img src="{{ getFile(optional($follower->get_follwer_user)->image_driver, optional($follower->get_follwer_user)->image) }}"
+                                        class="img-fluid" alt="@lang('follower')" />
                                 </a>
                                 <div class="creator-box">
                                     <div class="img-box">
-                                        <img src="{{ getFile(optional($follower->get_follwer_user)->cover_image_driver, optional($follower->get_follwer_user)->cover_image) }}" alt="image" class="img-fluid cover"/>
-                                        <img src="{{ getFile(optional($follower->get_follwer_user)->image_driver, optional($follower->get_follwer_user)->image) }}" class="img-fluid profile" alt="image"/>
+                                        <img src="{{ getFile(optional($follower->get_follwer_user)->cover_image_driver, optional($follower->get_follwer_user)->cover_image) }}"
+                                            alt="image" class="img-fluid cover" />
+                                        <img src="{{ getFile(optional($follower->get_follwer_user)->image_driver, optional($follower->get_follwer_user)->image) }}"
+                                            class="img-fluid profile" alt="image" />
                                     </div>
 
                                     <div class="text-box">
-                                        <a class="creator-name" href="{{ route('profile', optional($follower->get_follwer_user)->username) }}">
-                                            @lang(optional($follower->get_follwer_user)->firstname) @lang(optional($follower->get_follwer_user)->lastname)
+                                        <a class="creator-name"
+                                            href="{{ route('profile', optional($follower->get_follwer_user)->username) }}">
+                                            @lang(optional($follower->get_follwer_user)->firstname)
+                                            @lang(optional($follower->get_follwer_user)->lastname)
                                         </a>
-                                        <span>@lang('Member since') {{ dateTime(optional($follower->get_follwer_user)->created_at) }}</span>
+                                        <span>@lang('Member since')
+                                            {{ dateTime(optional($follower->get_follwer_user)->created_at) }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -174,18 +195,24 @@
                         @forelse($user_information->following as $following)
                             <div class="follower">
                                 <a href="{{ route('profile', optional($following->get_following_user)->username) }}">
-                                    <img src="{{ getFile(optional($following->get_following_user)->image_driver, optional($following->get_following_user)->image) }}" class="img-fluid" alt="@lang('follower')"/>
+                                    <img src="{{ getFile(optional($following->get_following_user)->image_driver, optional($following->get_following_user)->image) }}"
+                                        class="img-fluid" alt="@lang('follower')" />
                                 </a>
                                 <div class="creator-box">
                                     <div class="img-box">
-                                        <img src="{{ getFile(optional($following->get_following_user)->cover_image_driver, optional($following->get_following_user)->cover_image) }}" alt="image" class="img-fluid cover"/>
-                                        <img src="{{ getFile(optional($following->get_following_user)->image_driver, optional($following->get_following_user)->image) }}" class="img-fluid profile" alt="image"/>
+                                        <img src="{{ getFile(optional($following->get_following_user)->cover_image_driver, optional($following->get_following_user)->cover_image) }}"
+                                            alt="image" class="img-fluid cover" />
+                                        <img src="{{ getFile(optional($following->get_following_user)->image_driver, optional($following->get_following_user)->image) }}"
+                                            class="img-fluid profile" alt="image" />
                                     </div>
                                     <div class="text-box">
-                                        <a class="creator-name" href="{{ route('profile', optional($following->get_following_user)->username) }}">
-                                            @lang(optional($following->get_following_user)->firstname) @lang(optional($following->get_following_user)->lastname)
+                                        <a class="creator-name"
+                                            href="{{ route('profile', optional($following->get_following_user)->username) }}">
+                                            @lang(optional($following->get_following_user)->firstname)
+                                            @lang(optional($following->get_following_user)->lastname)
                                         </a>
-                                        <span>@lang('Member since') {{ dateTime(optional($following->get_following_user)->created_at) }}</span>
+                                        <span>@lang('Member since')
+                                            {{ dateTime(optional($following->get_following_user)->created_at) }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -198,11 +225,13 @@
                 <div class="col-lg-4">
                     <div class="side-box">
                         <h5>@lang('Contact Creator')</h5>
-                        <form action="{{ route('user.contact.send', $user_information->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('user.contact.send', $user_information->id) }}" method="post"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="row g-3">
                                 <div class="input-box col-12">
-                                    <input class="form-control @error('name') is-invalid @enderror" type="text" autocomplete="off" name="name"
+                                    <input class="form-control @error('name') is-invalid @enderror" type="text"
+                                        autocomplete="off" name="name"
                                         value="{{ old('name', Auth::check() ? Auth::user()->firstname . ' ' . Auth::user()->lastname : '') }}"
                                         placeholder="@lang('Full Name')" required />
                                     <div class="invalid-feedback">
@@ -211,7 +240,8 @@
                                 </div>
 
                                 <div class="input-box col-12">
-                                    <input class="form-control @error('email') is-invalid @enderror" type="email" autocomplete="off" name="email"
+                                    <input class="form-control @error('email') is-invalid @enderror" type="email"
+                                        autocomplete="off" name="email"
                                         value="{{ old('email', Auth::check() ? Auth::user()->email : '') }}"
                                         placeholder="@lang('Email Address')" required />
                                     <div class="invalid-feedback">
@@ -220,7 +250,8 @@
                                 </div>
 
                                 <div class="input-box col-12">
-                                    <input class="form-control @error('phone') is-invalid @enderror" type="text" autocomplete="off" name="phone"
+                                    <input class="form-control @error('phone') is-invalid @enderror" type="text"
+                                        autocomplete="off" name="phone"
                                         value="{{ old('phone', Auth::check() ? Auth::user()->phone : '') }}"
                                         placeholder="@lang('Phone Number')" />
                                     <div class="invalid-feedback">
@@ -229,7 +260,9 @@
                                 </div>
 
                                 <div class="input-box col-12">
-                                 <textarea class="form-control @error('message') is-invalid @enderror" cols="30" rows="3" autocomplete="off" name="message" placeholder="@lang('Your message')" required>{{ old('message') }}</textarea>
+                                    <textarea class="form-control @error('message') is-invalid @enderror" cols="30" rows="3"
+                                        autocomplete="off" name="message" placeholder="@lang('Your message')"
+                                        required>{{ old('message') }}</textarea>
                                     <div class="invalid-feedback">
                                         @error('message') @lang($message) @enderror
                                     </div>
@@ -257,10 +290,13 @@
                                     <div class="col-lg-4 col-md-6">
                                         <div class="listing-box">
                                             <div class="img-box">
-                                                <img class="img-fluid" src="{{ getFile($latest_listing->thumbnail_driver, $latest_listing->thumbnail) }}" alt="image"/>
+                                                <img class="img-fluid"
+                                                    src="{{ getFile($latest_listing->thumbnail_driver, $latest_listing->thumbnail) }}"
+                                                    alt="image" />
                                                 <button class="save wishList" type="button" id="{{$key}}"
-                                                        data-user="{{ optional($latest_listing->get_user)->id }}"
-                                                        data-purchase="{{ $latest_listing->purchase_package_id }}" data-listing="{{ $latest_listing->id }}">
+                                                    data-user="{{ optional($latest_listing->get_user)->id }}"
+                                                    data-purchase="{{ $latest_listing->purchase_package_id }}"
+                                                    data-listing="{{ $latest_listing->id }}">
                                                     @if($latest_listing->get_favourite_count > 0)
                                                         <i class="fas fa-heart save{{$key}}"></i>
                                                     @else
@@ -301,9 +337,9 @@
                                                             <i class="far fa-star"></i>
                                                         @endfor
                                                     @endif
-                                                    <span>(@lang($total.' reviews'))</span>
+                                                    <span>(@lang($total . ' reviews'))</span>
                                                 </div>
-                                                <a class="title" href="{{ route('listing.details', $latest_listing->slug ) }}">
+                                                <a class="title" href="{{ route('listing.details', $latest_listing->slug) }}">
                                                     @lang(Str::limit($latest_listing->title, 20))
                                                 </a>
                                                 <p></p>
@@ -311,11 +347,13 @@
                                                     @lang($user_information->firstname) @lang($user_information->lastname)
                                                 </a>
                                                 <p class="mb-2">
-                                                    <span class="">@lang('Category') : </span> {{ $latest_listing->getCategoriesName() }}
+                                                    <span class="">@lang('Category') : </span>
+                                                    {{ $latest_listing->getCategoriesName() }}
                                                 </p>
                                                 @if($latest_listing->getSubCategoriesName())
                                                     <p class="mb-2">
-                                                        <span class="">@lang('Subcategory') : </span> {{ $latest_listing->getSubCategoriesName() }}
+                                                        <span class="">@lang('Subcategory') : </span>
+                                                        {{ $latest_listing->getSubCategoriesName() }}
                                                     </p>
                                                 @endif
                                                 <p class="address mt-1">
@@ -333,7 +371,7 @@
 
                             </div>
                             <div class="d-flex justify-content-center mt-4">
-                                {{ $latest_listings->links(template().'partials.pagination') }}
+                                {{ $latest_listings->links(template() . 'partials.pagination') }}
                             </div>
                         </div>
                     @endif
@@ -421,4 +459,3 @@
         })
     </script>
 @endpush
-
