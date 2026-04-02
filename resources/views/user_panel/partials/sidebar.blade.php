@@ -3,18 +3,16 @@
 <div id="sidebar" class="">
     <div class="sidebar-top">
         <a class="navbar-brand" href="{{url('/')}}">
-            <img src="{{ getFile(basicControl()->logo_driver,basicControl()->logo) }}" alt="logo">
+            <img src="{{ getFile(basicControl()->logo_driver, basicControl()->logo) }}" alt="logo">
         </a>
-        <button
-            class="sidebar-toggler d-lg-none"
-            onclick="toggleSideMenu()">
+        <button class="sidebar-toggler d-lg-none" onclick="toggleSideMenu()">
             <i class="fal fa-times"></i>
         </button>
     </div>
     <ul class="main tabScroll">
         <li>
-            <a class="{{(lastUriSegment() == 'dashboard') ? 'active' : ''}}" href="{{ route('user.dashboard') }}"
-            ><i class="fal fa-th-large text-success"></i>@lang('Dashboard')</a>
+            <a class="{{(lastUriSegment() == 'dashboard') ? 'active' : ''}}" href="{{ route('user.dashboard') }}"><i
+                    class="fal fa-th-large text-success"></i>@lang('Dashboard')</a>
         </li>
 
         <li>
@@ -24,7 +22,8 @@
         </li>
 
         <li>
-            <a href="{{ route('user.myPackages') }}" class="{{ request()->routeIs('user.myPackages', 'user.paymentHistory') ? 'active' : ''}}">
+            <a href="{{ route('user.myPackages') }}"
+                class="{{ request()->routeIs('user.myPackages', 'user.paymentHistory') ? 'active' : ''}}">
                 <i class="fal fa-box-full text-primary"></i>@lang('My Packages')
             </a>
         </li>
@@ -34,7 +33,7 @@
                 $id = '';
             @endphp
             <a href="{{ route('user.listings') }}"
-               class="{{ (lastUriSegment() == 'listings' || lastUriSegment() == 'pending' || lastUriSegment() == 'approved' || lastUriSegment() == 'rejected' || request()->routeIs(['user.addListing','user.editListing','user.reviews','user.dynamic.form.data','user.listing.import.csv'])) ? 'active' : ''}}">
+                class="{{ (lastUriSegment() == 'listings' || lastUriSegment() == 'pending' || lastUriSegment() == 'approved' || lastUriSegment() == 'rejected' || request()->routeIs(['user.addListing', 'user.editListing', 'user.reviews', 'user.dynamic.form.data', 'user.listing.import.csv'])) ? 'active' : ''}}">
                 <i class="fal fa-list-ol text-orange"></i>@lang('My Listings')
             </a>
         </li>
@@ -72,32 +71,35 @@
         </li> -->
 
         <li>
-            <a href="{{ route('user.analytics') }}" class="{{ request()->routeIs(['user.analytics','user.analytics.show']) ? 'active' : ''}}">
+            <a href="{{ route('user.analytics') }}"
+                class="{{ request()->routeIs(['user.analytics', 'user.analytics.show']) ? 'active' : ''}}">
                 <i class="fal fa-analytics text-green"></i>@lang('Analytics')
             </a>
         </li>
 
         <li>
-            <a href="{{route('user.ticket.list')}}" class="{{ request()->routeIs('user.ticket.list','user.ticket.create','user.ticket.view') ? 'active' : ''}}">
+            <a href="{{route('user.ticket.list')}}"
+                class="{{ request()->routeIs('user.ticket.list', 'user.ticket.create', 'user.ticket.view') ? 'active' : ''}}">
                 <i class="fal fa-user-headset text-success"></i> @lang('support ticket')
             </a>
         </li>
 
         <li class="">
-            <a href="{{route('user.twostep.security')}}" class="{{ request()->routeIs('user.twostep.security') ? 'active' : ''}}">
+            <a href="{{route('user.twostep.security')}}"
+                class="{{ request()->routeIs('user.twostep.security') ? 'active' : ''}}">
                 <i class="fal fa-lock text-orange"></i> @lang('2FA Security')
             </a>
         </li>
 
-        <li class="">
+        <!-- <li class="">
             <a href="{{route('user.notification.permission')}}" class="{{ request()->routeIs('user.notification.permission') ? 'active' : ''}}">
                 <i class="far fa-bell text-orange"></i> @lang('Notification Settings')
             </a>
-        </li>
+        </li> -->
 
         <li class="">
             <a href="{{ route('logout') }}"
-               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="fal fa-sign-out-alt text-purple"></i> @lang('Sign Out')
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
@@ -117,16 +119,20 @@
         </button>
     </li>
     <li class="nav-item">
-        <a class="nav-link @if(request()->is('blogs')) active @endif" href="{{ route('blogs') }}"><i class="far fa-planet-ringed"></i></a>
+        <a class="nav-link @if(request()->is('blogs')) active @endif" href="{{ route('blogs') }}"><i
+                class="far fa-planet-ringed"></i></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @if(request()->routeIs('user.dashboard')) active @endif" href="{{ route('user.dashboard') }}"><i class="far fa-house"></i></a>
+        <a class="nav-link @if(request()->routeIs('user.dashboard')) active @endif"
+            href="{{ route('user.dashboard') }}"><i class="far fa-house"></i></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @if(request()->is('contact')) active @endif" href="{{ url('/contact') }}"><i class="far fa-address-book"></i></a>
+        <a class="nav-link @if(request()->is('contact')) active @endif" href="{{ url('/contact') }}"><i
+                class="far fa-address-book"></i></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @if(request()->routeIs('user.profile')) active @endif" href="{{ route('user.profile') }}"><i class="far fa-user"></i></a>
+        <a class="nav-link @if(request()->routeIs('user.profile')) active @endif" href="{{ route('user.profile') }}"><i
+                class="far fa-user"></i></a>
     </li>
 </ul>
 <!-- Bottom Mobile Menu -->
