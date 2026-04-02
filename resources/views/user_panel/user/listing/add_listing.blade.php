@@ -286,6 +286,18 @@
                                         </div>
                                     </div>
 
+                                    <div class="input-box col-md-6 boat-fields" style="display: none;">
+                                        <select id="year" class="form-control @error('year') is-invalid @enderror" name="year">
+                                            <option value="" disabled {{ old('year') ? '' : 'selected' }}>@lang('Select Year')</option>
+                                            @for ($y = date('Y'); $y >= 1960; $y--)
+                                                <option value="{{ $y }}" {{ old('year') == $y ? 'selected' : '' }}>{{ $y }}</option>
+                                            @endfor
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            @error('year') @lang($message) @enderror
+                                        </div>
+                                    </div>
+
                                     <div class="input-box col-12">
                                         <p class="mb-2 text-muted" style="font-size: 0.9rem;">En la descripción favor de
                                             colocar: Horas, combustible, caballaje de motores.</p>
@@ -1500,6 +1512,7 @@
                 } else {
                     $('.boat-fields').hide();
                     $('.boat-fields input').val('');
+                    $('.boat-fields select').val('');
                 }
             }
 
