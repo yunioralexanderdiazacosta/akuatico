@@ -152,7 +152,7 @@
 
 
 
-                            <div class="filter-box">
+                            <!-- <div class="filter-box">
                                 <h5>@lang('Filter by Ratings') </h5>
                                 <div class="check-box">
                                     <div class="form-check">
@@ -232,7 +232,7 @@
                                         </label>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <button class="btn-custom w-100" type="submit">@lang('submit')</button>
                         </div>
                     </form>
@@ -316,6 +316,10 @@
                                             @if($listing->getSubCategoriesName())
                                                 <p class="mb-2">
                                                     <span class="">@lang('Subcategory'): </span> @lang($listing->getSubCategoriesName())
+                                                </p>
+                                            @else
+                                                <p class="mb-2">
+                                                    <span class="">@lang('Subcategory'): </span> @lang('N/A')
                                                 </p>
                                             @endif
                                             @if($listing->length)
