@@ -412,6 +412,7 @@
                 @if($single_package_infos->is_business_hour == 1)
                     <div class="col-xl-6 col-md-6 col-sm-12">
                         <h3 class="mb-3">@lang('Business Hours')</h3>
+                        <p class="text-muted mb-2" style="font-size: 0.85rem;">@lang('Presiona el botón de (+) para agregar más días.')</p>
                         <div class="form business-hour">
                             @php
                                 $oldWorkingDaysCount = max(old('working_day', $business_hours) ? count(old('working_day', $business_hours)) : 1, 1);

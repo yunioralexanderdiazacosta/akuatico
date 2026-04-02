@@ -403,6 +403,7 @@
                     @if($single_package_infos->is_business_hour == 1)
                         <div class="col-xl-6">
                             <h3 class="mb-3">@lang('Business Hours')</h3>
+                            <p class="text-muted mb-2" style="font-size: 0.85rem;">@lang('Presiona el botón de (+) para agregar más días.')</p>
                             <div class="form business-hour">
                                 <div
                                     class="d-sm-flex justify-content-between delete_this @error('working_day.0') is-invalid @enderror">
