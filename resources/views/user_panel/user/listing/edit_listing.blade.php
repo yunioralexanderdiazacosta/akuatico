@@ -276,9 +276,9 @@
                                 <div class="input-box col-md-6">
                                     <input class="form-control @error('price') is-invalid @enderror" type="text"
                                         id="price_display" placeholder="@lang('Price')"
-                                        value="{{ old('price', $single_listing_infos->price) ? number_format(old('price', $single_listing_infos->price), 2, '.', ',') : '' }}" />
+                                        value="{{ old('price', $single_listing_infos->price) ? number_format(old('price', $single_listing_infos->price), 0, '.', ',') : '' }}" />
                                     <input type="hidden" name="price" id="price_hidden"
-                                        value="{{ old('price', $single_listing_infos->price) }}" />
+                                        value="{{ old('price', $single_listing_infos->price) ? number_format(old('price', $single_listing_infos->price), 0, '.', '') : '' }}" />
                                     <div class="invalid-feedback">
                                         @error('price') @lang($message) @enderror
                                     </div>
@@ -1729,38 +1729,59 @@
             document.getElementById('action-buttons').style.display = 'none';
         }
 
-        // Format price and length fields with commas and decimals
-        function formatNumberInput(displayId, hiddenId) {
+        // Format number fields with commas, optionally keeping decimals.
+        function formatNumberInput(displayId, hiddenId, allowDecimals = true) {
             var $display = $('#' + displayId);
             var $hidden = $('#' + hiddenId);
 
             $display.on('input', function () {
-                var raw = $(this).val().replace(/[^0-9.]/g, '');
-                var parts = raw.split('.');
-                if (parts.length > 2) {
-                    raw = parts[0] + '.' + parts.slice(1).join('');
+                var raw = $(this).val().replace(allowDecimals ? /[^0-9.]/g : /[^0-9]/g, '');
+
+                if (allowDecimals) {
+                    var parts = raw.split('.');
+                    if (parts.length > 2) {
+                        raw = parts[0] + '.' + parts.slice(1).join('');
+                        parts = raw.split('.');
+                    }
+                } else {
+                    raw = raw.replace(/^0+(?=\d)/, '');
+                    var parts = [raw];
                 }
+
                 $hidden.val(raw);
+
                 if (raw) {
                     var intPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                    var formatted = parts.length > 1 ? intPart + '.' + parts[1] : intPart;
+                    var formatted = allowDecimals && parts.length > 1 ? intPart + '.' + parts[1] : intPart;
                     $(this).val(formatted);
+                } else {
+                    $(this).val('');
                 }
             });
 
             $display.on('blur', function () {
                 var raw = $hidden.val();
-                if (raw && !isNaN(parseFloat(raw))) {
+
+                if (!raw) {
+                    $(this).val('');
+                    return;
+                }
+
+                if (allowDecimals && !isNaN(parseFloat(raw))) {
                     var num = parseFloat(raw).toFixed(2);
                     $hidden.val(num);
                     var parts = num.split('.');
                     var intPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                     $(this).val(intPart + '.' + parts[1]);
+                } else if (!allowDecimals && !isNaN(parseInt(raw, 10))) {
+                    var num = parseInt(raw, 10).toString();
+                    $hidden.val(num);
+                    $(this).val(num.replace(/\B(?=(\d{3})+(?!\d))/g, ','));
                 }
             });
         }
 
-        formatNumberInput('price_display', 'price_hidden');
+        formatNumberInput('price_display', 'price_hidden', false);
         formatNumberInput('length_display', 'length_hidden');
 
         // Phone format: (XXX) XXX-XXXX
