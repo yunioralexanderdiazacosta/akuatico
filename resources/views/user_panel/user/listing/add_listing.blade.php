@@ -18,15 +18,15 @@
                     @endphp
                     <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
                         data-bs-html="true" data-bs-title="
-                                <div class='text-start px-3 text-white'>
-                                   <ul class=''>
-                                      @foreach ($errors->getMessages() as $key => $error)
-                                        @if(in_array($key, $tabOne))
-                                            <li class='text-white'>{{ $error[0] }}</li>
-                                        @endif
-                                      @endforeach
-                                   </ul>
-                                </div>">
+                                        <div class='text-start px-3 text-white'>
+                                           <ul class=''>
+                                              @foreach ($errors->getMessages() as $key => $error)
+                                                @if(in_array($key, $tabOne))
+                                                    <li class='text-white'>{{ $error[0] }}</li>
+                                                @endif
+                                              @endforeach
+                                           </ul>
+                                        </div>">
                         <i class="fal fa-info-circle"></i>
                     </span>
                 @endif
@@ -41,15 +41,15 @@
 
                         <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
                             data-bs-html="true" data-bs-title="
-                                        <div class='text-start px-3 text-white'>
-                                           <ul class=''>
-                                              @foreach ($errors->getMessages() as $key => $error)
-                                                @if(in_array($key, $tabTwo))
-                                                    <li class='text-white'>{{ $error[0] }}</li>
-                                                @endif
-                                              @endforeach
-                                           </ul>
-                                        </div>">
+                                                    <div class='text-start px-3 text-white'>
+                                                       <ul class=''>
+                                                          @foreach ($errors->getMessages() as $key => $error)
+                                                            @if(in_array($key, $tabTwo))
+                                                                <li class='text-white'>{{ $error[0] }}</li>
+                                                            @endif
+                                                          @endforeach
+                                                       </ul>
+                                                    </div>">
                             <i class="fal fa-info-circle"></i>
                         </span>
                     @endif
@@ -69,15 +69,15 @@
                         @endphp
                         <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
                             data-bs-html="true" data-bs-title="
-                                        <div class='text-start px-3 text-white'>
-                                           <ul class=''>
-                                              @foreach ($errors->getMessages() as $key => $error)
-                                                @if(in_array($key, $tabFour))
-                                                    <li class='text-white'>{{ $error[0] }}</li>
-                                                @endif
-                                              @endforeach
-                                           </ul>
-                                        </div>">
+                                                    <div class='text-start px-3 text-white'>
+                                                       <ul class=''>
+                                                          @foreach ($errors->getMessages() as $key => $error)
+                                                            @if(in_array($key, $tabFour))
+                                                                <li class='text-white'>{{ $error[0] }}</li>
+                                                            @endif
+                                                          @endforeach
+                                                       </ul>
+                                                    </div>">
                             <i class="fal fa-info-circle"></i>
                         </span>
                     @endif
@@ -85,29 +85,29 @@
             @endif
 
             <!-- @if($single_package_infos->is_product == 1)
-                    <button tab-id="tab5" class="tab">
-                        @lang('Products')
-                        @if ($errors->has('product_title.*') || $errors->has('product_price.*') || $errors->has('product_description.*') || $errors->has('product_thumbnail.*'))
-                            @php
-                                $tabFive = ['product_title', 'product_price', 'product_description', 'product_thumbnail'];
-                            @endphp
-                            <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip"
-                                  data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="
-                                <div class='text-start px-3 text-white'>
-                                   <ul class=''>
-                                      @foreach ($errors->getMessages() as $key => $error)
+                        <button tab-id="tab5" class="tab">
+                            @lang('Products')
+                            @if ($errors->has('product_title.*') || $errors->has('product_price.*') || $errors->has('product_description.*') || $errors->has('product_thumbnail.*'))
+                                @php
+                                    $tabFive = ['product_title', 'product_price', 'product_description', 'product_thumbnail'];
+                                @endphp
+                                <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip"
+                                      data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="
+                                    <div class='text-start px-3 text-white'>
+                                       <ul class=''>
+                                          @foreach ($errors->getMessages() as $key => $error)
 
-                                        @if(in_array($key, $tabFive))
-                                            <li class='text-white'>{{ $error[0] }}</li>
-                                        @endif
-                                      @endforeach
-                                   </ul>
-                                </div>">
-                                <i class="fal fa-info-circle"></i>
-                            </span>
-                        @endif
-                    </button>
-                @endif -->
+                                            @if(in_array($key, $tabFive))
+                                                <li class='text-white'>{{ $error[0] }}</li>
+                                            @endif
+                                          @endforeach
+                                       </ul>
+                                    </div>">
+                                    <i class="fal fa-info-circle"></i>
+                                </span>
+                            @endif
+                        </button>
+                    @endif -->
 
             @if($single_package_infos->seo == 1)
                 <button tab-id="tab6" class="tab">
@@ -118,15 +118,15 @@
                         @endphp
                         <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
                             data-bs-html="true" data-bs-title="
-                                        <div class='text-start px-3 text-white'>
-                                           <ul class=''>
-                                              @foreach ($errors->getMessages() as $key => $error)
-                                                @if(in_array($key, $tabSix))
-                                                    <li class='text-white'>{{ $error[0] }}</li>
-                                                @endif
-                                              @endforeach
-                                           </ul>
-                                        </div>">
+                                                    <div class='text-start px-3 text-white'>
+                                                       <ul class=''>
+                                                          @foreach ($errors->getMessages() as $key => $error)
+                                                            @if(in_array($key, $tabSix))
+                                                                <li class='text-white'>{{ $error[0] }}</li>
+                                                            @endif
+                                                          @endforeach
+                                                       </ul>
+                                                    </div>">
                             <i class="fal fa-info-circle"></i>
                         </span>
                     @endif
@@ -143,15 +143,15 @@
 
                         <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
                             data-bs-html="true" data-bs-title="
-                                        <div class='text-start px-3 text-white'>
-                                           <ul class=''>
-                                              @foreach ($errors->getMessages() as $key => $error)
-                                                @if(in_array($key, $tabSeven))
-                                                    <li class='text-white'>{{ $error[0] }}</li>
-                                                @endif
-                                              @endforeach
-                                           </ul>
-                                        </div>">
+                                                    <div class='text-start px-3 text-white'>
+                                                       <ul class=''>
+                                                          @foreach ($errors->getMessages() as $key => $error)
+                                                            @if(in_array($key, $tabSeven))
+                                                                <li class='text-white'>{{ $error[0] }}</li>
+                                                            @endif
+                                                          @endforeach
+                                                       </ul>
+                                                    </div>">
                             <i class="fal fa-info-circle"></i>
                         </span>
                     @endif
@@ -159,10 +159,10 @@
             @endif
 
             <!-- @if($single_package_infos->is_create_from == 1)
-                    <button tab-id="tab8" class="tab">
-                        @lang('Custom Form')
-                    </button>
-                @endif -->
+                        <button tab-id="tab8" class="tab">
+                            @lang('Custom Form')
+                        </button>
+                    @endif -->
         </div>
 
         <form action="{{ route('user.storeListing', $id) }}" method="post" enctype="multipart/form-data">
@@ -204,7 +204,8 @@
                                             data-categories="{{ $single_package_infos->no_of_categories_per_listing }}">
                                             @foreach ($all_listings_category->whereNull('parent_id') as $item)
                                                 <option value="{{ $item->id }}" {{ (collect(old('category_id'))->contains($item->id)) ? 'selected' : '' }}>
-                                                    @lang(optional($item->details)->name) </option>
+                                                    @lang(optional($item->details)->name)
+                                                </option>
                                             @endforeach
                                         </select>
                                         <div class="invalid-feedback">
@@ -351,23 +352,23 @@
                                                 </div>
                                             </div>
 
-                                            <div class="input-box col-md-6">
-                                                <input class="form-control @error('lat') is-invalid @enderror" id="lat"
-                                                    name="lat" value="{{ old('lat') }}" type="text"
-                                                    placeholder="@lang('Lat')" />
-                                                <div class="invalid-feedback">
-                                                    @error('lat') @lang($message) @enderror
-                                                </div>
-                                            </div>
+                                            <!-- <div class="input-box col-md-6">
+                                                    <input class="form-control @error('lat') is-invalid @enderror" id="lat"
+                                                        name="lat" value="{{ old('lat') }}" type="text"
+                                                        placeholder="@lang('Lat')" />
+                                                    <div class="invalid-feedback">
+                                                        @error('lat') @lang($message) @enderror
+                                                    </div>
+                                                </div> -->
 
-                                            <div class="input-box col-md-6">
-                                                <input class="form-control @error('long') is-invalid @enderror" id="lng"
-                                                    name="long" value="{{ old('long') }}" placeholder="@lang('Long')"
-                                                    type="text" />
-                                                <div class="invalid-feedback">
-                                                    @error('long') @lang($message) @enderror
-                                                </div>
-                                            </div>
+                                            <!-- <div class="input-box col-md-6">
+                                                    <input class="form-control @error('long') is-invalid @enderror" id="lng"
+                                                        name="long" value="{{ old('long') }}" placeholder="@lang('Long')"
+                                                        type="text" />
+                                                    <div class="invalid-feedback">
+                                                        @error('long') @lang($message) @enderror
+                                                    </div>
+                                                </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -400,19 +401,26 @@
                                     <div class="input-box w-100 my-1 mx-sm-1">
                                         <select class="js-example-basic-single form-control" name="working_day[]">
                                             <option value="Monday" {{ old('working_day.0') == 'Monday' ? 'selected' : '' }}>
-                                                @lang('Monday')</option>
+                                                @lang('Monday')
+                                            </option>
                                             <option value="Tuesday" {{ old('working_day.0') == 'Tuesday' ? 'selected' : '' }}>
-                                                @lang('Tuesday')</option>
+                                                @lang('Tuesday')
+                                            </option>
                                             <option value="Wednesday" {{ old('working_day.0') == 'Wednesday' ? 'selected' : '' }}>
-                                                @lang('Wednesday')</option>
+                                                @lang('Wednesday')
+                                            </option>
                                             <option value="Thursday" {{ old('working_day.0') == 'Thursday' ? 'selected' : '' }}>
-                                                @lang('Thursday')</option>
+                                                @lang('Thursday')
+                                            </option>
                                             <option value="Friday" {{ old('working_day.0') == 'Friday' ? 'selected' : '' }}>
-                                                @lang('Friday')</option>
+                                                @lang('Friday')
+                                            </option>
                                             <option value="Saturday" {{ old('working_day.0') == 'Saturday' ? 'selected' : '' }}>
-                                                @lang('Saturday')</option>
+                                                @lang('Saturday')
+                                            </option>
                                             <option value="Sunday" {{ old('working_day.0') == 'Sunday' ? 'selected' : '' }}>
-                                                @lang('Sunday')</option>
+                                                @lang('Sunday')
+                                            </option>
                                         </select>
                                         <div class="invalid-feedback">
                                             @error('working_day.0') @lang($message) @enderror
@@ -458,15 +466,18 @@
                                                 <div class="input-box w-100 my-1 mx-sm-1">
                                                     <select class="js-example-basic-single form-control" name="working_day[]">
                                                         <option value="Monday" {{ old("working_day.$i") == 'Monday' ? 'selected' : '' }}>
-                                                            @lang('Monday')</option>
+                                                            @lang('Monday')
+                                                        </option>
                                                         <option value="Tuesday" {{ old("working_day.$i") == 'Tuesday' ? 'selected' : '' }}>@lang('Tuesday')</option>
                                                         <option value="Wednesday" {{ old("working_day.$i") == 'Wednesday' ? 'selected' : '' }}>@lang('Wednesday')</option>
                                                         <option value="Thursday" {{ old("working_day.$i") == 'Thursday' ? 'selected' : '' }}>@lang('Thursday')</option>
                                                         <option value="Friday" {{ old("working_day.$i") == 'Friday' ? 'selected' : '' }}>
-                                                            @lang('Friday')</option>
+                                                            @lang('Friday')
+                                                        </option>
                                                         <option value="Saturday" {{ old("working_day.$i") == 'Saturday' ? 'selected' : '' }}>@lang('Saturday')</option>
                                                         <option value="Sunday" {{ old("working_day.$i") == 'Sunday' ? 'selected' : '' }}>
-                                                            @lang('Sunday')</option>
+                                                            @lang('Sunday')
+                                                        </option>
                                                     </select>
                                                     <div class="invalid-feedback">
                                                         @error("working_day.$i") @lang($message) @enderror
@@ -745,8 +756,8 @@
                                         <span class="product-form-close"> <i class="fa fa-times"></i> </span>
                                         <div class="row g-3">
                                             <div class="input-box col-md-6">
-                                                <input class="form-control @error('product_title.' . $i) is-invalid @enderror" type="text"
-                                                    name="product_title[]" placeholder="@lang('Title')"
+                                                <input class="form-control @error('product_title.' . $i) is-invalid @enderror"
+                                                    type="text" name="product_title[]" placeholder="@lang('Title')"
                                                     value="{{ old('product_title.' . $i) }}" />
                                                 @error('product_title.' . $i)
                                                     <span class="text-danger">{{ $message }}</span>
@@ -776,7 +787,8 @@
                                                     <div class="product-image no_of_product_image" id="product-image{{ $i + 1 }}"
                                                         data-productimage="{{ $single_package_infos->is_product == 1 && $single_package_infos->no_of_img_per_product == null ? 500 : $single_package_infos->no_of_img_per_product }}">
                                                     </div>
-                                                    <span class="text-danger"> @error('product_image.' . ($i + 1) . '.*') @lang($message)
+                                                    <span class="text-danger"> @error('product_image.' . ($i + 1) . '.*')
+                                                        @lang($message)
                                                     @enderror</span>
                                                 </div>
                                             </div>
@@ -1134,39 +1146,39 @@
 
                 if (dataProducts >= 1 || dataProducts == 'unlimited') {
                     var productForm = `<div class="col-xl-6 removeProductForm">
-                            <div class="form new__product__form">
-                                <span class="product-form-close"> <i class="fa fa-times"></i> </span>
-                                <div class="row g-3">
-                                    <div class="input-box col-md-6">
-                                        <input class="form-control" name="product_title[]" type="text" placeholder="@lang('Title')"
-                                        />
-                                    </div>
-                                    <div class="input-box col-md-6">
-                                        <input class="form-control" name="product_price[]" type="number" step="0.1" placeholder="@lang('Price')"/>
-                                    </div>
-
-                                    <div class="input-box col-12">
-                                         <textarea class="form-control" name="product_description[]" cols="30" rows="3" placeholder="@lang('Description')"
-                                         ></textarea>
-                                    </div>
-                                    <div class="pe-2">
-                                        <div class="input-box col-12 no-of-img-per-product">
-                                            <div class="product-image no_of_product_image" id="product-image${productLenght}" data-productimage="{{ $single_package_infos->is_product == 1 && $single_package_infos->no_of_img_per_product == null ? 500 : $single_package_infos->no_of_img_per_product }}"></div>
-                                            <span class="text-danger"> @error('product_image.*') @lang($message) @enderror</span>
+                                <div class="form new__product__form">
+                                    <span class="product-form-close"> <i class="fa fa-times"></i> </span>
+                                    <div class="row g-3">
+                                        <div class="input-box col-md-6">
+                                            <input class="form-control" name="product_title[]" type="text" placeholder="@lang('Title')"
+                                            />
                                         </div>
-                                    </div>
-                                    <div class="upload-img thumbnail">
-                                        <div class="form">
-                                            <div class="img-box product-thumbnail">
-                                                <input accept="image/*" type="file" onchange="previewImage('product_thumbnail` + string + `')" name="product_thumbnail[]"/>
-                                                <span class="select-file">@lang('Product Thumbnail')</span>
-                                                <img id="product_thumbnail` + string + `" src="{{ getFile(config('location.default')) }}" class="img-fluid"/>
+                                        <div class="input-box col-md-6">
+                                            <input class="form-control" name="product_price[]" type="number" step="0.1" placeholder="@lang('Price')"/>
+                                        </div>
+
+                                        <div class="input-box col-12">
+                                             <textarea class="form-control" name="product_description[]" cols="30" rows="3" placeholder="@lang('Description')"
+                                             ></textarea>
+                                        </div>
+                                        <div class="pe-2">
+                                            <div class="input-box col-12 no-of-img-per-product">
+                                                <div class="product-image no_of_product_image" id="product-image${productLenght}" data-productimage="{{ $single_package_infos->is_product == 1 && $single_package_infos->no_of_img_per_product == null ? 500 : $single_package_infos->no_of_img_per_product }}"></div>
+                                                <span class="text-danger"> @error('product_image.*') @lang($message) @enderror</span>
+                                            </div>
+                                        </div>
+                                        <div class="upload-img thumbnail">
+                                            <div class="form">
+                                                <div class="img-box product-thumbnail">
+                                                    <input accept="image/*" type="file" onchange="previewImage('product_thumbnail` + string + `')" name="product_thumbnail[]"/>
+                                                    <span class="select-file">@lang('Product Thumbnail')</span>
+                                                    <img id="product_thumbnail` + string + `" src="{{ getFile(config('location.default')) }}" class="img-fluid"/>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>`;
+                            </div>`;
 
                     $('.new_product_form').append(productForm)
 
@@ -1207,31 +1219,31 @@
 
             $("#add_business_hour").on('click', function () {
                 var form = `<div class="d-sm-flex justify-content-between removeBusinessHourInputField">
-                                    <div class="input-box w-100 my-1 mx-sm-1">
-                                        <select class="js-example-basic-single form-control" name="working_day[]">
-                                            <option value="Monday">@lang('Monday')</option>
-                                            <option value="Tuesday">@lang('Tuesday')</option>
-                                            <option value="Wednesday">@lang('Wednesday')</option>
-                                            <option value="Thursday">@lang('Thursday')</option>
-                                            <option value="Friday">@lang('Friday')</option>
-                                            <option value="Saturday">@lang('Saturday')</option>
-                                            <option value="Sunday">@lang('Sunday')</option>
-                                        </select>
-                                    </div>
-                                    <div class="d-flex input-box-two">
-                                        <div class="input-box w-100 my-1 me-1">
-                                            <input type="time" name="start_time[]" class="form-control" placeholder="@lang('Start Hour')" />
+                                        <div class="input-box w-100 my-1 mx-sm-1">
+                                            <select class="js-example-basic-single form-control" name="working_day[]">
+                                                <option value="Monday">@lang('Monday')</option>
+                                                <option value="Tuesday">@lang('Tuesday')</option>
+                                                <option value="Wednesday">@lang('Wednesday')</option>
+                                                <option value="Thursday">@lang('Thursday')</option>
+                                                <option value="Friday">@lang('Friday')</option>
+                                                <option value="Saturday">@lang('Saturday')</option>
+                                                <option value="Sunday">@lang('Sunday')</option>
+                                            </select>
                                         </div>
-                                        <div class="input-box w-100 my-1 me-1">
-                                            <input type="time" name="end_time[]" class="form-control" placeholder="@lang('End Hour')" />
+                                        <div class="d-flex input-box-two">
+                                            <div class="input-box w-100 my-1 me-1">
+                                                <input type="time" name="start_time[]" class="form-control" placeholder="@lang('Start Hour')" />
+                                            </div>
+                                            <div class="input-box w-100 my-1 me-1">
+                                                <input type="time" name="end_time[]" class="form-control" placeholder="@lang('End Hour')" />
+                                            </div>
+                                            <div class="input-box my-1 me-1">
+                                                <button class="btn btn-outline-danger h-100 add-new remove_business_hour_input_field_block" type="button">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div class="input-box my-1 me-1">
-                                            <button class="btn btn-outline-danger h-100 add-new remove_business_hour_input_field_block" type="button">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>`;
+                                    </div>`;
 
                 $('.new_business_hour_form').append(form)
             });
@@ -1350,20 +1362,20 @@
                 let newSocialForm = $('.append_new_social_form').length + 2;
 
                 var form = `<div class="d-flex justify-content-between append_new_social_form removeSocialLinksInput">
-                                    <div class="input-group mt-1">
-                                        <input type="text" name="social_icon[]" class="form-control bg-white demo__icon__picker iconpicker${newSocialForm}" placeholder="Pick a icon" aria-label="Pick a icon"
-                                               aria-describedby="basic-addon1" readonly>
-                                    </div>
+                                        <div class="input-group mt-1">
+                                            <input type="text" name="social_icon[]" class="form-control bg-white demo__icon__picker iconpicker${newSocialForm}" placeholder="Pick a icon" aria-label="Pick a icon"
+                                                   aria-describedby="basic-addon1" readonly>
+                                        </div>
 
-                                    <div class="input-box w-100 my-1 me-1">
-                                        <input type="url" name="social_url[]" class="form-control" placeholder="@lang('URL')"/>
-                                    </div>
-                                    <div class="my-1 me-1">
-                                        <button class="btn btn-outline-danger h-100 add-new remove_social_link_input_field" type="button">
-                                            <i class="fa fa-times"></i>
-                                        </button>
-                                    </div>
-                                </div>`;
+                                        <div class="input-box w-100 my-1 me-1">
+                                            <input type="url" name="social_url[]" class="form-control" placeholder="@lang('URL')"/>
+                                        </div>
+                                        <div class="my-1 me-1">
+                                            <button class="btn btn-outline-danger h-100 add-new remove_social_link_input_field" type="button">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>`;
 
                 $('.new_social_links_form').append(form)
                 setIconpicker(`.iconpicker${newSocialForm}`);
@@ -1578,7 +1590,7 @@
                 $('#address-search').val($("#city_id").select2().find(":selected").data("name"));
             @endif
 
-            });
+                });
 
         //get state of selected Country
         $(document).on('change', '#country_id', function () {
@@ -1637,7 +1649,7 @@
                     @if(old('city_id'))
                         $('#city_id').val('{{ old('city_id') }}');
                     @endif
-                    }
+                        }
             });
         });
 
@@ -1680,18 +1692,18 @@
 
             if ($this.val() == 'select') {
                 additionalOptionsDiv.html(`
-                    <div class="row mb-2 optionRow">
-                        <div class="col-md-5">
-                            <input type="text" name="option_name[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Name">
+                        <div class="row mb-2 optionRow">
+                            <div class="col-md-5">
+                                <input type="text" name="option_name[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Name">
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" name="option_value[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Value">
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center">
+                                <button type="button" class="btn btn-sm btn-success addOptionField">+</button>
+                            </div>
                         </div>
-                        <div class="col-md-5">
-                            <input type="text" name="option_value[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Value">
-                        </div>
-                        <div class="col-md-2 d-flex align-items-center">
-                            <button type="button" class="btn btn-sm btn-success addOptionField">+</button>
-                        </div>
-                    </div>
-                `);
+                    `);
             } else {
                 additionalOptionsDiv.empty();
             }
@@ -1701,17 +1713,17 @@
             var fieldIndex = $(this).closest('.copyField').find('.copyFieldLength').val();
             optionIndex++;
             var newOptionRow = `
-                <div class="row mb-2 optionRow">
-                    <div class="col-md-5">
-                        <input type="text" name="option_name[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Name">
-                    </div>
-                    <div class="col-md-5">
-                        <input type="text" name="option_value[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Value">
-                    </div>
-                    <div class="col-md-2 d-flex align-items-center">
-                        <button type="button" class="btn btn-sm btn-danger removeOptionField">-</button>
-                    </div>
-                </div>`;
+                    <div class="row mb-2 optionRow">
+                        <div class="col-md-5">
+                            <input type="text" name="option_name[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Name">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" name="option_value[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Value">
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-danger removeOptionField">-</button>
+                        </div>
+                    </div>`;
             $(this).closest('.additional-options').append(newOptionRow);
         });
 
