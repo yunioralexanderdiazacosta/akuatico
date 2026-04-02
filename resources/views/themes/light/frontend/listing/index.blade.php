@@ -8,6 +8,30 @@
 @push('style')
     <link rel="stylesheet" href="{{ asset('assets/global/css/frontend_leaflet.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/global/css/frontendControl.FullScreen.css') }}"/>
+    <style>
+        .listing-section .listing-grid-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .listing-section .listing-grid-card .img-box {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .listing-section .listing-grid-card .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .listing-section .listing-grid-card .text-box {
+            flex: 1;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -215,11 +239,11 @@
                 </div>
 
 
-                <div class="col-xl-6 col-lg-6 col-sm-12 my-4">
+                <div class="col-xl-10 col-lg-10 col-sm-12 my-4">
                     @if( 0 <count($all_listings))
                         <div class="row mb-4">
                             <div class="col-12 justify-content-end d-flex">
-                                <div id="results-count" data-total="{{ $all_listings->total() }}" data-current-page="{{ $all_listings->currentPage() }}">
+                                <div id="results-count" data-total="{{ $all_listings->total() }}" data-current-page="{{ $all_listings->currentPage() }}" data-per-page="{{ $all_listings->perPage() }}">
                                     {{--Showing results here--}}
                                 </div>
                             </div>
@@ -232,8 +256,8 @@
                                     $total = $listing->reviews()[0]->total;
                                     $average_review = $listing->reviews()[0]->average;
                                 @endphp
-                                <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="listing-box listing-map-box" data-lat="{{ $listing->lat }}"
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                                    <div class="listing-box listing-map-box listing-grid-card" data-lat="{{ $listing->lat }}"
                                          data-long="{{ $listing->long }}"
                                          data-title="@lang( Str::limit($listing->title, 30))"
                                          data-image="{{ getFile($listing->thumbnail_driver, $listing->thumbnail) }}"
@@ -241,7 +265,7 @@
                                          data-route="{{ route('listing.details', $listing->slug) }}">
                                         <div class="img-box">
                                             <a href="{{ route('listing.details', $listing->slug) }}">
-                                                <img class="img-fluid" style="object-fit: cover;"
+                                                <img class="img-fluid"
                                                      src="{{ getFile($listing->thumbnail_driver, $listing->thumbnail) }}"
                                                      alt="{{ basicControl()->site_title }}"/>
                                             </a>
@@ -339,9 +363,9 @@
                     @endif
                 </div>
 
-                <div class="col-xl-4 col-lg-4 col-sm-12">
+                <!-- <div class="col-xl-4 col-lg-4 col-sm-12">
                     <div class="h-100" id="map"></div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -416,7 +440,7 @@
             if ($resultsCount.length) {
                 const total = parseInt($resultsCount.data('total'), 10);
                 const currentPage = parseInt($resultsCount.data('current-page'), 10);
-                const perPage = 6;
+                const perPage = parseInt($resultsCount.data('per-page'), 10) || 1;
                 const start = (currentPage - 1) * perPage + 1;
                 const end = Math.min(start + perPage - 1, total);
                 $resultsCount.html(`Showing <strong>${start} – ${end}</strong> of <strong>${total}</strong> results`);
