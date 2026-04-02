@@ -590,7 +590,7 @@
                                     <div class="img-box">
                                         <img
                                             src="{{ getFile(optional($single_listing_details->get_user)->cover_image_driver, optional($single_listing_details->get_user)->cover_image) }}"
-                                            alt="image" class="img-fluid cover"/>
+                                            alt="image" class="img-fluid cover" style="object-fit: cover;" />
                                         <img
                                             src="{{ getFile(optional($single_listing_details->get_user)->image_driver, optional($single_listing_details->get_user)->image) }}"
                                             class="img-fluid profile" alt="image"/>
