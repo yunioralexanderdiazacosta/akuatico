@@ -34,7 +34,7 @@ class SpecialCategoryController extends Controller
 
         $pageSeo['page_title'] = ucfirst($routeName);
 
-        if ($routeName === 'clasificado') {
+        if ($routeName === 'anuncios') {
             $availableCategories = ['Botes', 'Jets Skies', 'Veleros', 'Kayaks', 'Juguetes para el Agua'];
         } elseif ($routeName === 'directorio') {
             $availableCategories = ['Piezas', 'Financiamiento', 'Seguros', 'Marinas'];
