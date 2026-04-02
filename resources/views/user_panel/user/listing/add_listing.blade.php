@@ -1440,6 +1440,29 @@
                     return;
                 }
 
+                let hasRelatedSubcategories = false;
+                $subcategorySelect.find('option').each(function () {
+                    let $option = $(this);
+                    let parentId = $option.data('parent');
+
+                    if (parentId) {
+                        let isRelated = selectedCategories.some(function (catId) {
+                            return String(catId) === String(parentId);
+                        });
+
+                        if (isRelated) {
+                            hasRelatedSubcategories = true;
+                            return false;
+                        }
+                    }
+                });
+
+                if (!hasRelatedSubcategories) {
+                    $('.subcategory-field').hide();
+                    $subcategorySelect.val(null).trigger('change');
+                    return;
+                }
+
                 $('.subcategory-field').show();
 
                 // Limpiar selecciones que ya no son válidas
