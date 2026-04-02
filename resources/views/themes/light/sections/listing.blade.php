@@ -3,7 +3,7 @@
 @if(isset($listing['popularListings']) && $listing['popularListings']->isNotEmpty())
     <style>
         .popular-listings .listing-grid-card-link {
-            display: block;
+            /* display: block */
             height: 100%;
         }
 
@@ -59,13 +59,13 @@
                                             <img class="img-fluid"
                                                 src="{{ getFile($listing->thumbnail_driver, $listing->thumbnail) }}" alt="image" />
                                             <!--button class="save wishList" type="button" id="{{$key}}" data-user="{{ optional($listing->get_user)->id }}"
-                                                                    data-purchase="{{ $listing->purchase_package_id }}" data-listing="{{ $listing->id }}">
-                                                                @if($listing->get_favourite_count > 0)
-                                                                    <i class="fas fa-heart save{{$key}}"></i>
-                                                                @else
-                                                                    <i class="fal fa-heart save{{$key}}"></i>
-                                                                @endif
-                                                            </button-->
+                                                                                data-purchase="{{ $listing->purchase_package_id }}" data-listing="{{ $listing->id }}">
+                                                                            @if($listing->get_favourite_count > 0)
+                                                                                <i class="fas fa-heart save{{$key}}"></i>
+                                                                            @else
+                                                                                <i class="fal fa-heart save{{$key}}"></i>
+                                                                            @endif
+                                                                        </button-->
                                         </div>
                                         <div class="text-box">
                                             <div class="review">
