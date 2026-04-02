@@ -239,6 +239,26 @@
                                             <h5>@lang('Price'): <span class="text-primary">${{ number_format($single_listing_details->price) }}</span></h5>
                                         </div>
                                     @endif
+                                    @if($single_listing_details->getSubCategoriesName())
+                                        <div class="mt-2">
+                                            <h5>@lang('Subcategory'): <span class="text-secondary">{{ $single_listing_details->getSubCategoriesName() }}</span></h5>
+                                        </div>
+                                    @endif
+                                    @if($single_listing_details->length)
+                                        <div class="mt-2">
+                                            <h5>@lang('Length'): <span class="text-secondary">{{ number_format($single_listing_details->length) }} @lang('Feet')</span></h5>
+                                        </div>
+                                    @endif
+                                    @if($single_listing_details->getMarcasName())
+                                        <div class="mt-2">
+                                            <h5>@lang('Marca'): <span class="text-secondary">{{ $single_listing_details->getMarcasName() }}</span></h5>
+                                        </div>
+                                    @endif
+                                    @if($single_listing_details->year)
+                                        <div class="mt-2">
+                                            <h5>@lang('Year'): <span class="text-secondary">{{ $single_listing_details->year }}</span></h5>
+                                        </div>
+                                    @endif
                                 </div>
 
                                 @if(optional($single_listing_details->get_package)->is_video != 0 && $single_listing_details->youtube_video_id != null)

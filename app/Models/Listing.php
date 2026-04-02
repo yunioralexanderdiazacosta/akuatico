@@ -181,5 +181,19 @@ class Listing extends Model
         return implode(' , ', $subcategoryNames);
     }
 
+    public function getMarcasName(): string
+    {
+        $marcaIds = is_array($this->marca) ? $this->marca : json_decode($this->marca, true);
+
+        if (!is_array($marcaIds) || empty($marcaIds)) {
+            return '';
+        }
+        if (empty(static::$categoryNamesCache)) {
+            static::$categoryNamesCache = ListingCategoryDetails::pluck('name', 'listing_category_id')->toArray();
+        }
+        $marcaNames = array_intersect_key(static::$categoryNamesCache, array_flip($marcaIds));
+        return implode(' , ', $marcaNames);
+    }
+
 
 }
