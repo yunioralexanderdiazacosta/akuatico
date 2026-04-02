@@ -1,6 +1,35 @@
 <!-- popular listings -->
 
 @if(isset($listing['popularListings']) && $listing['popularListings']->isNotEmpty())
+    <style>
+        .popular-listings .listing-grid-card-link {
+            display: block;
+            height: 100%;
+        }
+
+        .popular-listings .listing-grid-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .popular-listings .listing-grid-card .img-box {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .popular-listings .listing-grid-card .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .popular-listings .listing-grid-card .text-box {
+            flex: 1;
+        }
+    </style>
     <section class="popular-listings">
         <div class="overlay">
             <div class="container">
@@ -24,8 +53,8 @@
                                 $average_review = $listing->reviews()[0]->average;
                             @endphp
                             <div class="col-lg-3 col-md-6">
-                                <a class="title h-100" href="{{ route('listing.details', $listing->slug) }}">
-                                    <div class="listing-box">
+                                <a class="title h-100 listing-grid-card-link" href="{{ route('listing.details', $listing->slug) }}">
+                                    <div class="listing-box listing-grid-card">
                                         <div class="img-box">
                                             <img class="img-fluid"
                                                 src="{{ getFile($listing->thumbnail_driver, $listing->thumbnail) }}" alt="image" />
