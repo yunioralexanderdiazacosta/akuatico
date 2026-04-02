@@ -283,6 +283,10 @@
                                         </div>
                                     </div>
 
+                                    <div class="input-box col-12">
+                                        <p class="mb-2 text-muted" style="font-size: 0.9rem;">En la descripción favor de colocar: Horas, combustible, caballaje de motores.</p>
+                                    </div>
+
                                     <div class="input-box col-12 bg-white p-0">
                                         <textarea class="form-control summernote @error('description') is-invalid @enderror"
                                             name="description" id="summernote" rows="15" value="{{ old('description') }}"

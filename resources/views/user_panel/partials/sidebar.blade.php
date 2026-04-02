@@ -28,6 +28,13 @@
             </a>
         </li>
 
+        {{-- <li>
+            <a href="{{ route('user.addListing') }}"
+                class="{{ request()->routeIs(['user.addListing', 'user.editListing', 'user.dynamic.form.data', 'user.listing.import.csv']) ? 'active' : ''}}">
+                <i class="fal fa-plus text-green"></i>@lang('Create Listing')
+            </a>
+        </li> --}}
+
         <li>
             @php
                 $id = '';
