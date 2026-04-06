@@ -7,6 +7,123 @@
     <link rel="stylesheet" href="{{ asset('assets/global/css/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/global/css/bootstrapicons-iconpicker.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/summernote.min.css')}}">
+    <style>
+        .wizard-steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+            padding: 0 20px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .wizard-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: default;
+        }
+        .wizard-step .step-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            border: 2px solid #dee2e6;
+            background: #fff;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+        .wizard-step.active .step-circle {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+        .wizard-step.completed .step-circle {
+            background: #28a745;
+            border-color: #28a745;
+            color: #fff;
+        }
+        .wizard-step .step-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #6c757d;
+            transition: color 0.3s ease;
+        }
+        .wizard-step.active .step-label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .wizard-step.completed .step-label {
+            color: #28a745;
+        }
+        .wizard-step-line {
+            width: 40px;
+            height: 2px;
+            background: #dee2e6;
+            transition: background 0.3s ease;
+        }
+        .wizard-step-line.completed {
+            background: #28a745;
+        }
+        .wizard-nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+        .wizard-nav-buttons .btn-wizard {
+            padding: 10px 30px;
+            font-size: 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .wizard-nav-buttons .btn-wizard-prev {
+            background: #6c757d;
+            color: #fff;
+            border: none;
+        }
+        .wizard-nav-buttons .btn-wizard-prev:hover {
+            background: #5a6268;
+        }
+        .wizard-nav-buttons .btn-wizard-next {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+        }
+        .wizard-nav-buttons .btn-wizard-next:hover {
+            opacity: 0.9;
+        }
+        .wizard-nav-buttons .btn-wizard-save {
+            background: #28a745;
+            color: #fff;
+            border: none;
+        }
+        .wizard-nav-buttons .btn-wizard-save:hover {
+            background: #218838;
+        }
+        .switcher.navigator {
+            display: none !important;
+        }
+        @media (max-width: 768px) {
+            .wizard-step .step-label {
+                display: none;
+            }
+            .wizard-step-line {
+                width: 20px;
+            }
+            .wizard-nav-buttons .btn-wizard {
+                padding: 8px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
 @endpush
 @section('content')
 <div class="container-fluid">
@@ -165,6 +282,10 @@
                     @lang('Custom Form')
                 </button>
             @endif -->
+    </div>
+
+    <div class="wizard-steps" id="wizardSteps">
+        {{-- Steps are generated dynamically by JavaScript --}}
     </div>
 
     <form action="{{ route('user.updateListing', $id) }}" method="post" enctype="multipart/form-data">
@@ -1037,10 +1158,19 @@
             </div>
         @endif
 
-        <div class="col-12 mb-3 justify-content-strat d-flex mt-4 mb-4">
-            <button type="submit" class="cmn-btn customButton">
-                <i class="fal fa-check-circle" aria-hidden="true"></i>@lang('Save')
+        <div class="wizard-nav-buttons">
+            <button type="button" class="btn-wizard btn-wizard-prev" id="wizardPrev" style="display: none;">
+                <i class="fal fa-arrow-left me-2"></i>@lang('Anterior')
             </button>
+            <div></div>
+            <div class="d-flex gap-2">
+                <button type="button" class="btn-wizard btn-wizard-next" id="wizardNext">
+                    @lang('Siguiente') <i class="fal fa-arrow-right ms-2"></i>
+                </button>
+                <button type="submit" class="btn-wizard btn-wizard-save" id="wizardSave" style="display: none;">
+                    <i class="fal fa-check-circle me-2"></i>@lang('Guardar')
+                </button>
+            </div>
         </div>
     </form>
 </div>
@@ -1825,5 +1955,119 @@
         $phone.on('input', function () {
             $(this).val(formatPhone($(this).val()));
         });
+
+        // ===== WIZARD NAVIGATION =====
+        (function() {
+            var stepLabels = {
+                'tab1': '@lang("Información Básica")',
+                'tab2': '@lang("Video")',
+                'tab3': '@lang("Fotos")',
+                'tab4': '@lang("Amenidades")',
+                'tab5': '@lang("Productos")',
+                'tab6': '@lang("SEO")',
+                'tab7': '@lang("Comunicación")',
+                'tab8': '@lang("Formulario")'
+            };
+
+            var allowedTabs = ['tab1', 'tab2', 'tab3'];
+            var allContents = document.querySelectorAll('.add-listing-form.content');
+            var wizardPanels = [];
+            allContents.forEach(function(panel) {
+                if (allowedTabs.indexOf(panel.id) !== -1) {
+                    wizardPanels.push(panel.id);
+                } else {
+                    panel.style.display = 'none';
+                    panel.classList.remove('active');
+                }
+            });
+
+            var currentStep = 0;
+
+            function buildStepIndicator() {
+                var container = document.getElementById('wizardSteps');
+                container.innerHTML = '';
+                wizardPanels.forEach(function(panelId, index) {
+                    if (index > 0) {
+                        var line = document.createElement('div');
+                        line.className = 'wizard-step-line';
+                        line.setAttribute('data-line-index', index - 1);
+                        container.appendChild(line);
+                    }
+                    var step = document.createElement('div');
+                    step.className = 'wizard-step' + (index === 0 ? ' active' : '');
+                    step.setAttribute('data-step-index', index);
+                    step.innerHTML = '<span class="step-circle">' + (index + 1) + '</span>' +
+                        '<span class="step-label">' + (stepLabels[panelId] || panelId) + '</span>';
+                    container.appendChild(step);
+                });
+            }
+
+            function updateWizard() {
+                allContents.forEach(function(panel) {
+                    panel.classList.remove('active');
+                });
+                var activePanel = document.getElementById(wizardPanels[currentStep]);
+                if (activePanel) activePanel.classList.add('active');
+
+                document.querySelectorAll('.wizard-step').forEach(function(step, index) {
+                    step.classList.remove('active', 'completed');
+                    if (index === currentStep) {
+                        step.classList.add('active');
+                    } else if (index < currentStep) {
+                        step.classList.add('completed');
+                    }
+                });
+
+                document.querySelectorAll('.wizard-step-line').forEach(function(line, index) {
+                    line.classList.toggle('completed', index < currentStep);
+                });
+
+                var tabButtons = document.querySelectorAll('.switcher.navigator .tab');
+                tabButtons.forEach(function(btn) { btn.classList.remove('active'); });
+                var activeTabId = wizardPanels[currentStep];
+                tabButtons.forEach(function(btn) {
+                    if (btn.getAttribute('tab-id') === activeTabId) {
+                        btn.classList.add('active');
+                    }
+                });
+
+                var prevBtn = document.getElementById('wizardPrev');
+                var nextBtn = document.getElementById('wizardNext');
+                var saveBtn = document.getElementById('wizardSave');
+
+                prevBtn.style.display = currentStep > 0 ? 'inline-block' : 'none';
+                nextBtn.style.display = currentStep < wizardPanels.length - 1 ? 'inline-block' : 'none';
+                saveBtn.style.display = currentStep === wizardPanels.length - 1 ? 'inline-block' : 'none';
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            buildStepIndicator();
+            updateWizard();
+
+            document.getElementById('wizardNext').addEventListener('click', function() {
+                if (currentStep < wizardPanels.length - 1) {
+                    currentStep++;
+                    updateWizard();
+                }
+            });
+
+            document.getElementById('wizardPrev').addEventListener('click', function() {
+                if (currentStep > 0) {
+                    currentStep--;
+                    updateWizard();
+                }
+            });
+
+            document.getElementById('wizardSteps').addEventListener('click', function(e) {
+                var stepEl = e.target.closest('.wizard-step');
+                if (!stepEl) return;
+                var index = parseInt(stepEl.getAttribute('data-step-index'));
+                if (index <= currentStep) {
+                    currentStep = index;
+                    updateWizard();
+                }
+            });
+        })();
     </script>
 @endpush

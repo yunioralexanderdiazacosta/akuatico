@@ -52,7 +52,7 @@ class MyListingController extends Controller
         $data["listingCategories"] = ListingCategory::with("details")
             ->where("status", 1)
             ->get()
-            ->sortBy(function($cat) {
+            ->sortBy(function ($cat) {
                 return optional($cat->details)->name ?? '';
             });
         $data["allAddresses"] = Country::select("id", "name")
@@ -85,16 +85,12 @@ class MyListingController extends Controller
                 return $query->where("title", "LIKE", "%{$search["name"]}%");
             })
             ->when(isset($search["package"]), function ($query) use ($search) {
-                return $query->whereHas("get_package", function ($q) use (
-                    $search,
-                ) {
+                return $query->whereHas("get_package", function ($q) use ($search, ) {
                     $q->where("package_id", $search["package"]);
                 });
             })
             ->when(isset($search["location"]), function ($query) use ($search) {
-                return $query->whereHas("get_place", function ($q3) use (
-                    $search,
-                ) {
+                return $query->whereHas("get_place", function ($q3) use ($search, ) {
                     $q3->where("id", $search["location"]);
                 });
             })
@@ -122,7 +118,7 @@ class MyListingController extends Controller
             ->where('parent_id', $marcasCategory->id)
             ->where('status', 1)
             ->get()
-            ->sortBy(function($cat) {
+            ->sortBy(function ($cat) {
                 return optional($cat->details)->name ?? '';
             }) : collect();
 
@@ -130,13 +126,13 @@ class MyListingController extends Controller
             ->where("status", 1)
             ->when($marcasCategory, function ($query) use ($marcasCategory) {
                 return $query->where('id', '!=', $marcasCategory->id)
-                    ->where(function($q) use ($marcasCategory) {
+                    ->where(function ($q) use ($marcasCategory) {
                         $q->where('parent_id', '!=', $marcasCategory->id)
                             ->orWhereNull('parent_id');
                     });
             })
             ->get()
-            ->sortBy(function($cat) {
+            ->sortBy(function ($cat) {
                 return optional($cat->details)->name ?? '';
             });
         $data["countries"] = Country::select("id", "name", "iso2")
@@ -167,7 +163,7 @@ class MyListingController extends Controller
             "length" => "nullable|numeric|min:0",
             "year" => "nullable|integer|min:1960|max:" . date('Y'),
             "slug" => [
-                "required",
+                "nullable",
                 "min:1",
                 "max:500",
                 Rule::unique("listings"),
@@ -309,7 +305,7 @@ class MyListingController extends Controller
             $listing->user_id = $user->id;
             $listing->purchase_package_id = $id;
             $listing->title = $request->title;
-            $listing->slug = $request->slug;
+            $listing->slug = $request->slug ?: $this->generateUniqueSlug($request->title);
             $listing->length = $request->length;
             $listing->year = $request->year;
             $listing->category_id = array_slice(
@@ -519,7 +515,7 @@ class MyListingController extends Controller
             ->where('parent_id', $marcasCategory->id)
             ->where('status', 1)
             ->get()
-            ->sortBy(function($cat) {
+            ->sortBy(function ($cat) {
                 return optional($cat->details)->name ?? '';
             }) : collect();
 
@@ -527,13 +523,13 @@ class MyListingController extends Controller
             ->where("status", 1)
             ->when($marcasCategory, function ($query) use ($marcasCategory) {
                 return $query->where('id', '!=', $marcasCategory->id)
-                    ->where(function($q) use ($marcasCategory) {
+                    ->where(function ($q) use ($marcasCategory) {
                         $q->where('parent_id', '!=', $marcasCategory->id)
                             ->orWhereNull('parent_id');
                     });
             })
             ->get()
-            ->sortBy(function($cat) {
+            ->sortBy(function ($cat) {
                 return optional($cat->details)->name ?? '';
             });
         $data["all_places"] = Country::where("status", 1)
@@ -668,7 +664,7 @@ class MyListingController extends Controller
             $numberOfCategoriesPerListing = min(
                 count($request->category_id),
                 optional($listing->get_package)->no_of_categories_per_listing ??
-                    1,
+                1,
             );
             $listing->category_id = array_slice(
                 $request->category_id,
@@ -1032,9 +1028,7 @@ class MyListingController extends Controller
             "review_user_info",
         ])
             ->when(isset($search["user"]), function ($query) use ($search) {
-                return $query->whereHas("review_user_info", function ($q) use (
-                    $search,
-                ) {
+                return $query->whereHas("review_user_info", function ($q) use ($search, ) {
                     $q->where("id", "LIKE", "%{$search["user"]}%");
                 });
             })
@@ -1044,10 +1038,7 @@ class MyListingController extends Controller
             ->when(isset($search["from_date"]), function ($q2) use ($fromDate) {
                 return $q2->whereDate("created_at", ">=", $fromDate);
             })
-            ->when(isset($search["to_date"]), function ($q2) use (
-                $fromDate,
-                $toDate,
-            ) {
+            ->when(isset($search["to_date"]), function ($q2) use ($fromDate, $toDate, ) {
                 return $q2->whereBetween("created_at", [$fromDate, $toDate]);
             })
             ->where("listing_id", $id)
@@ -1073,10 +1064,7 @@ class MyListingController extends Controller
             ->when(isset($search["from_date"]), function ($q2) use ($fromDate) {
                 return $q2->whereDate("created_at", ">=", $fromDate);
             })
-            ->when(isset($search["to_date"]), function ($q2) use (
-                $fromDate,
-                $toDate,
-            ) {
+            ->when(isset($search["to_date"]), function ($q2) use ($fromDate, $toDate, ) {
                 return $q2->whereBetween("created_at", [$fromDate, $toDate]);
             })
             ->latest()
