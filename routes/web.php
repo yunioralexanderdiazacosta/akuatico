@@ -102,10 +102,10 @@ Route::group(['middleware' => ['maintenanceMode']], function () use ($basicContr
                 Route::get('transaction-search', [HomeController::class, 'search'])->name('transaction.search');
 
                 /* ===== Manage Two Step ===== */
-                Route::get('two-step-security', [TwoFaSecurityController::class, 'twoStepSecurity'])->name('twostep.security');
-                Route::post('twoStep-enable', [TwoFaSecurityController::class, 'twoStepEnable'])->name('twoStepEnable');
-                Route::post('twoStep-disable', [TwoFaSecurityController::class, 'twoStepDisable'])->name('twoStepDisable');
-                Route::post('twoStep/re-generate', [TwoFaSecurityController::class, 'twoStepRegenerate'])->name('twoStepRegenerate');
+                Route::get('two-step-security', [TwoFaSecurityController::class, 'twoStepSecurity'])->name('twostep.security')->middleware('company.only');
+                Route::post('twoStep-enable', [TwoFaSecurityController::class, 'twoStepEnable'])->name('twoStepEnable')->middleware('company.only');
+                Route::post('twoStep-disable', [TwoFaSecurityController::class, 'twoStepDisable'])->name('twoStepDisable')->middleware('company.only');
+                Route::post('twoStep/re-generate', [TwoFaSecurityController::class, 'twoStepRegenerate'])->name('twoStepRegenerate')->middleware('company.only');
 
 
                 /* ===== Push Notification ===== */
@@ -113,7 +113,7 @@ Route::group(['middleware' => ['maintenanceMode']], function () use ($basicContr
                 Route::get('push.notification.readAll', [InAppNotificationController::class, 'readAll'])->name('push.notification.readAll');
                 Route::get('push-notification-readAt/{id}', [InAppNotificationController::class, 'readAt'])->name('push.notification.readAt');
 
-                Route::group(['prefix' => 'ticket', 'as' => 'ticket.'], function () {
+                Route::group(['prefix' => 'ticket', 'as' => 'ticket.', 'middleware' => ['company.only']], function () {
                     Route::get('/', [SupportTicketController::class, 'index'])->name('list');
                     Route::get('/create', [SupportTicketController::class, 'create'])->name('create');
                     Route::post('/create', [SupportTicketController::class, 'store'])->name('store');
@@ -122,8 +122,8 @@ Route::group(['middleware' => ['maintenanceMode']], function () use ($basicContr
                     Route::get('/download/{ticket}', [SupportTicketController::class, 'download'])->name('download');
                 });
 
-                Route::get('packages/{id?}', [MyPackagesController::class, 'myPackages'])->name('myPackages');
-                Route::get('payment-history/{id}', [MyPackagesController::class, 'paymentHistory'])->name('paymentHistory');
+                Route::get('packages/{id?}', [MyPackagesController::class, 'myPackages'])->name('myPackages')->middleware('company.only');
+                Route::get('payment-history/{id}', [MyPackagesController::class, 'paymentHistory'])->name('paymentHistory')->middleware('company.only');
 
 
                 Route::get('listings/{type?}', [MyListingController::class, 'listings'])->name('listings');
@@ -145,8 +145,8 @@ Route::group(['middleware' => ['maintenanceMode']], function () use ($basicContr
 
                 Route::get('/transaction', [TransactionController::class, 'transaction'])->name('transaction');
 
-                Route::get('/analytics/{id?}', [AnalyticsController::class, 'analytics'])->name('analytics');
-                Route::get('/listing/analytics/show/{id?}', [AnalyticsController::class, 'listingAnalyticsShow'])->name('analytics.show');
+                Route::get('/analytics/{id?}', [AnalyticsController::class, 'analytics'])->name('analytics')->middleware('company.only');
+                Route::get('/listing/analytics/show/{id?}', [AnalyticsController::class, 'listingAnalyticsShow'])->name('analytics.show')->middleware('company.only');
 
                 Route::post('/add-to-wish-list', [FavouriteController::class, 'addToWishList'])->name('add.to.wish.list');
                 Route::get('/wish-list', [FavouriteController::class, 'wishList'])->name('wish.list');

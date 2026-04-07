@@ -78,6 +78,7 @@ class Kernel extends HttpKernel
         'kyc_api' => \App\Http\Middleware\KYC_api::class,
         'permission' => \App\Http\Middleware\AdminAuthorizeMiddleware::class,
         'track.visitors' => \App\Http\Middleware\TrackVisitors::class,
+        'company.only' => \App\Http\Middleware\CompanyOnly::class,
 
     ];
 }

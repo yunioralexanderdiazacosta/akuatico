@@ -21,19 +21,14 @@
             </a>
         </li>
 
+        @if(auth()->user()->isCompany())
         <li>
             <a href="{{ route('user.myPackages') }}"
                 class="{{ request()->routeIs('user.myPackages', 'user.paymentHistory') ? 'active' : ''}}">
                 <i class="fal fa-box-full text-primary"></i>@lang('My Packages')
             </a>
         </li>
-
-        {{-- <li>
-            <a href="{{ route('user.addListing') }}"
-                class="{{ request()->routeIs(['user.addListing', 'user.editListing', 'user.dynamic.form.data', 'user.listing.import.csv']) ? 'active' : ''}}">
-                <i class="fal fa-plus text-green"></i>@lang('Create Listing')
-            </a>
-        </li> --}}
+        @endif
 
         <li>
             @php
@@ -77,19 +72,23 @@
             </a>
         </li> -->
 
+        @if(auth()->user()->isCompany())
         <li>
             <a href="{{ route('user.analytics') }}"
                 class="{{ request()->routeIs(['user.analytics', 'user.analytics.show']) ? 'active' : ''}}">
                 <i class="fal fa-analytics text-green"></i>@lang('Analytics')
             </a>
         </li>
+        @endif
 
+        @if(auth()->user()->isCompany())
         <li>
             <a href="{{route('user.ticket.list')}}"
                 class="{{ request()->routeIs('user.ticket.list', 'user.ticket.create', 'user.ticket.view') ? 'active' : ''}}">
                 <i class="fal fa-user-headset text-success"></i> @lang('support ticket')
             </a>
         </li>
+        @endif
 
         <li class="">
             <a href="{{route('user.twostep.security')}}"

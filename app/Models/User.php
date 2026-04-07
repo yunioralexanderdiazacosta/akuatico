@@ -26,6 +26,7 @@ class User extends Authenticatable
         "username",
         "website",
         "email",
+        "account_type",
         "password",
         "referral_id",
         "language_id",
@@ -263,5 +264,15 @@ class User extends Authenticatable
                 ->implode(", ");
         }
         return null;
+    }
+
+    public function isIndividual()
+    {
+        return $this->account_type === 'individual';
+    }
+
+    public function isCompany()
+    {
+        return $this->account_type === 'company';
     }
 }

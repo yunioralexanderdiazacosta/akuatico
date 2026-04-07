@@ -72,6 +72,17 @@
                     @error('price') @lang($message) @enderror
                 </div>
             </div>
+            <div class="col-md-4 condition-field" style="display: none;">
+                <label class="form-label">@lang('Condition')</label>
+                <select class="js-select form-control @error('condition') is-invalid @enderror" name="condition" id="condition">
+                    <option value="" {{ old('condition') ? '' : 'selected' }}>@lang('Select Condition')</option>
+                    <option value="new" {{ old('condition') == 'new' ? 'selected' : '' }}>@lang('New')</option>
+                    <option value="used" {{ old('condition') == 'used' ? 'selected' : '' }}>@lang('Used')</option>
+                </select>
+                <div class="invalid-feedback">
+                    @error('condition') @lang($message) @enderror
+                </div>
+            </div>
             <div class="col-md-4">
                 <label class="form-label">@lang('Length (Feet)')</label>
                 <input type="number" min="10" max="100" class="form-control @error('length') is-invalid @enderror"
@@ -422,6 +433,28 @@
     <script>
 
         $(document).ready(function () {
+            function toggleConditionField() {
+                let $categorySelect = $('#category_id');
+                if (!$categorySelect.length) {
+                    $('.condition-field').show();
+                    return;
+                }
+
+                let selectedCategories = ($categorySelect.select2('data') || []);
+                let hideCondition = selectedCategories.some(function (cat) {
+                    let categoryName = (cat.text || '').trim().toLowerCase();
+                    return categoryName === 'directorio' || categoryName === 'servicios';
+                });
+
+                if (selectedCategories.length > 0 && !hideCondition) {
+                    $('.condition-field').show();
+                    return;
+                }
+
+                $('.condition-field').hide();
+                $('#condition').val('').trigger('change');
+            }
+
             //for Business hour
             $("#add_business_hour").on('click', function () {
                 var form = `<div class="d-sm-flex justify-content-between removeBusinessHourInputField">
@@ -531,6 +564,9 @@
             $(document).on('click', '.remove_key_info_input_field', function () {
                 $(this).parents('.removeKeyInfoInput').remove();
             });
+
+            $('#category_id').on('change', toggleConditionField);
+            toggleConditionField();
 
         })
 

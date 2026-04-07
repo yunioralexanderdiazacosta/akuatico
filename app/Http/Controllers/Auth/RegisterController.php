@@ -120,6 +120,7 @@ class RegisterController extends Controller
             ];
         }
 
+        $rules['account_type'] = ['required', 'in:individual,company'];
         $rules['firstname'] = ['required', 'string', 'max:91'];
         $rules['lastname'] = ['required', 'string', 'max:91'];
         $rules['username'] = ['required', 'alpha_dash', 'min:5', 'unique:users,username'];
@@ -147,6 +148,7 @@ class RegisterController extends Controller
             'lastname' => $data['lastname'],
             'username' => $data['username'],
             'email' => $data['email'],
+            'account_type' => $data['account_type'],
             'password' => Hash::make($data['password']),
             'country_code' => $data['country_code'],
             'country' => $data['country_name'],

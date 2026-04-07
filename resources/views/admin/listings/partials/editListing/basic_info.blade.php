@@ -81,6 +81,17 @@
                     @error('price') @lang($message) @enderror
                 </div>
             </div>
+            <div class="col-md-4 condition-field">
+                <label class="form-label">@lang('Condition')</label>
+                <select class="js-select form-control @error('condition') is-invalid @enderror" name="condition" id="condition">
+                    <option value="" {{ old('condition', $single_listing_infos->condition) ? '' : 'selected' }}>@lang('Select Condition')</option>
+                    <option value="new" {{ old('condition', $single_listing_infos->condition) == 'new' ? 'selected' : '' }}>@lang('New')</option>
+                    <option value="used" {{ old('condition', $single_listing_infos->condition) == 'used' ? 'selected' : '' }}>@lang('Used')</option>
+                </select>
+                <div class="invalid-feedback">
+                    @error('condition') @lang($message) @enderror
+                </div>
+            </div>
             <div class="col-md-4">
                 <label class="form-label">@lang('Length (Feet)')</label>
                 <input type="number" min="10" max="100" class="form-control @error('length') is-invalid @enderror"
@@ -516,6 +527,22 @@
                 placeholder: '@lang("Select Subcategories")',
             });
 
+            function toggleConditionField() {
+                let selectedCategories = ($('#category_id').select2('data') || []);
+                let hideCondition = selectedCategories.some(function (cat) {
+                    let categoryName = (cat.text || '').trim().toLowerCase();
+                    return categoryName === 'directorio' || categoryName === 'servicios';
+                });
+
+                if (selectedCategories.length > 0 && !hideCondition) {
+                    $('.condition-field').show();
+                    return;
+                }
+
+                $('.condition-field').hide();
+                $('#condition').val('').trigger('change');
+            }
+
             function filterSubcategories() {
                 let selectedParents = $('#category_id').val() || [];
                 $('#subcategory_id option').each(function() {
@@ -535,9 +562,11 @@
 
             $('#category_id').on('change', function() {
                 filterSubcategories();
+                toggleConditionField();
             });
 
             filterSubcategories();
+            toggleConditionField();
         })
 
         $(document).on('change', '#city_id', function () {

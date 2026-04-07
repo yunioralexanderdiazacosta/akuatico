@@ -17,6 +17,26 @@
                             <h4>@lang('register here')</h4>
                          </div>
                          <div class="input-box col-12">
+                            <label class="form-label fw-bold">@lang('Tipo de cuenta')</label>
+                            <div class="d-flex gap-4">
+                               <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="account_type" id="account_individual" value="individual" {{ old('account_type', 'individual') == 'individual' ? 'checked' : '' }}>
+                                  <label class="form-check-label" for="account_individual">
+                                     @lang('Individuo Privado')
+                                  </label>
+                               </div>
+                               <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="account_type" id="account_company" value="company" {{ old('account_type') == 'company' ? 'checked' : '' }}>
+                                  <label class="form-check-label" for="account_company">
+                                     @lang('Compañía')
+                                  </label>
+                               </div>
+                            </div>
+                            @error('account_type')
+                               <span class="text-danger mt-1">@lang($message)</span>
+                            @enderror
+                         </div>
+                         <div class="input-box col-12">
                             <input
                                type="text"
                                name="firstname"
