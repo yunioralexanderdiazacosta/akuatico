@@ -223,6 +223,7 @@ Route::group(['middleware' => ['maintenanceMode']], function () use ($basicContr
 
     Route::get('category', [CategoryController::class, 'index'])->name('category');
     Route::post('category/search', [CategoryController::class, 'categorySearch'])->name('category.search');
+    Route::post('get/categories/by/type', [SpecialCategoryController::class, 'getCategoriesByType'])->name('get.categories.by.type');
 
     Route::get('clasificado', [SpecialCategoryController::class, 'index'])->name('clasificado');
     Route::get('anuncios', [SpecialCategoryController::class, 'index'])->name('anuncios');

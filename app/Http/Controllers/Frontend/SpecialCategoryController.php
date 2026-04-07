@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 class SpecialCategoryController extends Controller
 {
+    protected $theme;
+
     public function __construct()
     {
         $this->theme = template();
@@ -69,5 +71,49 @@ class SpecialCategoryController extends Controller
             template() . "frontend.category.specialcategories",
             compact("pageSeo", "categories", "categorySingle", "routeName"),
         );
+    }
+
+    public function getCategoriesByType(Request $request)
+    {
+        $type = $request->input('type');
+        
+        // Define available categories based on announcement type
+        switch ($type) {
+            case 'clasificados':
+                $availableCategories = ['Botes', 'Jets Skies', 'Veleros', 'Kayaks', 'Juguetes para el Agua'];
+                break;
+            case 'directorio':
+                $availableCategories = ['Piezas', 'Financiamiento', 'Seguros', 'Marinas'];
+                break;
+            case 'servicio':
+                $availableCategories = ['Mantenimiento', 'Mecánica', 'Tapicería', 'Instalaciones'];
+                break;
+            default:
+                $availableCategories = [];
+                break;
+        }
+
+        $categories = ListingCategory::select(
+            "id",
+            "icon",
+            "mobile_app_image",
+            "image_driver",
+        )
+            ->with("details:id,listing_category_id,name")
+            ->whereHas("details", function ($q) use ($availableCategories) {
+                $q->whereIn("name", $availableCategories);
+            })
+            ->where("status", 1)
+            ->get()
+            ->map(function ($category) {
+                return [
+                    'id' => $category->id,
+                    'name' => optional($category->details)->name ?? '',
+                ];
+            });
+
+        return response()->json([
+            'categories' => $categories
+        ]);
     }
 }
