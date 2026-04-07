@@ -31,6 +31,62 @@
         .listing-section .listing-grid-card .text-box {
             flex: 1;
         }
+
+        /* View toggle buttons */
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+        }
+        .view-toggle .btn-view {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #dee2e6;
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #6c757d;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        .view-toggle .btn-view.active,
+        .view-toggle .btn-view:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* List view */
+        .listing-section .listing-list-view .col-xl-3 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .listing-section .listing-list-view .listing-grid-card {
+            flex-direction: row;
+            height: auto;
+        }
+        .listing-section .listing-list-view .listing-grid-card .img-box {
+            width: 280px;
+            min-width: 280px;
+            height: 220px;
+            border-radius: 8px 0 0 8px;
+            overflow: hidden;
+        }
+        .listing-section .listing-list-view .listing-grid-card .text-box {
+            padding: 15px 20px;
+        }
+        @media (max-width: 768px) {
+            .listing-section .listing-list-view .listing-grid-card {
+                flex-direction: column;
+            }
+            .listing-section .listing-list-view .listing-grid-card .img-box {
+                width: 100%;
+                min-width: 100%;
+                border-radius: 8px 8px 0 0;
+            }
+        }
     </style>
 @endpush
 
@@ -241,8 +297,18 @@
 
                 <div class="col-xl-10 col-lg-10 col-sm-12 my-4">
                     @if( 0 <count($all_listings))
-                        <div class="row mb-4">
-                            <div class="col-12 justify-content-end d-flex">
+                        <div class="row mb-4 align-items-center">
+                            <div class="col-6">
+                                <div class="view-toggle">
+                                    <button class="btn-view active" data-view="grid" title="@lang('Grid view')">
+                                        <i class="fas fa-th"></i>
+                                    </button>
+                                    <button class="btn-view" data-view="list" title="@lang('List view')">
+                                        <i class="fas fa-list"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-6 justify-content-end d-flex">
                                 <div id="results-count" data-total="{{ $all_listings->total() }}" data-current-page="{{ $all_listings->currentPage() }}" data-per-page="{{ $all_listings->perPage() }}">
                                     {{--Showing results here--}}
                                 </div>
@@ -250,7 +316,7 @@
                         </div>
                         <input type="hidden" id="googleMapAppKey" value="{{ basicControl()->google_map_app_key }}">
                         <input type="hidden" id="google_map_id" value="{{ basicControl()->google_map_id }}">
-                        <div class="row g-4">
+                        <div class="row g-4" id="listings-container">
                             @forelse($all_listings as $key => $listing)
                                 @php
                                     $total = $listing->reviews()[0]->total;
@@ -423,6 +489,28 @@
         });
 
         filterSubcategories();
+
+        // View toggle (grid / list)
+        $('.view-toggle .btn-view').on('click', function () {
+            var view = $(this).data('view');
+            $('.view-toggle .btn-view').removeClass('active');
+            $(this).addClass('active');
+            var $container = $('#listings-container');
+            if (view === 'list') {
+                $container.addClass('listing-list-view');
+            } else {
+                $container.removeClass('listing-list-view');
+            }
+            localStorage.setItem('listing_view', view);
+        });
+
+        // Restore saved preference
+        var savedView = localStorage.getItem('listing_view');
+        if (savedView === 'list') {
+            $('.view-toggle .btn-view').removeClass('active');
+            $('.view-toggle .btn-view[data-view="list"]').addClass('active');
+            $('#listings-container').addClass('listing-list-view');
+        }
 
         var isAuthenticate = '{{ Auth::check() }}';
 
