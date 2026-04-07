@@ -35,6 +35,14 @@
             </li>
         @endif
 
+        @if(lastUriSegment() == 'listings')
+            <li>
+                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addListingmodal">
+                    <i class="fal fa-plus-circle text-success"></i>@lang('Add Listing')
+                </a>
+            </li>
+        @endif
+
         <li>
             @php
                 $id = '';
