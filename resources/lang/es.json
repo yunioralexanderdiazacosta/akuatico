@@ -1414,5 +1414,9 @@
     "Popular": "Popular",
     "Mark Popular": "Marcar como popular",
     "Remove Popular": "Eliminar como popular",
-    "Select Condition": "Seleccionar condición"
+    "Select Condition": "Seleccionar condición",
+    "Select Announcement Type": "Seleccionar tipo de anuncio",
+    "For buying and selling items": "Para comprar y vender artículos",
+    "For businesses and services": "Para empresas y servicios",
+    "For professional services": "Para servicios profesionales"
 }
