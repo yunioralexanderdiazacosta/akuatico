@@ -341,7 +341,7 @@
                            class="js-datatable table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
                            data-hs-datatables-options='{
                            "columnDefs": [{
-                              "targets": [0, 7],
+                              "targets": [0, 9],
                               "orderable": false
                             }],
                            "order": [],
@@ -370,6 +370,7 @@
                             <th>@lang('Listing Title')</th>
                             <th>@lang('Stage')</th>
                             <th>@lang('Status')</th>
+                            <th>@lang('Popular')</th>
                             <th>@lang('Created Date')</th>
                             <th>@lang('Action')</th>
                         </tr>
@@ -728,6 +729,7 @@
                     {data: 'listing-title', name: 'listing-title'},
                     {data: 'stage', name: 'stage'},
                     {data: 'status', name: 'status'},
+                    {data: 'popular', name: 'popular'},
                     {data: 'created-date', name: 'created-date'},
                     {data: 'action', name: 'action'},
                 ],
@@ -925,6 +927,23 @@
                     },
                 });
                 $('#deactiveModal').modal('hide');
+            });
+
+            // Toggle Popular
+            $(document).on('click', '.togglePopularBtn', function () {
+                var route = $(this).data('route');
+                var listingId = $(this).data('listingid');
+                $.ajax({
+                    url: route,
+                    method: 'POST',
+                    data: {
+                        listingId: listingId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function (response) {
+                        location.reload();
+                    },
+                });
             });
 
             //DeactivatedInfo

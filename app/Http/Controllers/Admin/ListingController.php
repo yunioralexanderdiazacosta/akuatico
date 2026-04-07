@@ -178,6 +178,12 @@ class ListingController extends Controller
                 }
                 return $statusHtml;
             })
+            ->addColumn('popular', function ($item) {
+                if ($item->is_popular) {
+                    return '<span class="badge bg-soft-warning text-warning"><i class="bi bi-star-fill"></i> ' . trans('Popular') . '</span>';
+                }
+                return '<span class="badge bg-soft-secondary text-muted">' . trans('No') . '</span>';
+            })
             ->addColumn('created-date', function ($item) {
                 return dateTime($item->created_at);
             })
@@ -245,6 +251,18 @@ class ListingController extends Controller
                             ' . trans("Active") . '
                         </a>';
                 }
+                $togglePopularUrl = route("admin.listing.toggle.popular");
+                if ($canEditListing) {
+                    $popularLabel = $item->is_popular ? trans("Remove Popular") : trans("Mark Popular");
+                    $popularIcon = $item->is_popular ? "bi bi-star-fill" : "bi bi-star";
+                    $actionButtons .= '<a class="dropdown-item togglePopularBtn" href="javascript:void(0)"
+                           data-route="' . $togglePopularUrl . '"
+                           data-listingid="' . $item->id . '">
+                            <i class="' . $popularIcon . ' dropdown-item-icon"></i>
+                            ' . $popularLabel . '
+                        </a>';
+                }
+
                 if ($canViewAnalytics){
                     $actionButtons .= '<a class="dropdown-item" href="'.$analyticsUrl.'">
                                         <i class="bi bi-graph-up-arrow dropdown-item-icon"></i>
@@ -280,7 +298,7 @@ class ListingController extends Controller
 
 
                 return $actionButtons;
-            })->rawColumns(['checkbox', 'user', 'package', 'category', 'listing-title', 'stage', 'status', 'created-date', 'action'])
+            })->rawColumns(['checkbox', 'user', 'package', 'category', 'listing-title', 'stage', 'status', 'popular', 'created-date', 'action'])
             ->make(true);
     }
 
@@ -700,6 +718,17 @@ class ListingController extends Controller
             session()->flash('success', __('listing has been deactivated successfully'));
             return response()->json(['success' => 1]);
         }
+    }
+
+    public function togglePopular(Request $request)
+    {
+        $listing = Listing::findOrFail($request->listingId);
+        $listing->is_popular = !$listing->is_popular;
+        $listing->save();
+
+        $status = $listing->is_popular ? __('marked as popular') : __('removed from popular');
+        session()->flash('success', __('Listing has been ') . $status);
+        return response()->json(['success' => 1]);
     }
 
     public function listingDelete($id)

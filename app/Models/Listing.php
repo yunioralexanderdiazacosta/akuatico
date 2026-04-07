@@ -21,6 +21,7 @@ class Listing extends Model
         'category_id' => 'array',
         'subcategory_id' => 'array',
         'marca' => 'array',
+        'is_popular' => 'boolean',
     ];
 
     public function get_user()

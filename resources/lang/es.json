@@ -1410,5 +1410,8 @@
     "Select Brand": "Seleccionar marca",
     "Add images": "Añadir fotos",
     "Select Year": "Seleccionar año",
-    "Year": "Año"
+    "Year": "Año",
+    "Popular": "Popular",
+    "Mark Popular": "Marcar como popular",
+    "Remove Popular": "Eliminar como popular"
 }

@@ -179,6 +179,7 @@ Route::group(['prefix' => $basicControl->admin_prefix ?? 'admin', 'as' => 'admin
         Route::post('/multi-listing-rejected', [ListingController::class, 'multiListingRejected'])->name('multi.listing.rejected');
         Route::post('/single-listing-active', [ListingController::class, 'singleListingActive'])->name('single.listing.active');
         Route::post('/single-listing-deactive', [ListingController::class, 'singleListingDeactive'])->name('single.listing.deactive');
+        Route::post('/listing/toggle-popular', [ListingController::class, 'togglePopular'])->name('listing.toggle.popular');
         Route::delete('/listing/delete/{id}', [ListingController::class, 'listingDelete'])->name('listing.delete');
         Route::post('/listing/delete-multiple', [ListingController::class, 'listingDeleteMultiple'])->name('listing.delete.multiple');
 
