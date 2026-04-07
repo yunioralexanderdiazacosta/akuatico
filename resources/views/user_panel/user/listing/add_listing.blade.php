@@ -397,6 +397,18 @@
                                         </div>
                                     </div>
 
+                                    <div class="input-box col-md-6 condition-field" style="display: none;">
+                                        <select id="condition" class="form-control @error('condition') is-invalid @enderror"
+                                            name="condition">
+                                            <option value="" {{ old('condition') ? '' : 'selected' }}>@lang('Select Condition')</option>
+                                            <option value="new" {{ old('condition') == 'new' ? 'selected' : '' }}>@lang('New')</option>
+                                            <option value="used" {{ old('condition') == 'used' ? 'selected' : '' }}>@lang('Used')</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            @error('condition') @lang($message) @enderror
+                                        </div>
+                                    </div>
+
                                     <div class="input-box col-md-6 boat-fields" style="display: none;">
                                         <input class="form-control @error('length') is-invalid @enderror" type="text"
                                             id="length_display"
@@ -1653,6 +1665,22 @@
                 }
             }
 
+            function toggleConditionField() {
+                let selectedCategories = $('#category_id').select2('data');
+                let isBotes = selectedCategories.some(function (cat) {
+                    let categoryName = (cat.text || '').trim().toLowerCase();
+                    return categoryName.includes('botes');
+                });
+
+                if (isBotes) {
+                    $('.condition-field').show();
+                    return;
+                }
+
+                $('.condition-field').hide();
+                $('#condition').val('');
+            }
+
             function isBotesSelected() {
                 let selectedCategories = $('#category_id').select2('data');
                 return selectedCategories.some(function (cat) {
@@ -1720,6 +1748,7 @@
             $('#category_id').on('change', function () {
                 filterSubcategories();
                 toggleBoatFields();
+                toggleConditionField();
                 generateBoatDetails();
             });
 
@@ -1733,6 +1762,7 @@
 
             filterSubcategories();
             toggleBoatFields();
+            toggleConditionField();
 
             $(document).on('input', ".change_name_input", function (e) {
                 let inputValue = $(this).val();

@@ -336,6 +336,7 @@ class ListingController extends Controller
         $rules = [
             'title' => 'required|string|max:255',
             'length' => 'nullable|numeric|min:0',
+            'condition' => 'nullable|in:new,used',
             'category_id' => 'required|array',
             'category_id.*' => 'exists:listing_categories,id',
             'subcategory_id' => 'nullable|array',
@@ -409,6 +410,9 @@ class ListingController extends Controller
 
             $listing->title = $request->title;
             $listing->length = $request->length;
+            $listing->condition = $this->shouldHideConditionForCategories($request->category_id)
+                ? null
+                : $request->condition;
 
             $numberOfCategoriesPerListing = min(count($request->category_id), optional($listing->get_package)->no_of_categories_per_listing ?? 1);
             $listing->category_id = array_slice($request->category_id, 0, $numberOfCategoriesPerListing);
@@ -1212,6 +1216,24 @@ class ListingController extends Controller
         }catch (\Exception $exception){
             return back()->with('error', $exception->getMessage());
         }
+    }
+
+    private function shouldHideConditionForCategories(?array $categoryIds): bool
+    {
+        if (empty($categoryIds)) {
+            return false;
+        }
+
+        $blockedCategories = ['directorio', 'servicios'];
+
+        return ListingCategory::with('details')
+            ->whereIn('id', $categoryIds)
+            ->get()
+            ->pluck('details.name')
+            ->filter()
+            ->map(fn($name) => mb_strtolower(trim($name)))
+            ->intersect($blockedCategories)
+            ->isNotEmpty();
     }
 
 }

@@ -1380,7 +1380,7 @@
     "Two-step verification": "",
     "Your security is our top priority, and Two-Step Verification is a powerful tool to keep your account safe. We highly recommend enabling it today.": "",
     "Successful": "",
-    "New": "",
+    "New": "Nuevo",
     "Back to users": "",
     "Add new user": "",
     "Your current username is": "",
@@ -1413,5 +1413,6 @@
     "Year": "Año",
     "Popular": "Popular",
     "Mark Popular": "Marcar como popular",
-    "Remove Popular": "Eliminar como popular"
+    "Remove Popular": "Eliminar como popular",
+    "Select Condition": "Seleccionar condición"
 }
