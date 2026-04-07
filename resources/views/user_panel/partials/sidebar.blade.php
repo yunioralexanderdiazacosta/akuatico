@@ -10,24 +10,29 @@
         </button>
     </div>
     <ul class="main tabScroll">
-        <li>
-            <a class="{{(lastUriSegment() == 'dashboard') ? 'active' : ''}}" href="{{ route('user.dashboard') }}"><i
-                    class="fal fa-th-large text-success"></i>@lang('Dashboard')</a>
-        </li>
-
-        <li>
-            <a href="{{route('user.profile')}}" class="{{(lastUriSegment() == 'profile') ? 'active' : ''}}">
-                <i class="fal fa-users-cog text-indigo"></i> @lang('Profile Settings')
-            </a>
-        </li>
 
         @if(auth()->user()->isCompany())
-        <li>
-            <a href="{{ route('user.myPackages') }}"
-                class="{{ request()->routeIs('user.myPackages', 'user.paymentHistory') ? 'active' : ''}}">
-                <i class="fal fa-box-full text-primary"></i>@lang('My Packages')
-            </a>
-        </li>
+            <li>
+                <a class="{{(lastUriSegment() == 'dashboard') ? 'active' : ''}}" href="{{ route('user.dashboard') }}"><i
+                        class="fal fa-th-large text-success"></i>@lang('Dashboard')</a>
+            </li>
+        @endif
+
+        @if(auth()->user()->isCompany())
+            <li>
+                <a href="{{route('user.profile')}}" class="{{(lastUriSegment() == 'profile') ? 'active' : ''}}">
+                    <i class="fal fa-users-cog text-indigo"></i> @lang('Profile Settings')
+                </a>
+            </li>
+        @endif
+
+        @if(auth()->user()->isCompany())
+            <li>
+                <a href="{{ route('user.myPackages') }}"
+                    class="{{ request()->routeIs('user.myPackages', 'user.paymentHistory') ? 'active' : ''}}">
+                    <i class="fal fa-box-full text-primary"></i>@lang('My Packages')
+                </a>
+            </li>
         @endif
 
         <li>
@@ -73,29 +78,32 @@
         </li> -->
 
         @if(auth()->user()->isCompany())
-        <li>
-            <a href="{{ route('user.analytics') }}"
-                class="{{ request()->routeIs(['user.analytics', 'user.analytics.show']) ? 'active' : ''}}">
-                <i class="fal fa-analytics text-green"></i>@lang('Analytics')
-            </a>
-        </li>
+            <li>
+                <a href="{{ route('user.analytics') }}"
+                    class="{{ request()->routeIs(['user.analytics', 'user.analytics.show']) ? 'active' : ''}}">
+                    <i class="fal fa-analytics text-green"></i>@lang('Analytics')
+                </a>
+            </li>
         @endif
 
         @if(auth()->user()->isCompany())
-        <li>
-            <a href="{{route('user.ticket.list')}}"
-                class="{{ request()->routeIs('user.ticket.list', 'user.ticket.create', 'user.ticket.view') ? 'active' : ''}}">
-                <i class="fal fa-user-headset text-success"></i> @lang('support ticket')
-            </a>
-        </li>
+            <li>
+                <a href="{{route('user.ticket.list')}}"
+                    class="{{ request()->routeIs('user.ticket.list', 'user.ticket.create', 'user.ticket.view') ? 'active' : ''}}">
+                    <i class="fal fa-user-headset text-success"></i> @lang('support ticket')
+                </a>
+            </li>
         @endif
 
-        <li class="">
-            <a href="{{route('user.twostep.security')}}"
-                class="{{ request()->routeIs('user.twostep.security') ? 'active' : ''}}">
-                <i class="fal fa-lock text-orange"></i> @lang('2FA Security')
-            </a>
-        </li>
+
+        @if(auth()->user()->isCompany())
+            <li class="">
+                <a href="{{route('user.twostep.security')}}"
+                    class="{{ request()->routeIs('user.twostep.security') ? 'active' : ''}}">
+                    <i class="fal fa-lock text-orange"></i> @lang('2FA Security')
+                </a>
+            </li>
+        @endif
 
         <!-- <li class="">
             <a href="{{route('user.notification.permission')}}" class="{{ request()->routeIs('user.notification.permission') ? 'active' : ''}}">
@@ -103,15 +111,17 @@
             </a>
         </li> -->
 
-        <li class="">
-            <a href="{{ route('logout') }}"
-                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="fal fa-sign-out-alt text-purple"></i> @lang('Sign Out')
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-            </a>
-        </li>
+        @if(auth()->user()->isCompany())
+            <li class="">
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="fal fa-sign-out-alt text-purple"></i> @lang('Sign Out')
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </a>
+            </li>
+        @endif
 
     </ul>
 </div>
