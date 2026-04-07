@@ -160,6 +160,7 @@ class MyListingController extends Controller
             ->where("user_id", Auth::id())
             ->where("status", 1)
             ->findOrFail($id);
+        $data["is_individual"] = $user->isIndividual();
         return view(
             "user_panel.user.listing.add_listing",
             $data,

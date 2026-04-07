@@ -199,6 +199,7 @@
 @endpush
 @section('content')
     <div class="container-fluid">
+        @if(!$is_individual)
         <!-- Announcement Type Selection -->
         <div id="announcementTypeSelection" class="announcement-type-selection">
             <h3>@lang('Select Announcement Type')</h3>
@@ -239,6 +240,9 @@
             </div>
             <input type="hidden" name="announcement_type" id="announcement_type" value="">
         </div>
+        @else
+        <input type="hidden" name="announcement_type" id="announcement_type" value="clasificados">
+        @endif
 
         <!-- Wizard Steps Container -->
         <div id="wizardContainer" style="display: none;">
@@ -2143,6 +2147,17 @@
 
             formatNumberInput('price_display', 'price_hidden', false);
             formatNumberInput('length_display', 'length_hidden');
+
+            // Auto-show wizard for individual users (they can only post clasificados)
+            @if($is_individual)
+                $('#announcementTypeSelection').hide();
+                $('#wizardContainer').show();
+                loadCategoriesByType('clasificados');
+                if (typeof buildStepIndicator === 'function' && typeof updateWizard === 'function') {
+                    buildStepIndicator();
+                    updateWizard();
+                }
+            @endif
 
             // Phone format: (XXX) XXX-XXXX
             $('#phone').on('input', function () {
