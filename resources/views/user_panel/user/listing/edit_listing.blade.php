@@ -17,12 +17,14 @@
             flex-wrap: wrap;
             gap: 8px;
         }
+
         .wizard-step {
             display: flex;
             align-items: center;
             gap: 8px;
             cursor: default;
         }
+
         .wizard-step .step-circle {
             width: 36px;
             height: 36px;
@@ -37,38 +39,46 @@
             color: #6c757d;
             transition: all 0.3s ease;
         }
+
         .wizard-step.active .step-circle {
             background: var(--primary);
             border-color: var(--primary);
             color: #fff;
         }
+
         .wizard-step.completed .step-circle {
             background: #28a745;
             border-color: #28a745;
             color: #fff;
         }
+
         .wizard-step .step-label {
             font-size: 14px;
             font-weight: 500;
             color: #6c757d;
             transition: color 0.3s ease;
         }
+
         .wizard-step.active .step-label {
             color: var(--primary);
             font-weight: 600;
         }
+
         .wizard-step.completed .step-label {
             color: #28a745;
         }
+
         .wizard-step-line {
             width: 40px;
             height: 2px;
             background: #dee2e6;
             transition: background 0.3s ease;
         }
+
         .wizard-step-line.completed {
             background: #28a745;
         }
+
         .wizard-nav-buttons {
             display: flex;
             justify-content: space-between;
@@ -77,6 +87,7 @@
             margin-bottom: 30px;
             padding: 0 15px;
         }
+
         .wizard-nav-buttons .btn-wizard {
             padding: 10px 30px;
             font-size: 16px;
@@ -84,40 +95,50 @@
             font-weight: 500;
             transition: all 0.3s ease;
         }
+
         .wizard-nav-buttons .btn-wizard-prev {
             background: #6c757d;
             color: #fff;
             border: none;
         }
+
         .wizard-nav-buttons .btn-wizard-prev:hover {
             background: #5a6268;
         }
+
         .wizard-nav-buttons .btn-wizard-next {
             background: var(--primary);
             color: #fff;
             border: none;
         }
+
         .wizard-nav-buttons .btn-wizard-next:hover {
             opacity: 0.9;
         }
+
         .wizard-nav-buttons .btn-wizard-save {
             background: #28a745;
             color: #fff;
             border: none;
         }
+
         .wizard-nav-buttons .btn-wizard-save:hover {
             background: #218838;
         }
+
         .switcher.navigator {
             display: none !important;
         }
+
         @media (max-width: 768px) {
             .wizard-step .step-label {
                 display: none;
             }
+
             .wizard-step-line {
                 width: 20px;
             }
+
             .wizard-nav-buttons .btn-wizard {
                 padding: 8px 20px;
                 font-size: 14px;
@@ -136,15 +157,15 @@
                 @endphp
                 <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
                     data-bs-html="true" data-bs-title="
-                                                            <div class='text-start px-3 text-white'>
-                                                               <ul class=''>
-                                                                  @foreach ($errors->getMessages() as $key => $error)
-                                                                    @if(in_array($key, $tabOne))
-                                                                        <li class='text-white'>{{ $error[0] }}</li>
-                                                                    @endif
-                                                                  @endforeach
-                                                               </ul>
-                                                            </div>">
+                                                                <div class='text-start px-3 text-white'>
+                                                                   <ul class=''>
+                                                                      @foreach ($errors->getMessages() as $key => $error)
+                                                                        @if(in_array($key, $tabOne))
+                                                                            <li class='text-white'>{{ $error[0] }}</li>
+                                                                        @endif
+                                                                      @endforeach
+                                                                   </ul>
+                                                                </div>">
                     <i class="fal fa-info-circle"></i>
                 </span>
             @endif
@@ -160,15 +181,15 @@
 
                     <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
                         data-bs-html="true" data-bs-title="
-                                                                                                    <div class='text-start px-3 text-white'>
-                                                                                                       <ul class=''>
-                                                                                                          @foreach ($errors->getMessages() as $key => $error)
-                                                                                                            @if(in_array($key, $tabTwo))
-                                                                                                                <li class='text-white'>{{ $error[0] }}</li>
-                                                                                                            @endif
-                                                                                                          @endforeach
-                                                                                                       </ul>
-                                                                                                    </div>">
+                                                                                                            <div class='text-start px-3 text-white'>
+                                                                                                               <ul class=''>
+                                                                                                                  @foreach ($errors->getMessages() as $key => $error)
+                                                                                                                    @if(in_array($key, $tabTwo))
+                                                                                                                        <li class='text-white'>{{ $error[0] }}</li>
+                                                                                                                    @endif
+                                                                                                                  @endforeach
+                                                                                                               </ul>
+                                                                                                            </div>">
                         <i class="fal fa-info-circle"></i>
                     </span>
                 @endif
@@ -237,15 +258,15 @@
                     @endphp
                     <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
                         data-bs-html="true" data-bs-title="
-                                                                                                    <div class='text-start px-3 text-white'>
-                                                                                                       <ul class=''>
-                                                                                                          @foreach ($errors->getMessages() as $key => $error)
-                                                                                                            @if(in_array($key, $tabSix))
-                                                                                                                <li class='text-white'>{{ $error[0] }}</li>
-                                                                                                            @endif
-                                                                                                          @endforeach
-                                                                                                       </ul>
-                                                                                                    </div>">
+                                                                                                            <div class='text-start px-3 text-white'>
+                                                                                                               <ul class=''>
+                                                                                                                  @foreach ($errors->getMessages() as $key => $error)
+                                                                                                                    @if(in_array($key, $tabSix))
+                                                                                                                        <li class='text-white'>{{ $error[0] }}</li>
+                                                                                                                    @endif
+                                                                                                                  @endforeach
+                                                                                                               </ul>
+                                                                                                            </div>">
                         <i class="fal fa-info-circle"></i>
                     </span>
                 @endif
@@ -409,7 +430,8 @@
                                         name="condition">
                                         <option value="" {{ old('condition', $single_listing_infos->condition) ? '' : 'selected' }}>@lang('Select Condition')</option>
                                         <option value="new" {{ old('condition', $single_listing_infos->condition) == 'new' ? 'selected' : '' }}>@lang('New')</option>
-                                        <option value="used" {{ old('condition', $single_listing_infos->condition) == 'used' ? 'selected' : '' }}>@lang('Used')</option>
+                                        <option value="used" {{ old('condition', $single_listing_infos->condition) == 'used' ? 'selected' : '' }}>@lang('Used')
+                                        </option>
                                     </select>
                                     <div class="invalid-feedback">
                                         @error('condition') @lang($message) @enderror
@@ -555,10 +577,11 @@
                 </div>
 
                 @if($single_package_infos->is_business_hour == 1)
-                    <div class="col-xl-6 col-md-6 col-sm-12">
+                    <div class="col-xl-6 col-md-6 col-sm-12" @if($is_individual) style="visibility: hidden;" @endif>
                         <h3 class="mb-3">@lang('Business Hours')</h3>
                         <p class="text-muted mb-2" style="font-size: 0.85rem;">
-                            @lang('Presiona el botón de (+) para agregar más días.')</p>
+                            @lang('Presiona el botón de (+) para agregar más días.')
+                        </p>
                         <div class="form business-hour">
                             @php
                                 $oldWorkingDaysCount = max(old('working_day', $business_hours) ? count(old('working_day', $business_hours)) : 1, 1);
@@ -624,7 +647,7 @@
                     </div>
                 @endif
 
-                <div class="col-xl-6 col-md-6 col-sm-12">
+                <div class="col-xl-6 col-md-6 col-sm-12" @if($is_individual) style="visibility: hidden;" @endif>
                     <h3 class="mb-3">@lang('Websites And Social Links')</h3>
                     <div class="form website_social_links">
                         @php
@@ -1258,11 +1281,11 @@
                         productPreloaded.push({
                             id: value.id,
                             image_name: value.product_image,
-                                                                {{--src: "{{ asset(config('location.product.path')) }}/" + value.product_image, --}}
+                                                                    {{--src: "{{ asset(config('location.product.path')) }}/" + value.product_image, --}}
                 src: value.src
             });
-                                                        });
-                                                    }
+                                                            });
+                                                        }
 
         let productImageOptions = {
             preloaded: productPreloaded,
@@ -1277,7 +1300,7 @@
             productImageOptions.maxFiles = maximum_no_of_image_per_product;
         }
         $(`#product-image${i}`).imageUploader(productImageOptions);
-                                                }
+                                                    }
 
         $("#add_products").on('click', function () {
             let productLenght = $('.new__product__form').length + 1;
@@ -1286,39 +1309,39 @@
 
             if (dataProducts >= 1 || dataProducts == 'unlimited') {
                 var form = `<div class="col-xl-6 removeProductForm">
-                                                            <div class="form new__product__form">
-                                                                <span class="product-form-close" data-id="` + string + `"> <i class="fa fa-times"></i> </span>
-                                                                <div class="row g-3">
-                                                                    <div class="input-box col-md-6">
-                                                                        <input class="form-control" name="product_title[]" type="text" placeholder="@lang('Title')"
-                                                                        />
-                                                                    </div>
-                                                                    <div class="input-box col-md-6">
-                                                                        <input class="form-control" name="product_price[]" type="text" placeholder="@lang('Price')"/>
-                                                                    </div>
-
-                                                                    <div class="input-box col-12">
-                                                                         <textarea class="form-control" name="product_description[]" cols="30" rows="3" placeholder="@lang('Description')"
-                                                                         ></textarea>
-                                                                    </div>
-                                                                    <div class="pe-2">
-                                                                        <div class="input-box col-12 no-of-img-per-product">
-                                                                            <div class="product-image no_of_product_image" id="product-image${productLenght}" data-productimage="{{ $single_package_infos->is_product == 1 && $single_package_infos->no_of_img_per_product == null ? 500 : $single_package_infos->no_of_img_per_product }}"></div>
+                                                                <div class="form new__product__form">
+                                                                    <span class="product-form-close" data-id="` + string + `"> <i class="fa fa-times"></i> </span>
+                                                                    <div class="row g-3">
+                                                                        <div class="input-box col-md-6">
+                                                                            <input class="form-control" name="product_title[]" type="text" placeholder="@lang('Title')"
+                                                                            />
                                                                         </div>
-                                                                    </div>
+                                                                        <div class="input-box col-md-6">
+                                                                            <input class="form-control" name="product_price[]" type="text" placeholder="@lang('Price')"/>
+                                                                        </div>
 
-                                                                    <div class="upload-img thumbnail">
-                                                                        <div class="form">
-                                                                            <div class="img-box product-thumbnail">
-                                                                                <input accept="image/*" type="file" onchange="previewImage('product_thumbnail` + string + `')" name="product_thumbnail[]"/>
-                                                                                <span class="select-file">@lang('Product Thumbnail')</span>
-                                                                                <img id="product_thumbnail` + string + `" src="{{ getFile(config('location.default')) }}" class="img-fluid"/>
+                                                                        <div class="input-box col-12">
+                                                                             <textarea class="form-control" name="product_description[]" cols="30" rows="3" placeholder="@lang('Description')"
+                                                                             ></textarea>
+                                                                        </div>
+                                                                        <div class="pe-2">
+                                                                            <div class="input-box col-12 no-of-img-per-product">
+                                                                                <div class="product-image no_of_product_image" id="product-image${productLenght}" data-productimage="{{ $single_package_infos->is_product == 1 && $single_package_infos->no_of_img_per_product == null ? 500 : $single_package_infos->no_of_img_per_product }}"></div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="upload-img thumbnail">
+                                                                            <div class="form">
+                                                                                <div class="img-box product-thumbnail">
+                                                                                    <input accept="image/*" type="file" onchange="previewImage('product_thumbnail` + string + `')" name="product_thumbnail[]"/>
+                                                                                    <span class="select-file">@lang('Product Thumbnail')</span>
+                                                                                    <img id="product_thumbnail` + string + `" src="{{ getFile(config('location.default')) }}" class="img-fluid"/>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>`;
+                                                            </div>`;
 
                 $('.new_product_form').append(form)
 
@@ -1359,31 +1382,31 @@
 
         $("#add_business_hour").on('click', function () {
             var form = `<div class="d-sm-flex justify-content-between removeBusinessHourInputField">
-                                                                    <div class="input-box w-100 my-1 mx-sm-1">
-                                                                        <select class="js-example-basic-single form-control" name="working_day[]">
-                                                                            <option value="Monday">@lang('Monday')</option>
-                                                                            <option value="Tuesday">@lang('Tuesday')</option>
-                                                                            <option value="Wednesday">@lang('Wednesday')</option>
-                                                                            <option value="Thursday">@lang('Thursday')</option>
-                                                                            <option value="Friday">@lang('Friday')</option>
-                                                                            <option value="Saturday">@lang('Saturday')</option>
-                                                                            <option value="Sunday">@lang('Sunday')</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="d-flex input-box-two">
-                                                                        <div class="input-box w-100 my-1 me-1">
-                                                                            <input type="time" name="start_time[]" class="form-control" placeholder="@lang('Start Hour')" />
+                                                                        <div class="input-box w-100 my-1 mx-sm-1">
+                                                                            <select class="js-example-basic-single form-control" name="working_day[]">
+                                                                                <option value="Monday">@lang('Monday')</option>
+                                                                                <option value="Tuesday">@lang('Tuesday')</option>
+                                                                                <option value="Wednesday">@lang('Wednesday')</option>
+                                                                                <option value="Thursday">@lang('Thursday')</option>
+                                                                                <option value="Friday">@lang('Friday')</option>
+                                                                                <option value="Saturday">@lang('Saturday')</option>
+                                                                                <option value="Sunday">@lang('Sunday')</option>
+                                                                            </select>
                                                                         </div>
-                                                                        <div class="input-box w-100 my-1 me-1">
-                                                                            <input type="time" name="end_time[]" class="form-control" placeholder="@lang('End Hour')" />
+                                                                        <div class="d-flex input-box-two">
+                                                                            <div class="input-box w-100 my-1 me-1">
+                                                                                <input type="time" name="start_time[]" class="form-control" placeholder="@lang('Start Hour')" />
+                                                                            </div>
+                                                                            <div class="input-box w-100 my-1 me-1">
+                                                                                <input type="time" name="end_time[]" class="form-control" placeholder="@lang('End Hour')" />
+                                                                            </div>
+                                                                            <div class="input-box my-1 me-1">
+                                                                                <button class="btn btn-outline-danger h-100 add-new remove_business_hour_input_field_block" type="button">
+                                                                                    <i class="fa fa-times"></i>
+                                                                                </button>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="input-box my-1 me-1">
-                                                                            <button class="btn btn-outline-danger h-100 add-new remove_business_hour_input_field_block" type="button">
-                                                                                <i class="fa fa-times"></i>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>`;
+                                                                    </div>`;
 
             $('.new_business_hour_form').append(form)
         });
@@ -1501,20 +1524,20 @@
         $("#add_social_links").on('click', function () {
             let newSocialForm = $('.append_new_social_form').length + 2;
             var form = `<div class="d-flex justify-content-between append_new_social_form removeSocialLinksInput">
-                                                                    <div class="input-group input-box mt-1">
-                                                                       <input type="text" name="social_icon[]" class="form-control demo__icon__picker iconpicker${newSocialForm}" placeholder="Pick a icon" aria-label="Pick a icon"
-                                                                       aria-describedby="basic-addon1" readonly>
-                                                                    </div>
+                                                                        <div class="input-group input-box mt-1">
+                                                                           <input type="text" name="social_icon[]" class="form-control demo__icon__picker iconpicker${newSocialForm}" placeholder="Pick a icon" aria-label="Pick a icon"
+                                                                           aria-describedby="basic-addon1" readonly>
+                                                                        </div>
 
-                                                                    <div class="input-box w-100 my-1 me-1">
-                                                                        <input type="url" name="social_url[]" class="form-control" placeholder="@lang('URL')"/>
-                                                                    </div>
-                                                                    <div class="my-1 me-1">
-                                                                        <button class="btn btn-outline-danger h-100 add-new remove_social_link_input_field" type="button">
-                                                                            <i class="fa fa-times"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>`;
+                                                                        <div class="input-box w-100 my-1 me-1">
+                                                                            <input type="url" name="social_url[]" class="form-control" placeholder="@lang('URL')"/>
+                                                                        </div>
+                                                                        <div class="my-1 me-1">
+                                                                            <button class="btn btn-outline-danger h-100 add-new remove_social_link_input_field" type="button">
+                                                                                <i class="fa fa-times"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>`;
 
             $('.new_social_links_form').append(form)
             setIconpicker(`.iconpicker${newSocialForm}`);
@@ -1658,7 +1681,7 @@
         filterSubcategories();
         toggleBoatFields();
         toggleConditionField();
-                                            });
+                                                });
 
         $(document).on('change', '#city_id', function () {
             let value = $("#city_id").find('option:selected').data("name");
@@ -1674,7 +1697,7 @@
             @else
                 $('#address-search').val($("#city_id").select2().find(":selected").data("name"));
             @endif
-                                            });
+                                                });
 
 
         let selectedCountryId = {{ $single_listing_infos->country_id ?? 'null' }};
@@ -1749,7 +1772,7 @@
                             initMap();
                         @endif
 
-                                                            const selected = selectedCityId == value.id ? 'selected' : '';
+                                                                const selected = selectedCityId == value.id ? 'selected' : '';
                         $("#city_id").append('<option value="' + value.id + '" ' +
                             'data-name="' + value.name + '" ' +
                             'data-lat="' + value.latitude + '" ' +
@@ -1805,17 +1828,17 @@
 
             if ($this.val() == 'select') {
                 additionalOptionsDiv.html(`
-                                                    <div class="row mb-2 optionRow">
-                                                        <div class="col-md-5">
-                                                            <input type="text" name="option_name[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Name">
-                                                        </div>
-                                                        <div class="col-md-5">
-                                                            <input type="text" name="option_value[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Value">
-                                                        </div>
-                                                        <div class="col-md-2 d-flex align-items-center">
-                                                            <button type="button" class="btn btn-outline-success addOptionField">+</button>
-                                                        </div>
-                                                    </div>`);
+                                                        <div class="row mb-2 optionRow">
+                                                            <div class="col-md-5">
+                                                                <input type="text" name="option_name[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Name">
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                <input type="text" name="option_value[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Value">
+                                                            </div>
+                                                            <div class="col-md-2 d-flex align-items-center">
+                                                                <button type="button" class="btn btn-outline-success addOptionField">+</button>
+                                                            </div>
+                                                        </div>`);
             } else {
                 additionalOptionsDiv.empty();
             }
@@ -1837,17 +1860,17 @@
             // Increment the index for the new option
             var newOptionIndex = highestIndex + 1;
             var newOptionRow = `
-                                                <div class="row mb-2 optionRow">
-                                                    <div class="col-md-5">
-                                                        <input type="text" name="option_name[${fieldIndex}][${newOptionIndex}]" class="form-control" placeholder="Enter Option Name">
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <input type="text" name="option_value[${fieldIndex}][${newOptionIndex}]" class="form-control" placeholder="Enter Option Value">
-                                                    </div>
-                                                    <div class="col-md-2 d-flex align-items-center">
-                                                        <button type="button" class="btn btn-outline-danger removeOptionField">-</button>
-                                                    </div>
-                                                </div>`;
+                                                    <div class="row mb-2 optionRow">
+                                                        <div class="col-md-5">
+                                                            <input type="text" name="option_name[${fieldIndex}][${newOptionIndex}]" class="form-control" placeholder="Enter Option Name">
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <input type="text" name="option_value[${fieldIndex}][${newOptionIndex}]" class="form-control" placeholder="Enter Option Value">
+                                                        </div>
+                                                        <div class="col-md-2 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-outline-danger removeOptionField">-</button>
+                                                        </div>
+                                                    </div>`;
             $(this).closest('.additional-options').append(newOptionRow);
         });
 
@@ -1986,7 +2009,7 @@
         });
 
         // ===== WIZARD NAVIGATION =====
-        (function() {
+        (function () {
             var stepLabels = {
                 'tab1': '@lang("Información Básica")',
                 'tab2': '@lang("Video")',
@@ -2001,7 +2024,7 @@
             var allowedTabs = ['tab1', 'tab2', 'tab3'];
             var allContents = document.querySelectorAll('.add-listing-form.content');
             var wizardPanels = [];
-            allContents.forEach(function(panel) {
+            allContents.forEach(function (panel) {
                 if (allowedTabs.indexOf(panel.id) !== -1) {
                     wizardPanels.push(panel.id);
                 } else {
@@ -2015,7 +2038,7 @@
             function buildStepIndicator() {
                 var container = document.getElementById('wizardSteps');
                 container.innerHTML = '';
-                wizardPanels.forEach(function(panelId, index) {
+                wizardPanels.forEach(function (panelId, index) {
                     if (index > 0) {
                         var line = document.createElement('div');
                         line.className = 'wizard-step-line';
@@ -2032,13 +2055,13 @@
             }
 
             function updateWizard() {
-                allContents.forEach(function(panel) {
+                allContents.forEach(function (panel) {
                     panel.classList.remove('active');
                 });
                 var activePanel = document.getElementById(wizardPanels[currentStep]);
                 if (activePanel) activePanel.classList.add('active');
 
-                document.querySelectorAll('.wizard-step').forEach(function(step, index) {
+                document.querySelectorAll('.wizard-step').forEach(function (step, index) {
                     step.classList.remove('active', 'completed');
                     if (index === currentStep) {
                         step.classList.add('active');
@@ -2047,14 +2070,14 @@
                     }
                 });
 
-                document.querySelectorAll('.wizard-step-line').forEach(function(line, index) {
+                document.querySelectorAll('.wizard-step-line').forEach(function (line, index) {
                     line.classList.toggle('completed', index < currentStep);
                 });
 
                 var tabButtons = document.querySelectorAll('.switcher.navigator .tab');
-                tabButtons.forEach(function(btn) { btn.classList.remove('active'); });
+                tabButtons.forEach(function (btn) { btn.classList.remove('active'); });
                 var activeTabId = wizardPanels[currentStep];
-                tabButtons.forEach(function(btn) {
+                tabButtons.forEach(function (btn) {
                     if (btn.getAttribute('tab-id') === activeTabId) {
                         btn.classList.add('active');
                     }
@@ -2074,21 +2097,21 @@
             buildStepIndicator();
             updateWizard();
 
-            document.getElementById('wizardNext').addEventListener('click', function() {
+            document.getElementById('wizardNext').addEventListener('click', function () {
                 if (currentStep < wizardPanels.length - 1) {
                     currentStep++;
                     updateWizard();
                 }
             });
 
-            document.getElementById('wizardPrev').addEventListener('click', function() {
+            document.getElementById('wizardPrev').addEventListener('click', function () {
                 if (currentStep > 0) {
                     currentStep--;
                     updateWizard();
                 }
             });
 
-            document.getElementById('wizardSteps').addEventListener('click', function(e) {
+            document.getElementById('wizardSteps').addEventListener('click', function (e) {
                 var stepEl = e.target.closest('.wizard-step');
                 if (!stepEl) return;
                 var index = parseInt(stepEl.getAttribute('data-step-index'));

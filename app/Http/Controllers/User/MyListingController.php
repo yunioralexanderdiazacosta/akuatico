@@ -586,6 +586,7 @@ class MyListingController extends Controller
                 $image->src = getFile($image->driver, $image->listing_image);
                 return $image;
             });
+        $data["is_individual"] = $user->isIndividual();
 
         return view(
             "user_panel.user.listing.edit_listing",
