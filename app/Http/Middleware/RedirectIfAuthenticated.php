@@ -24,6 +24,9 @@ class RedirectIfAuthenticated
                 if ($guard == 'admin') {
                     return redirect()->route('admin.dashboard');
                 } else {
+                    if (Auth::guard($guard)->user()->account_type == 'individual') {
+                        return redirect()->route('user.listings');
+                    }
                     return redirect()->route('user.dashboard');
                 }
             }

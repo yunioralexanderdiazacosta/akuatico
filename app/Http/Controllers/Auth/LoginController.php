@@ -33,13 +33,20 @@ class LoginController extends Controller
 
     protected $maxAttempts = 3; // Change this to 4 if you want 4 tries
     protected $decayMinutes = 5; // Change this according to your
+    protected $theme;
 
     /**
      * Where to redirect users after login.
      *
-     * @var string
+     * @return string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    public function redirectTo()
+    {
+        if (auth()->user()->account_type == 'company') {
+            return route('user.dashboard');
+        }
+        return route('user.listings');
+    }
 
     /**
      * Create a new controller instance.
@@ -119,7 +126,7 @@ class LoginController extends Controller
 
         $this->clearLoginAttempts($request);
 
-        if ($response = $this->authenticated($request, $this->guard('admin')->user())) {
+        if ($response = $this->authenticated($request, $this->guard()->user())) {
             return $response;
         }
 
