@@ -17,6 +17,9 @@ trait ListingTrait
     {
         $businessHours = [];
         foreach ($request->working_day as $key => $value) {
+            if (empty($request->start_time[$key]) && empty($request->end_time[$key])) {
+                continue;
+            }
             $businessHours[] = [
                 'listing_id' => $listing->id,
                 'purchase_package_id' => $id,
@@ -27,7 +30,9 @@ trait ListingTrait
                 'updated_at' => now(),
             ];
         }
-        DB::table('business_hours')->insert($businessHours);
+        if (!empty($businessHours)) {
+            DB::table('business_hours')->insert($businessHours);
+        }
     }
 
     public function insertSocialAndWebsite(Request $request, $listing, $id)

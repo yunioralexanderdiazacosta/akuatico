@@ -685,70 +685,35 @@
                             <div class="col-xl-6" @if($is_individual) style="visibility: hidden;" @endif>
                                 <h3 class="mb-3">@lang('Business Hours')</h3>
                                 <p class="text-muted mb-2" style="font-size: 0.85rem;">
-                                    @lang('Presiona el botón de (+) para agregar más días.')
+                                    @lang('Deja los campos vacíos para los días que no apliquen.')
                                 </p>
                                 <div class="form business-hour">
                                     @php
-                                        $defaultDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-                                        $oldWorkingDays = old('working_day', $defaultDays);
                                         $allDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                                     @endphp
 
-                                    @foreach($oldWorkingDays as $i => $selectedDay)
-                                        <div
-                                            class="d-sm-flex justify-content-between {{ $i === 0 ? 'delete_this' : 'delete_this removeBusinessHourInputField' }} @error("working_day.$i") is-invalid @enderror">
-                                            <div class="input-box w-100 my-1 mx-sm-1">
-                                                <select class="js-example-basic-single form-control" name="working_day[]">
-                                                    @foreach($allDays as $day)
-                                                        <option value="{{ $day }}" {{ $selectedDay == $day ? 'selected' : '' }}>
-                                                            @lang($day)
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                <div class="invalid-feedback">
-                                                    @error("working_day.$i") @lang($message) @enderror
-                                                </div>
+                                    @foreach($allDays as $i => $day)
+                                        <div class="d-sm-flex align-items-center mb-2">
+                                            <div class="input-box my-1 mx-sm-1" style="min-width: 120px;">
+                                                <input type="hidden" name="working_day[]" value="{{ $day }}">
+                                                <p class="mb-0 fw-bold">@lang($day)</p>
                                             </div>
 
-                                            <div class="d-flex">
+                                            <div class="d-flex flex-grow-1">
                                                 <div class="input-box w-100 my-1 me-1">
                                                     <input type="time" name="start_time[]" value="{{ old("start_time.$i") }}"
-                                                        class="form-control @error("start_time.$i") is-invalid @enderror"
+                                                        class="form-control"
                                                         placeholder="@lang('Start Hour')" />
-                                                    <div class="invalid-feedback">
-                                                        @error("start_time.$i") @lang($message) @enderror
-                                                    </div>
                                                 </div>
 
                                                 <div class="input-box w-100 my-1 me-1">
                                                     <input type="time" name="end_time[]" value="{{ old("end_time.$i") }}"
-                                                        class="form-control @error("end_time.$i") is-invalid @enderror"
+                                                        class="form-control"
                                                         placeholder="@lang('End Hour')" />
-                                                    <div class="invalid-feedback">
-                                                        @error("end_time.$i") @lang($message) @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="input-box my-1 me-1">
-                                                    @if($i === 0)
-                                                        <button class="btn-custom customButton add-new" type="button"
-                                                            id="add_business_hour">
-                                                            <i class="fal fa-plus"></i>
-                                                        </button>
-                                                    @else
-                                                        <button
-                                                            class="btn btn-outline-danger h-100 add-new remove_business_hour_input_field_block"
-                                                            type="button">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
                                     @endforeach
-
-                                    <div class="new_business_hour_form">
-                                    </div>
                                 </div>
                             </div>
                         @endif
@@ -1490,40 +1455,6 @@
                     }
                 });
 
-                $("#add_business_hour").on('click', function () {
-                    var form = `<div class="d-sm-flex justify-content-between removeBusinessHourInputField">
-                                                                                                                                <div class="input-box w-100 my-1 mx-sm-1">
-                                                                                                                                    <select class="js-example-basic-single form-control" name="working_day[]">
-                                                                                                                                        <option value="Monday">@lang('Monday')</option>
-                                                                                                                                        <option value="Tuesday">@lang('Tuesday')</option>
-                                                                                                                                        <option value="Wednesday">@lang('Wednesday')</option>
-                                                                                                                                        <option value="Thursday">@lang('Thursday')</option>
-                                                                                                                                        <option value="Friday">@lang('Friday')</option>
-                                                                                                                                        <option value="Saturday">@lang('Saturday')</option>
-                                                                                                                                        <option value="Sunday">@lang('Sunday')</option>
-                                                                                                                                    </select>
-                                                                                                                                </div>
-                                                                                                                                <div class="d-flex input-box-two">
-                                                                                                                                    <div class="input-box w-100 my-1 me-1">
-                                                                                                                                        <input type="time" name="start_time[]" class="form-control" placeholder="@lang('Start Hour')" />
-                                                                                                                                    </div>
-                                                                                                                                    <div class="input-box w-100 my-1 me-1">
-                                                                                                                                        <input type="time" name="end_time[]" class="form-control" placeholder="@lang('End Hour')" />
-                                                                                                                                    </div>
-                                                                                                                                    <div class="input-box my-1 me-1">
-                                                                                                                                        <button class="btn btn-outline-danger h-100 add-new remove_business_hour_input_field_block" type="button">
-                                                                                                                                            <i class="fa fa-times"></i>
-                                                                                                                                        </button>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                            </div>`;
-
-                    $('.new_business_hour_form').append(form)
-                });
-
-                $(document).on('click', '.remove_business_hour_input_field_block', function () {
-                    $(this).parents('.removeBusinessHourInputField').remove();
-                });
 
                 let maxSelectAmenities = $('.amenities_select2').data('amenities');
                 $(".amenities_select2").select2({
