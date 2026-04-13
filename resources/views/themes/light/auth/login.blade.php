@@ -33,14 +33,20 @@
                                     @error('email')<span class="text-danger float-left">@lang($message)</span>@enderror
 
                                     <div class="input-box col-12">
-                                        <input
-                                            type="password"
-                                            name="password"
-                                            value="{{ old('password', config('demo.IS_DEMO') ? (request()->password ?? 'demouser') : '') }}"
-                                            class="form-control"
-                                            placeholder="@lang('Password')"
-                                            autocomplete="off"
-                                        />
+                                        <div class="input-group">
+                                            <input
+                                                type="password"
+                                                name="password"
+                                                value="{{ old('password', config('demo.IS_DEMO') ? (request()->password ?? 'demouser') : '') }}"
+                                                class="form-control"
+                                                placeholder="@lang('Password')"
+                                                autocomplete="off"
+                                                id="password-input"
+                                            />
+                                            <button class="btn btn-outline-secondary toggle-password" type="button" id="toggle-password">
+                                                <i class="far fa-eye"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                     @error('password')
                                     <span class="text-danger mt-1">@lang($message)</span>
@@ -147,6 +153,17 @@
 
 @push('script')
     <script>
+        document.getElementById("toggle-password").addEventListener("click", function () {
+            const passwordInput = document.getElementById("password-input");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                this.innerHTML = '<i class="far fa-eye-slash"></i>';
+            } else {
+                passwordInput.type = "password";
+                this.innerHTML = '<i class="far fa-eye"></i>';
+            }
+        });
+
         function refreshCaptcha() {
             let img = document.images['captcha_image'];
             img.src = img.src.substring(
