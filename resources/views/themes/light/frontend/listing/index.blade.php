@@ -338,7 +338,7 @@
                                         </div>
 
                                         <div class="text-box">
-                                            <div class="review">
+                                            <div class="review d-none">
                                                 @php
                                                     $isCheck = 0;
                                                     $j = 0;

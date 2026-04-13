@@ -122,16 +122,16 @@
                                                         <i class="fal fa-analytics"></i> @lang('Analytics')
                                                     </a>
                                                 </li>
-                                                <li>
+                                                <!-- <li>
                                                     <a href="{{ route('user.reviews', $item->id) }}" class="btn currentColor dropdown-item">
                                                         <i class="far fa-star"></i> @lang('Reviews')
                                                     </a>
-                                                </li>
-                                                <li>
+                                                </li> -->
+                                                <!-- <li>
                                                     <a href="{{ route('user.dynamic.form.data', $item->id) }}" class="btn currentColor dropdown-item">
                                                         <i class="far fa-album-collection"></i> @lang('Form Data')
                                                     </a>
-                                                </li>
+                                                </li> -->
                                                 <li>
                                                     <a href="{{ route('user.editListing', $item->id) }}" class="btn currentColor dropdown-item">
                                                         <i class="far fa-edit"></i> @lang('Edit')

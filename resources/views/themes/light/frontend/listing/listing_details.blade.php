@@ -197,7 +197,7 @@
                                 <li class="nav-item ms-1" role="presentation">
                                     <span id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
                                           type="button" role="tab" aria-controls="pills-profile" aria-selected="false">
-                                        <a class="short-nav-item" href="#reviews">
+                                        <a class="short-nav-item d-none" href="#reviews">
                                             @lang('Reviews')
                                             @php
                                                 $fullStars = floor($average_review);
