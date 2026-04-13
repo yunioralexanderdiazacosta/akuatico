@@ -153,7 +153,7 @@
             @lang('Basic Info')
             @if ($errors->has('title') || $errors->has('category_id') || $errors->has('description') || $errors->has('place_id') || $errors->has('lat') || $errors->has('long'))
                 @php
-                    $tabOne = ['title', 'category_id', 'email', 'phone', 'description', 'place_id', 'lat', 'long'];
+                    $tabOne = ['title', 'category_id', 'description', 'place_id', 'lat', 'long'];
                 @endphp
                 <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
                     data-bs-html="true" data-bs-title="
@@ -314,6 +314,11 @@
     <form action="{{ route('user.updateListing', $id) }}" method="post" enctype="multipart/form-data">
         @csrf
         <div id="tab1" class="add-listing-form content active">
+            <div id="validationAlert" class="alert alert-danger alert-dismissible fade" role="alert" style="display:none;">
+                <strong>@lang('Por favor completa los siguientes campos:')</strong>
+                <ul id="validationAlertList" class="mb-0 mt-1"></ul>
+                <button type="button" class="btn-close" onclick="this.parentElement.style.display='none';this.parentElement.classList.remove('show');"></button>
+            </div>
             <div class="main row gy-4">
                 <div class="col-xl-12">
                     <h3 class="mb-3">@lang('Basic Info')</h3>
@@ -401,22 +406,6 @@
                                     </div>
                                 </div>
 
-                                <div class="input-box col-md-6">
-                                    <input class="form-control @error('email') is-invalid @enderror"
-                                        placeholder="@lang('email')" type="email" name="email"
-                                        value="{{ old('email', $single_listing_infos->email) }}" />
-                                    <div class="invalid-feedback">
-                                        @error('email') @lang($message) @enderror
-                                    </div>
-                                </div>
-                                <div class="input-box col-md-6">
-                                    <input class="form-control @error('phone') is-invalid @enderror" type="tel"
-                                        id="phone" name="phone" placeholder="(787) 382-0627" maxlength="14"
-                                        value="{{ old('phone', $single_listing_infos->phone) }}" />
-                                    <div class="invalid-feedback">
-                                        @error('phone') @lang($message) @enderror
-                                    </div>
-                                </div>
                                 <div class="input-box col-md-6">
                                     <input class="form-control @error('price') is-invalid @enderror" type="text"
                                         id="price_display" placeholder="@lang('Price')"
@@ -1937,31 +1926,6 @@
         formatNumberInput('price_display', 'price_hidden', false);
         formatNumberInput('length_display', 'length_hidden');
 
-        // Phone format: (XXX) XXX-XXXX
-        function formatPhone(value) {
-            var digits = value.replace(/\D/g, '').substring(0, 10);
-            var formatted = '';
-            if (digits.length > 0) {
-                formatted = '(' + digits.substring(0, 3);
-            }
-            if (digits.length >= 3) {
-                formatted += ') ' + digits.substring(3, 6);
-            }
-            if (digits.length >= 6) {
-                formatted += '-' + digits.substring(6, 10);
-            }
-            return formatted;
-        }
-
-        // Format existing value on load
-        var $phone = $('#phone');
-        if ($phone.val()) {
-            $phone.val(formatPhone($phone.val()));
-        }
-
-        $phone.on('input', function () {
-            $(this).val(formatPhone($(this).val()));
-        });
 
         // ===== WIZARD NAVIGATION =====
         (function () {
@@ -2052,7 +2016,70 @@
             buildStepIndicator();
             updateWizard();
 
+            function validateCurrentStep() {
+                if (wizardPanels[currentStep] !== 'tab1') return true;
+
+                var missing = [];
+
+                // Title
+                var titleInput = document.querySelector('input[name="title"]');
+                if (!titleInput.value.trim()) {
+                    titleInput.classList.add('is-invalid');
+                    missing.push('@lang("Nombre")');
+                } else {
+                    titleInput.classList.remove('is-invalid');
+                }
+
+                // Category (select2 multiple)
+                var categoryVal = $('#category_id').val();
+                if (!categoryVal || categoryVal.length === 0) {
+                    $('#category_id').next('.select2-container').find('.select2-selection').css('border-color', '#dc3545');
+                    missing.push('@lang("Categor\u00eda")');
+                } else {
+                    $('#category_id').next('.select2-container').find('.select2-selection').css('border-color', '');
+                }
+
+                // Description (Summernote)
+                var descContent = $('#summernote').summernote('isEmpty') ? '' : $('#summernote').summernote('code');
+                var descTextarea = document.querySelector('textarea[name="description"]');
+                if (!descContent || descContent.trim() === '' || descContent.trim() === '<br>' || descContent.trim() === '<p><br></p>') {
+                    descTextarea.classList.add('is-invalid');
+                    $(descTextarea).closest('.input-box').find('.note-editor').css('border-color', '#dc3545');
+                    missing.push('@lang("Descripci\u00f3n")');
+                } else {
+                    descTextarea.classList.remove('is-invalid');
+                    $(descTextarea).closest('.input-box').find('.note-editor').css('border-color', '');
+                }
+
+                // Address
+                var addressInput = document.querySelector('input[name="address"]');
+                if (!addressInput.value.trim()) {
+                    addressInput.classList.add('is-invalid');
+                    missing.push('@lang("Ubicaci\u00f3n")');
+                } else {
+                    addressInput.classList.remove('is-invalid');
+                }
+
+                // Show/hide alert
+                var alertBox = document.getElementById('validationAlert');
+                var alertList = document.getElementById('validationAlertList');
+                if (missing.length > 0) {
+                    alertList.innerHTML = missing.map(function(field) {
+                        return '<li>' + field + '</li>';
+                    }).join('');
+                    alertBox.style.display = 'block';
+                    alertBox.classList.add('show');
+                    alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return false;
+                }
+
+                alertBox.style.display = 'none';
+                alertBox.classList.remove('show');
+                return true;
+            }
+
             document.getElementById('wizardNext').addEventListener('click', function () {
+                if (!validateCurrentStep()) return;
                 if (currentStep < wizardPanels.length - 1) {
                     currentStep++;
                     updateWizard();

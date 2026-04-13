@@ -412,6 +412,11 @@
             <form action="{{ route('user.storeListing', $id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div id="tab1" class="add-listing-form content active">
+                    <div id="validationAlert" class="alert alert-danger alert-dismissible fade" role="alert" style="display:none;">
+                        <strong>@lang('Por favor completa los siguientes campos:')</strong>
+                        <ul id="validationAlertList" class="mb-0 mt-1"></ul>
+                        <button type="button" class="btn-close" onclick="this.parentElement.style.display='none';this.parentElement.classList.remove('show');"></button>
+                    </div>
                     <div class="main row gy-4">
                         <div class="col-xl-12">
                             <h3 class="mb-3">@lang('Basic Info')</h3>
@@ -2208,7 +2213,70 @@
                 buildStepIndicator();
                 updateWizard();
 
+                function validateCurrentStep() {
+                    if (wizardPanels[currentStep] !== 'tab1') return true;
+
+                    var missing = [];
+
+                    // Title
+                    var titleInput = document.querySelector('input[name="title"]');
+                    if (!titleInput.value.trim()) {
+                        titleInput.classList.add('is-invalid');
+                        missing.push('@lang("Nombre")');
+                    } else {
+                        titleInput.classList.remove('is-invalid');
+                    }
+
+                    // Category (select2 multiple)
+                    var categoryVal = $('#category_id').val();
+                    if (!categoryVal || categoryVal.length === 0) {
+                        $('#category_id').next('.select2-container').find('.select2-selection').css('border-color', '#dc3545');
+                        missing.push('@lang("Categor\u00eda")');
+                    } else {
+                        $('#category_id').next('.select2-container').find('.select2-selection').css('border-color', '');
+                    }
+
+                    // Description (Summernote)
+                    var descContent = $('#summernote').summernote('isEmpty') ? '' : $('#summernote').summernote('code');
+                    var descTextarea = document.querySelector('textarea[name="description"]');
+                    if (!descContent || descContent.trim() === '' || descContent.trim() === '<br>' || descContent.trim() === '<p><br></p>') {
+                        descTextarea.classList.add('is-invalid');
+                        $(descTextarea).closest('.input-box').find('.note-editor').css('border-color', '#dc3545');
+                        missing.push('@lang("Descripci\u00f3n")');
+                    } else {
+                        descTextarea.classList.remove('is-invalid');
+                        $(descTextarea).closest('.input-box').find('.note-editor').css('border-color', '');
+                    }
+
+                    // Address
+                    var addressInput = document.querySelector('input[name="address"]');
+                    if (!addressInput.value.trim()) {
+                        addressInput.classList.add('is-invalid');
+                        missing.push('@lang("Ubicaci\u00f3n")');
+                    } else {
+                        addressInput.classList.remove('is-invalid');
+                    }
+
+                    // Show/hide alert
+                    var alertBox = document.getElementById('validationAlert');
+                    var alertList = document.getElementById('validationAlertList');
+                    if (missing.length > 0) {
+                        alertList.innerHTML = missing.map(function(field) {
+                            return '<li>' + field + '</li>';
+                        }).join('');
+                        alertBox.style.display = 'block';
+                        alertBox.classList.add('show');
+                        alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        return false;
+                    }
+
+                    alertBox.style.display = 'none';
+                    alertBox.classList.remove('show');
+                    return true;
+                }
+
                 document.getElementById('wizardNext').addEventListener('click', function () {
+                    if (!validateCurrentStep()) return;
                     if (currentStep < wizardPanels.length - 1) {
                         currentStep++;
                         updateWizard();
