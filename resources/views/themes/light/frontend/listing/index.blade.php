@@ -30,6 +30,12 @@
 
         .listing-section .listing-grid-card .text-box {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .listing-section .listing-grid-card .text-box .btn-custom {
+            margin-top: auto;
         }
 
         /* View toggle buttons */
