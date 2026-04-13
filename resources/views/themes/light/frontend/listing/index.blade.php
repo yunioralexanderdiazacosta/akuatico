@@ -179,34 +179,36 @@
                                     </select>
                                 </div>
 
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('Length (Feet)')</label>
-                                    <div class="row g-2">
-                                        <div class="col-6">
-                                            <input type="number" name="min_length" class="form-control bg-white"
-                                                   value="{{ request()->min_length }}" min="10" max="100"
-                                                   placeholder="@lang('Min')"/>
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="number" name="max_length" class="form-control bg-white"
-                                                   value="{{ request()->max_length }}" min="10" max="100"
-                                                   placeholder="@lang('Max')"/>
+                                <div id="botes-filters" style="display: none;">
+                                    <div class="mb-3">
+                                        <label class="form-label">@lang('Length (Feet)')</label>
+                                        <div class="row g-2">
+                                            <div class="col-6">
+                                                <input type="number" name="min_length" class="form-control bg-white"
+                                                       value="{{ request()->min_length }}" min="10" max="100"
+                                                       placeholder="@lang('Min')"/>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="number" name="max_length" class="form-control bg-white"
+                                                       value="{{ request()->max_length }}" min="10" max="100"
+                                                       placeholder="@lang('Max')"/>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('Price ($)')</label>
-                                    <div class="row g-2">
-                                        <div class="col-6">
-                                            <input type="number" name="min_price" class="form-control bg-white"
-                                                   value="{{ request()->min_price }}" min="0"
-                                                   placeholder="@lang('Min')"/>
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="number" name="max_price" class="form-control bg-white"
-                                                   value="{{ request()->max_price }}" min="0"
-                                                   placeholder="@lang('Max')"/>
+                                    <div class="mb-3">
+                                        <label class="form-label">@lang('Price') ($)</label>
+                                        <div class="row g-2">
+                                            <div class="col-6">
+                                                <input type="number" name="min_price" class="form-control bg-white"
+                                                       value="{{ request()->min_price }}" min="0"
+                                                       placeholder="@lang('Min')"/>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="number" name="max_price" class="form-control bg-white"
+                                                       value="{{ request()->max_price }}" min="0"
+                                                       placeholder="@lang('Max')"/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -490,11 +492,27 @@
             $('#subcategory_id').trigger('change.select2');
         }
 
+        function toggleBotesFilters() {
+            var selectedOptions = $('#category_id').select2('data') || [];
+            var hasBotes = selectedOptions.some(function(opt) {
+                return opt.text.trim().toLowerCase().includes('botes');
+            });
+            var $botesFilters = $('#botes-filters');
+            if (hasBotes) {
+                $botesFilters.slideDown();
+            } else {
+                $botesFilters.slideUp();
+                $botesFilters.find('input').val('');
+            }
+        }
+
         $('#category_id').on('change', function() {
             filterSubcategories();
+            toggleBotesFilters();
         });
 
         filterSubcategories();
+        toggleBotesFilters();
 
         // View toggle (grid / list)
         $('.view-toggle .btn-view').on('click', function () {
