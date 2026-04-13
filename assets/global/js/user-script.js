@@ -39,13 +39,18 @@ $(document).ready(function () {
    //youtube video
     let vid_id = $('input[name="youtube_video_id"]').val();
     if (vid_id){
-        youtubeVideoPreview(vid_id);
+        youtubeVideoPreview(extractYoutubeId(vid_id));
     }
 
    $(document).on("change keyup", 'input[name="youtube_video_id"]', function () {
-      let vid_id = $(this).val();
+      let vid_id = extractYoutubeId($(this).val());
        youtubeVideoPreview(vid_id);
    });
+
+   function extractYoutubeId(url) {
+      var match = url.match(/(?:youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+      return match ? match[1] : url;
+   }
 
    function youtubeVideoPreview(vid_id){
        $(".youtube").css({
@@ -56,7 +61,7 @@ $(document).ready(function () {
    }
 
    $(document).on("click", ".nk-video-plain-toggle", function () {
-      var vid_id = $('input[name="youtube_video_id"]').val();
+      var vid_id = extractYoutubeId($('input[name="youtube_video_id"]').val());
       playVid(vid_id);
    });
 

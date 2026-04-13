@@ -200,7 +200,7 @@ class MyListingController extends Controller
             "long" => "required|between:-180,180",
             "working_day.*" => "nullable|string|max:20",
             "social_url.*" => "nullable|url|max:180",
-            "youtube_video_id" => "nullable|string|max:20",
+            "youtube_video_id" => "nullable|string",
             "listing_image.*" => "nullable|mimes:jpeg,png,jpg",
             "amenity_id.*" => "nullable|numeric|exists:amenities,id",
             "product_title.*" => "nullable|string|max:150",
@@ -353,7 +353,7 @@ class MyListingController extends Controller
                 $listing->fb_page_id = $request->fb_page_id;
             }
             if ($request->youtube_video_id) {
-                $listing->youtube_video_id = $request->youtube_video_id;
+                $listing->youtube_video_id = $this->extractYoutubeId($request->youtube_video_id);
             }
             $listing->save();
 
@@ -620,7 +620,7 @@ class MyListingController extends Controller
             "long" => "required|between:-180,180",
             "working_day.*" => "nullable|string|max:20",
             "social_url.*" => "nullable|url|max:180",
-            "youtube_video_id" => "nullable|string|max:20",
+            "youtube_video_id" => "nullable|string",
             "listing_image.*" => "nullable|mimes:jpeg,png,jpg",
             "amenity_id.*" => "nullable|numeric|exists:amenities,id",
             "product_title.*" => "nullable|string|max:150",
@@ -718,7 +718,7 @@ class MyListingController extends Controller
             $listing->long = $request->long;
 
             if ($request->youtube_video_id) {
-                $listing->youtube_video_id = $request->youtube_video_id;
+                $listing->youtube_video_id = $this->extractYoutubeId($request->youtube_video_id);
             }
             if (optional($listing->get_package)->is_whatsapp == 1) {
                 $listing->whatsapp_number = $request->whatsapp_number;
@@ -1237,5 +1237,20 @@ class MyListingController extends Controller
             ->map(fn($name) => mb_strtolower(trim($name)))
             ->intersect($blockedCategories)
             ->isNotEmpty();
+    }
+
+    private function extractYoutubeId(string $url): string
+    {
+        $patterns = [
+            '/(?:youtube\.com\/watch\?.*v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/',
+        ];
+
+        foreach ($patterns as $pattern) {
+            if (preg_match($pattern, $url, $matches)) {
+                return $matches[1];
+            }
+        }
+
+        return $url;
     }
 }
