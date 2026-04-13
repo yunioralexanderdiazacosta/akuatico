@@ -667,7 +667,7 @@
                                 <ul>
                                     @if(optional($single_listing_details->get_user)->phone)
                                         <li>
-                                            <i class="far fa-phone-alt" aria-hidden="true"></i>
+                                            <i class="fal fa-phone-alt" aria-hidden="true"></i>
                                             <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', optional($single_listing_details->get_user)->phone) }}" target="_blank">
                                                 <span>{{ optional($single_listing_details->get_user)->phone }}</span>
                                             </a>
@@ -675,13 +675,13 @@
                                     @endif
                                     @if(optional($single_listing_details->get_user)->email)
                                         <li>
-                                            <i class="far fa-envelope" aria-hidden="true"></i>
+                                            <i class="fal fa-envelope" aria-hidden="true"></i>
                                             <span>{{ optional($single_listing_details->get_user)->email }}</span>
                                         </li>
                                     @endif
                                     @if(optional($single_listing_details->get_user)->fullAddress)
                                         <li>
-                                            <i class="far fa-map-marker-alt" aria-hidden="true"></i>
+                                            <i class="fal fa-map-marker-alt" aria-hidden="true"></i>
                                             <span>@lang(optional($single_listing_details->get_user)->fullAddress)</span>
                                         </li>
                                     @endif

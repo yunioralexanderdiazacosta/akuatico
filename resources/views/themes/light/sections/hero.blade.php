@@ -29,7 +29,7 @@
                                         <div class="input-box col-lg-3 col-md-6">
                                             <div class="input-group">
                                                  <span class="input-group-prepend">
-                                                  <i class="far fa-chart-scatter"></i>
+                                                   <i class="fal fa-th-large"></i>
                                                  </span>
                                                 <select class="listing__category__select2 form-control"
                                                         name="category[]">
