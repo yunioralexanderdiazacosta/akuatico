@@ -688,124 +688,66 @@
                                     @lang('Presiona el botón de (+) para agregar más días.')
                                 </p>
                                 <div class="form business-hour">
-                                    <div
-                                        class="d-sm-flex justify-content-between delete_this @error('working_day.0') is-invalid @enderror">
-                                        <div class="input-box w-100 my-1 mx-sm-1">
-                                            <select class="js-example-basic-single form-control" name="working_day[]">
-                                                <option value="Monday" {{ old('working_day.0') == 'Monday' ? 'selected' : '' }}>
-                                                    @lang('Monday')
-                                                </option>
-                                                <option value="Tuesday" {{ old('working_day.0') == 'Tuesday' ? 'selected' : '' }}>
-                                                    @lang('Tuesday')
-                                                </option>
-                                                <option value="Wednesday" {{ old('working_day.0') == 'Wednesday' ? 'selected' : '' }}>
-                                                    @lang('Wednesday')
-                                                </option>
-                                                <option value="Thursday" {{ old('working_day.0') == 'Thursday' ? 'selected' : '' }}>
-                                                    @lang('Thursday')
-                                                </option>
-                                                <option value="Friday" {{ old('working_day.0') == 'Friday' ? 'selected' : '' }}>
-                                                    @lang('Friday')
-                                                </option>
-                                                <option value="Saturday" {{ old('working_day.0') == 'Saturday' ? 'selected' : '' }}>
-                                                    @lang('Saturday')
-                                                </option>
-                                                <option value="Sunday" {{ old('working_day.0') == 'Sunday' ? 'selected' : '' }}>
-                                                    @lang('Sunday')
-                                                </option>
-                                            </select>
-                                            <div class="invalid-feedback">
-                                                @error('working_day.0') @lang($message) @enderror
-                                            </div>
-                                        </div>
+                                    @php
+                                        $defaultDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                                        $oldWorkingDays = old('working_day', $defaultDays);
+                                        $allDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                                    @endphp
 
-                                        <div class="d-flex">
-                                            <div class="input-box w-100 my-1 me-1">
-                                                <input type="time" name="start_time[]" value="{{ old('start_time.0') }}"
-                                                    class="form-control @error('start_time.0') is-invalid @enderror"
-                                                    placeholder="@lang('Start Hour')" />
+                                    @foreach($oldWorkingDays as $i => $selectedDay)
+                                        <div
+                                            class="d-sm-flex justify-content-between {{ $i === 0 ? 'delete_this' : 'delete_this removeBusinessHourInputField' }} @error("working_day.$i") is-invalid @enderror">
+                                            <div class="input-box w-100 my-1 mx-sm-1">
+                                                <select class="js-example-basic-single form-control" name="working_day[]">
+                                                    @foreach($allDays as $day)
+                                                        <option value="{{ $day }}" {{ $selectedDay == $day ? 'selected' : '' }}>
+                                                            @lang($day)
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                                 <div class="invalid-feedback">
-                                                    @error('start_time.0') @lang($message) @enderror
+                                                    @error("working_day.$i") @lang($message) @enderror
                                                 </div>
                                             </div>
 
-                                            <div class="input-box w-100 my-1 me-1">
-                                                <input type="time" name="end_time[]" value="{{ old('end_time.0') }}"
-                                                    class="form-control @error('end_time.0') is-invalid @enderror"
-                                                    placeholder="@lang('End Hour')" />
-                                                <div class="invalid-feedback">
-                                                    @error('end_time.0') @lang($message) @enderror
+                                            <div class="d-flex">
+                                                <div class="input-box w-100 my-1 me-1">
+                                                    <input type="time" name="start_time[]" value="{{ old("start_time.$i") }}"
+                                                        class="form-control @error("start_time.$i") is-invalid @enderror"
+                                                        placeholder="@lang('Start Hour')" />
+                                                    <div class="invalid-feedback">
+                                                        @error("start_time.$i") @lang($message) @enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="input-box w-100 my-1 me-1">
+                                                    <input type="time" name="end_time[]" value="{{ old("end_time.$i") }}"
+                                                        class="form-control @error("end_time.$i") is-invalid @enderror"
+                                                        placeholder="@lang('End Hour')" />
+                                                    <div class="invalid-feedback">
+                                                        @error("end_time.$i") @lang($message) @enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="input-box my-1 me-1">
+                                                    @if($i === 0)
+                                                        <button class="btn-custom customButton add-new" type="button"
+                                                            id="add_business_hour">
+                                                            <i class="fal fa-plus"></i>
+                                                        </button>
+                                                    @else
+                                                        <button
+                                                            class="btn btn-outline-danger h-100 add-new remove_business_hour_input_field_block"
+                                                            type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    @endif
                                                 </div>
                                             </div>
-
-                                            <div class="input-box my-1 me-1">
-                                                <button class="btn-custom customButton add-new" type="button"
-                                                    id="add_business_hour">
-                                                    <i class="fal fa-plus"></i>
-                                                </button>
-                                            </div>
                                         </div>
-                                    </div>
+                                    @endforeach
 
                                     <div class="new_business_hour_form">
-                                        @php
-                                            $oldWorkingDaysCount = old('working_day') ? count(old('working_day')) : 0;
-                                        @endphp
-                                        @if($oldWorkingDaysCount > 1)
-                                            @for($i = 1; $i < $oldWorkingDaysCount; $i++)
-                                                <div
-                                                    class="d-sm-flex justify-content-between delete_this removeBusinessHourInputField @error("working_day.$i") is-invalid @enderror">
-                                                    <div class="input-box w-100 my-1 mx-sm-1">
-                                                        <select class="js-example-basic-single form-control" name="working_day[]">
-                                                            <option value="Monday" {{ old("working_day.$i") == 'Monday' ? 'selected' : '' }}>
-                                                                @lang('Monday')
-                                                            </option>
-                                                            <option value="Tuesday" {{ old("working_day.$i") == 'Tuesday' ? 'selected' : '' }}>@lang('Tuesday')</option>
-                                                            <option value="Wednesday" {{ old("working_day.$i") == 'Wednesday' ? 'selected' : '' }}>@lang('Wednesday')</option>
-                                                            <option value="Thursday" {{ old("working_day.$i") == 'Thursday' ? 'selected' : '' }}>@lang('Thursday')</option>
-                                                            <option value="Friday" {{ old("working_day.$i") == 'Friday' ? 'selected' : '' }}>
-                                                                @lang('Friday')
-                                                            </option>
-                                                            <option value="Saturday" {{ old("working_day.$i") == 'Saturday' ? 'selected' : '' }}>@lang('Saturday')</option>
-                                                            <option value="Sunday" {{ old("working_day.$i") == 'Sunday' ? 'selected' : '' }}>
-                                                                @lang('Sunday')
-                                                            </option>
-                                                        </select>
-                                                        <div class="invalid-feedback">
-                                                            @error("working_day.$i") @lang($message) @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="d-flex">
-                                                        <div class="input-box w-100 my-1 me-1">
-                                                            <input type="time" name="start_time[]" value="{{ old("start_time.$i") }}"
-                                                                class="form-control @error("start_time.$i") is-invalid @enderror"
-                                                                placeholder="@lang('Start Hour')" />
-                                                            <div class="invalid-feedback">
-                                                                @error("start_time.$i") @lang($message) @enderror
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="input-box w-100 my-1 me-1">
-                                                            <input type="time" name="end_time[]" value="{{ old("end_time.$i") }}"
-                                                                class="form-control @error("end_time.$i") is-invalid @enderror"
-                                                                placeholder="@lang('End Hour')" />
-                                                            <div class="invalid-feedback">
-                                                                @error("end_time.$i") @lang($message) @enderror
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="input-box my-1 me-1">
-                                                            <button
-                                                                class="btn btn-outline-danger h-100 add-new remove_business_hour_input_field_block"
-                                                                type="button">
-                                                                <i class="fa fa-times"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endfor
-                                        @endif
                                     </div>
                                 </div>
                             </div>
