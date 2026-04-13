@@ -2397,6 +2397,28 @@ a.btn-custom {
     margin-right: 20px;
 }
 
+.login-section .toggle-password {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bgLight);
+    border: 1px solid var(--bgLight);
+    border-left: none;
+    color: var(--gray);
+    border-radius: 0 5px 5px 0;
+}
+
+.login-section .toggle-password:hover {
+    color: var(--primary);
+}
+
+.login-section .toggle-password:focus {
+    box-shadow: none;
+    border-color: var(--primary);
+}
+
 .banner-section {
     background-size: cover;
     background-position: center;

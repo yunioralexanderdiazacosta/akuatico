@@ -76,14 +76,14 @@ class SpecialCategoryController extends Controller
     public function getCategoriesByType(Request $request)
     {
         $type = $request->input('type');
-        
+
         // Define available categories based on announcement type
         switch ($type) {
             case 'clasificados':
                 $availableCategories = ['Botes', 'Jets Skies', 'Veleros', 'Kayaks', 'Juguetes para el Agua'];
                 break;
             case 'directorio':
-                $availableCategories = ['Piezas', 'Financiamiento', 'Seguros', 'Marinas'];
+                $availableCategories = ['Piezas', 'Financiamiento', 'Seguros', 'Marinas', 'Tiendas'];
                 break;
             case 'servicio':
                 $availableCategories = ['Mantenimiento', 'Mecánica', 'Tapicería', 'Instalaciones'];

@@ -251,7 +251,7 @@
                     @lang('Basic Info')
                     @if ($errors->has('title') || $errors->has('category_id') || $errors->has('description') || $errors->has('place_id') || $errors->has('lat') || $errors->has('long'))
                         @php
-                            $tabOne = ['title', 'category_id', 'email', 'phone', 'description', 'place_id', 'lat', 'long'];
+                            $tabOne = ['title', 'category_id', 'description', 'place_id', 'lat', 'long'];
                         @endphp
                         <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
                             data-bs-html="true"
@@ -489,24 +489,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="input-box col-md-6">
-                                            <input class="form-control @error('email') is-invalid @enderror" type="email"
-                                                name="email" value="{{ old('email') }}" placeholder="@lang('Email')" />
-                                            <div class="invalid-feedback">
-                                                @error('email') @lang($message) @enderror
-                                            </div>
-                                        </div>
 
-                                        <div class="input-box col-md-6">
-                                            <input class="form-control @error('phone') is-invalid @enderror" type="tel"
-                                                id="phone" name="phone" value="{{ old('phone') }}"
-                                                placeholder="(787) 382-0627" maxlength="14" />
-                                            <div class="invalid-feedback">
-                                                @error('phone') @lang($message) @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="input-box col-md-6">
+                                        <div class="input-box col-md-6 price-field" style="display: none;">
                                             <input class="form-control @error('price') is-invalid @enderror" type="text"
                                                 id="price_display"
                                                 value="{{ old('price') ? number_format(old('price'), 0, '.', ',') : '' }}"
@@ -2039,6 +2023,7 @@
             @if($is_individual)
                 $('#announcementTypeSelection').hide();
                 $('#wizardContainer').show();
+                $('.price-field').show();
                 loadCategoriesByType('clasificados');
                 if (typeof buildStepIndicator === 'function' && typeof updateWizard === 'function') {
                     buildStepIndicator();
@@ -2046,21 +2031,6 @@
                 }
             @endif
 
-            // Phone format: (XXX) XXX-XXXX
-            $('#phone').on('input', function () {
-                var digits = $(this).val().replace(/\D/g, '').substring(0, 10);
-                var formatted = '';
-                if (digits.length > 0) {
-                    formatted = '(' + digits.substring(0, 3);
-                }
-                if (digits.length >= 3) {
-                    formatted += ') ' + digits.substring(3, 6);
-                }
-                if (digits.length >= 6) {
-                    formatted += '-' + digits.substring(6, 10);
-                }
-                $(this).val(formatted);
-            });
 
             // Announcement Type Selection Functions
             function selectAnnouncementType(element) {
@@ -2071,10 +2041,20 @@
                 $(element).addClass('selected');
 
                 // Set the hidden input value
-                $('#announcement_type').val($(element).data('type'));
+                var type = $(element).data('type');
+                $('#announcement_type').val(type);
+
+                // Show price field only for clasificados
+                if (type === 'clasificados') {
+                    $('.price-field').show();
+                } else {
+                    $('.price-field').hide();
+                    $('#price_display').val('');
+                    $('#price_hidden').val('');
+                }
 
                 // Load categories based on announcement type
-                loadCategoriesByType($(element).data('type'));
+                loadCategoriesByType(type);
 
                 // Show the wizard
                 $('#wizardContainer').show();

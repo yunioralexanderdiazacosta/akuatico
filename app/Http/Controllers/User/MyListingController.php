@@ -331,8 +331,8 @@ class MyListingController extends Controller
             );
             $listing->subcategory_id = $request->subcategory_id;
             $listing->marca = $request->marca;
-            $listing->phone = $request->phone;
-            $listing->email = $request->email;
+            $listing->phone = Auth::user()->phone;
+            $listing->email = Auth::user()->email;
             $listing->price = $request->price;
             $listing->description = $request->description;
             $listing->country_id = $request->country_id;
@@ -706,8 +706,8 @@ class MyListingController extends Controller
             $listing->subcategory_id = $request->subcategory_id;
             $listing->marca = $request->marca;
 
-            $listing->phone = $request->phone;
-            $listing->email = $request->email;
+            $listing->phone = auth()->user()->phone;
+            $listing->email = auth()->user()->email;
             $listing->price = $request->price;
             $listing->description = $request->description;
             $listing->country_id = $request->country_id;
