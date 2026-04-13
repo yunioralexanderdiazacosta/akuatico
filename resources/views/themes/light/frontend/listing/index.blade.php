@@ -148,7 +148,7 @@
                                                 @if(request()->category && in_array('all', request()->category))
                                                     selected
                                                 @endif>@lang('All Category')</option>
-                                        @foreach($all_categories as $category)
+                                        @foreach($all_categories->sortBy(fn($c) => stripos(optional($c->details)->name, 'Botes') === false ? 1 : 0) as $category)
                                             @if($category != null)
                                             <option value="{{ $category->id }}"
                                                  @if(request()->category && in_array($category->id, request()->category))
