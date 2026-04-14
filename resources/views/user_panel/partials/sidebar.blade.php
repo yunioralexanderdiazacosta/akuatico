@@ -26,15 +26,6 @@
             </li>
         @endif
 
-        @if(auth()->user()->isCompany())
-            <li>
-                <a href="{{ route('user.myPackages') }}"
-                    class="{{ request()->routeIs('user.myPackages', 'user.paymentHistory') ? 'active' : ''}}">
-                    <i class="fal fa-box-full text-primary"></i>@lang('My Packages')
-                </a>
-            </li>
-        @endif
-
         @if(lastUriSegment() == 'listings')
             <li>
                 <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addListingmodal">
@@ -50,6 +41,13 @@
             <a href="{{ route('user.listings') }}"
                 class="{{ (lastUriSegment() == 'listings' || lastUriSegment() == 'pending' || lastUriSegment() == 'approved' || lastUriSegment() == 'rejected' || request()->routeIs(['user.addListing', 'user.editListing', 'user.reviews', 'user.dynamic.form.data', 'user.listing.import.csv'])) ? 'active' : ''}}">
                 <i class="fal fa-list-ol text-orange"></i>@lang('My Listings')
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ route('user.myPackages') }}"
+                class="{{ request()->routeIs('user.myPackages', 'user.paymentHistory') ? 'active' : ''}}">
+                <i class="fal fa-box-full text-primary"></i>@lang('My Packages')
             </a>
         </li>
 

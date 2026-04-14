@@ -122,7 +122,7 @@ Route::group(['middleware' => ['maintenanceMode']], function () use ($basicContr
                     Route::get('/download/{ticket}', [SupportTicketController::class, 'download'])->name('download');
                 });
 
-                Route::get('packages/{id?}', [MyPackagesController::class, 'myPackages'])->name('myPackages')->middleware('company.only');
+                Route::get('packages/{id?}', [MyPackagesController::class, 'myPackages'])->name('myPackages');
                 Route::get('payment-history/{id}', [MyPackagesController::class, 'paymentHistory'])->name('paymentHistory')->middleware('company.only');
 
 
