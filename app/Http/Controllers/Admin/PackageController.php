@@ -173,9 +173,12 @@ class PackageController extends Controller
             $package = new Package();
             $package->price = isset($request->is_free) && $request->is_free == -1 ? null : $request->price;
             $package->is_multiple_time_purchase = isset($request->is_free) && $request->is_free == -1 ? $request->is_multiple_time_purchase : 0;
-            $package->expiry_time_type = isset($request->expiry_time_unlimited) && $request->expiry_time_unlimited == -1 ? null : $request->expiry_time_type;
+            $isUnlimitedExpiryStore = isset($request->expiry_time_unlimited) && (int)$request->expiry_time_unlimited === -1;
+            $package->expiry_time_type = $isUnlimitedExpiryStore ? null : $request->expiry_time_type;
 
-            if ($request->expiry_time) {
+            if ($isUnlimitedExpiryStore) {
+                $package->expiry_time = null;
+            } elseif ($request->expiry_time) {
                 $package->expiry_time = $request->expiry_time;
                 if ($request->expiry_time == 1 && $request->expiry_time_type == 'Days') {
                     $package->expiry_time_type = 'Day';
@@ -325,9 +328,11 @@ class PackageController extends Controller
 
                 $package->price = isset($request->is_free) && $request->is_free == -1 ? null : $request->price;
                 $package->is_multiple_time_purchase = isset($request->is_free) && $request->is_free == -1 ? $request->is_multiple_time_purchase : 0;
-                $package->expiry_time_type = isset($request->expiry_time_unlimited) && $request->expiry_time_unlimited == -1 ? null : $request->expiry_time_type;
+                $package->expiry_time_type = $isUnlimitedExpiry ? null : $request->expiry_time_type;
 
-                if ($request->expiry_time) {
+                if ($isUnlimitedExpiry) {
+                    $package->expiry_time = null;
+                } elseif ($request->expiry_time) {
                     $package->expiry_time = $request->expiry_time;
                     if ($request->expiry_time == 1 && $request->expiry_time_type == 'Days') {
                         $package->expiry_time_type = 'Day';
