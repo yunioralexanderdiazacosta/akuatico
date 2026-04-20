@@ -311,6 +311,8 @@ class PackageController extends Controller
                 return back()->with('error', __('Package not Found'));
             }
 
+            $isUnlimitedExpiry = isset($request->expiry_time_unlimited) && (int)$request->expiry_time_unlimited === -1;
+
            $language = Language::select('id','default_status')->findOrFail($language_id);
             if ($language->default_status){
                 $arr = [];
@@ -369,6 +371,10 @@ class PackageController extends Controller
                 $package->driver = $image['driver'] ?? $package->driver;
                 $package->save();
 
+                if ($isUnlimitedExpiry) {
+                    $this->syncUnlimitedPackagePurchases($package);
+                }
+
 
                 if ($package->price != null && $package->expiry_time == 1 && ($package->expiry_time_type == 'Month' || $package->expiry_time_type == 'Year')) {
                     if ($package->price != $oldPackage->price) {
@@ -417,6 +423,16 @@ class PackageController extends Controller
         $this->fileDelete($package->driver, $package->image);
         $package->delete();
         return back()->with('success', __('Package has been deleted'));
+    }
+
+    protected function syncUnlimitedPackagePurchases(Package $package): void
+    {
+        $package->purchasePackages()
+            ->where('status', '!=', 2)
+            ->update([
+                'expire_date' => null,
+                'status' => 1,
+            ]);
     }
 
 

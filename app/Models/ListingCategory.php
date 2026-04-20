@@ -52,7 +52,12 @@ class ListingCategory extends Model
 
     public function getCategoryCount()
     {
+        $today = date('Y-m-d');
+
         return Listing::where("status", 1)
+            ->whereHas('get_package', function ($query) use ($today) {
+                return $query->where('expire_date', '>=', $today)->orWhereNull('expire_date');
+            })
             ->where("is_active", 1)
             ->where(function ($query) {
                 $query
