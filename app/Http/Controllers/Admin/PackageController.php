@@ -376,6 +376,8 @@ class PackageController extends Controller
                 $package->driver = $image['driver'] ?? $package->driver;
                 $package->save();
 
+                $this->syncPurchasePackageFeatures($package);
+
                 if ($isUnlimitedExpiry) {
                     $this->syncUnlimitedPackagePurchases($package);
                 }
@@ -437,6 +439,31 @@ class PackageController extends Controller
             ->update([
                 'expire_date' => null,
                 'status' => 1,
+            ]);
+    }
+
+    protected function syncPurchasePackageFeatures(Package $package): void
+    {
+        $package->purchasePackages()
+            ->where('status', '!=', 2)
+            ->update([
+                'price'                        => $package->price,
+                'is_renew'                     => $package->is_renew,
+                'is_image'                     => $package->is_image,
+                'is_video'                     => $package->is_video,
+                'is_amenities'                 => $package->is_amenities,
+                'is_product'                   => $package->is_product,
+                'is_create_from'               => $package->is_create_from,
+                'is_business_hour'             => $package->is_business_hour,
+                'no_of_listing'                => $package->no_of_listing,
+                'no_of_img_per_listing'        => $package->no_of_img_per_listing,
+                'no_of_categories_per_listing' => $package->no_of_categories_per_listing,
+                'no_of_amenities_per_listing'  => $package->no_of_amenities_per_listing,
+                'no_of_product'                => $package->no_of_product,
+                'no_of_img_per_product'        => $package->no_of_img_per_product,
+                'seo'                          => $package->seo,
+                'is_whatsapp'                  => $package->is_whatsapp,
+                'is_messenger'                 => $package->is_messenger,
             ]);
     }
 
