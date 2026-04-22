@@ -279,7 +279,7 @@ class MyListingController extends Controller
             $listing->category_id = array_slice($request->category_id, 0, $numberOfCategoriesPerListing);
             $listing->phone = $request->phone;
             $listing->email = $request->email;
-            $listing->description = $request->description;
+            $listing->description = $this->cleanDescription($request->description);
             $listing->country_id = $request->country_id;
             $listing->state_id = $request->state_id;
             $listing->city_id = $request->city_id;
@@ -600,7 +600,7 @@ class MyListingController extends Controller
             $listing->category_id = array_slice($request->category_id, 0, $numberOfCategoriesPerListing);
             $listing->phone = $request->phone;
             $listing->email = $request->email;
-            $listing->description = $request->description;
+            $listing->description = $this->cleanDescription($request->description);
             $listing->country_id = $request->country_id;
             $listing->state_id = $request->state_id;
             $listing->city_id = $request->city_id;
@@ -934,6 +934,14 @@ class MyListingController extends Controller
         ]));
     }
 
+    private function cleanDescription(string $description): string
+    {
+        $dom = new \DOMDocument();
 
+        libxml_use_internal_errors(true);
+        $dom->loadHTML(mb_convert_encoding($description, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
 
+        return $dom->saveHTML();
+    }
 }

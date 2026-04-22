@@ -334,7 +334,7 @@ class MyListingController extends Controller
             $listing->phone = Auth::user()->phone;
             $listing->email = Auth::user()->email;
             $listing->price = $request->price;
-            $listing->description = $request->description;
+            $listing->description = $this->cleanDescription($request->description);
             $listing->country_id = $request->country_id;
             $listing->state_id = $request->state_id;
             $listing->city_id = $request->city_id;
@@ -709,7 +709,7 @@ class MyListingController extends Controller
             $listing->phone = auth()->user()->phone;
             $listing->email = auth()->user()->email;
             $listing->price = $request->price;
-            $listing->description = $request->description;
+            $listing->description = $this->cleanDescription($request->description);
             $listing->country_id = $request->country_id;
             $listing->state_id = $request->state_id;
             $listing->city_id = $request->city_id;
@@ -1252,5 +1252,16 @@ class MyListingController extends Controller
         }
 
         return $url;
+    }
+
+    private function cleanDescription(string $description): string
+    {
+        $dom = new \DOMDocument();
+
+        libxml_use_internal_errors(true);
+        $dom->loadHTML(mb_convert_encoding($description, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
+
+        return $dom->saveHTML();
     }
 }
