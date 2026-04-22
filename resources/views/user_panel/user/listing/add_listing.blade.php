@@ -256,15 +256,15 @@
                         <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
                             data-bs-html="true"
                             data-bs-title="
-                                                                                                                                                                                                                        <div class='text-start px-3 text-white'>
-                                                                                                                                                                                                                           <ul class=''>
-                                                                                                                                                                                                                              @foreach ($errors->getMessages() as $key => $error)
-                                                                                                                                                                                                                                @if(in_array($key, $tabOne))
-                                                                                                                                                                                                                                    <li class='text-white'>{{ $error[0] }}</li>
-                                                                                                                                                                                                                                @endif
-                                                                                                                                                                                                                              @endforeach
-                                                                                                                                                                                                                           </ul>
-                                                                                                                                                                                                                        </div>">
+                                                                                                                                                                                                                                <div class='text-start px-3 text-white'>
+                                                                                                                                                                                                                                   <ul class=''>
+                                                                                                                                                                                                                                      @foreach ($errors->getMessages() as $key => $error)
+                                                                                                                                                                                                                                        @if(in_array($key, $tabOne))
+                                                                                                                                                                                                                                            <li class='text-white'>{{ $error[0] }}</li>
+                                                                                                                                                                                                                                        @endif
+                                                                                                                                                                                                                                      @endforeach
+                                                                                                                                                                                                                                   </ul>
+                                                                                                                                                                                                                                </div>">
                             <i class="fal fa-info-circle"></i>
                         </span>
                     @endif
@@ -280,15 +280,15 @@
                             <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
                                 data-bs-html="true"
                                 data-bs-title="
-                                                                                                                                                                                                                                                                                                                            <div class='text-start px-3 text-white'>
-                                                                                                                                                                                                                                                                                                                               <ul class=''>
-                                                                                                                                                                                                                                                                                                                                  @foreach ($errors->getMessages() as $key => $error)
-                                                                                                                                                                                                                                                                                                                                    @if(in_array($key, $tabTwo))
-                                                                                                                                                                                                                                                                                                                                        <li class='text-white'>{{ $error[0] }}</li>
-                                                                                                                                                                                                                                                                                                                                    @endif
-                                                                                                                                                                                                                                                                                                                                  @endforeach
-                                                                                                                                                                                                                                                                                                                               </ul>
-                                                                                                                                                                                                                                                                                                                            </div>">
+                                                                                                                                                                                                                                                                                                                                        <div class='text-start px-3 text-white'>
+                                                                                                                                                                                                                                                                                                                                           <ul class=''>
+                                                                                                                                                                                                                                                                                                                                              @foreach ($errors->getMessages() as $key => $error)
+                                                                                                                                                                                                                                                                                                                                                @if(in_array($key, $tabTwo))
+                                                                                                                                                                                                                                                                                                                                                    <li class='text-white'>{{ $error[0] }}</li>
+                                                                                                                                                                                                                                                                                                                                                @endif
+                                                                                                                                                                                                                                                                                                                                              @endforeach
+                                                                                                                                                                                                                                                                                                                                           </ul>
+                                                                                                                                                                                                                                                                                                                                        </div>">
                                 <i class="fal fa-info-circle"></i>
                             </span>
                         @endif
@@ -300,53 +300,53 @@
                 </button>
 
                 <!-- @if($single_package_infos->is_amenities == 1)
-                                                                                        <button tab-id="tab4" class="tab">
-                                                                                            @lang('Amenities')
-                                                                                            @if ($errors->has('amenity_id.*'))
-                                                                                                @php
-                                                                                                    $tabFour = ['amenity_id'];
-                                                                                                @endphp
-                                                                                                <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
-                                                                                                    data-bs-html="true" data-bs-title="
-                                                                                                                                                                            <div class='text-start px-3 text-white'>
-                                                                                                                                                                               <ul class=''>
-                                                                                                                                                                                  @foreach ($errors->getMessages() as $key => $error)
-                                                                                                                                                                                    @if(in_array($key, $tabFour))
-                                                                                                                                                                                        <li class='text-white'>{{ $error[0] }}</li>
-                                                                                                                                                                                    @endif
-                                                                                                                                                                                  @endforeach
-                                                                                                                                                                               </ul>
-                                                                                                                                                                            </div>">
-                                                                                                    <i class="fal fa-info-circle"></i>
-                                                                                                </span>
-                                                                                            @endif
-                                                                                        </button>
-                                                                                    @endif -->
+                                                                                            <button tab-id="tab4" class="tab">
+                                                                                                @lang('Amenities')
+                                                                                                @if ($errors->has('amenity_id.*'))
+                                                                                                    @php
+                                                                                                        $tabFour = ['amenity_id'];
+                                                                                                    @endphp
+                                                                                                    <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
+                                                                                                        data-bs-html="true" data-bs-title="
+                                                                                                                                                                                <div class='text-start px-3 text-white'>
+                                                                                                                                                                                   <ul class=''>
+                                                                                                                                                                                      @foreach ($errors->getMessages() as $key => $error)
+                                                                                                                                                                                        @if(in_array($key, $tabFour))
+                                                                                                                                                                                            <li class='text-white'>{{ $error[0] }}</li>
+                                                                                                                                                                                        @endif
+                                                                                                                                                                                      @endforeach
+                                                                                                                                                                                   </ul>
+                                                                                                                                                                                </div>">
+                                                                                                        <i class="fal fa-info-circle"></i>
+                                                                                                    </span>
+                                                                                                @endif
+                                                                                            </button>
+                                                                                        @endif -->
 
                 <!-- @if($single_package_infos->is_product == 1)
-                                                                                                                <button tab-id="tab5" class="tab">
-                                                                                                                    @lang('Products')
-                                                                                                                    @if ($errors->has('product_title.*') || $errors->has('product_price.*') || $errors->has('product_description.*') || $errors->has('product_thumbnail.*'))
-                                                                                                                        @php
-                                                                                                                            $tabFive = ['product_title', 'product_price', 'product_description', 'product_thumbnail'];
-                                                                                                                        @endphp
-                                                                                                                        <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip"
-                                                                                                                              data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="
-                                                                                                                            <div class='text-start px-3 text-white'>
-                                                                                                                               <ul class=''>
-                                                                                                                                  @foreach ($errors->getMessages() as $key => $error)
+                                                                                                                    <button tab-id="tab5" class="tab">
+                                                                                                                        @lang('Products')
+                                                                                                                        @if ($errors->has('product_title.*') || $errors->has('product_price.*') || $errors->has('product_description.*') || $errors->has('product_thumbnail.*'))
+                                                                                                                            @php
+                                                                                                                                $tabFive = ['product_title', 'product_price', 'product_description', 'product_thumbnail'];
+                                                                                                                            @endphp
+                                                                                                                            <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip"
+                                                                                                                                  data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="
+                                                                                                                                <div class='text-start px-3 text-white'>
+                                                                                                                                   <ul class=''>
+                                                                                                                                      @foreach ($errors->getMessages() as $key => $error)
 
-                                                                                                                                    @if(in_array($key, $tabFive))
-                                                                                                                                        <li class='text-white'>{{ $error[0] }}</li>
-                                                                                                                                    @endif
-                                                                                                                                  @endforeach
-                                                                                                                               </ul>
-                                                                                                                            </div>">
-                                                                                                                            <i class="fal fa-info-circle"></i>
-                                                                                                                        </span>
-                                                                                                                    @endif
-                                                                                                                </button>
-                                                                                                            @endif -->
+                                                                                                                                        @if(in_array($key, $tabFive))
+                                                                                                                                            <li class='text-white'>{{ $error[0] }}</li>
+                                                                                                                                        @endif
+                                                                                                                                      @endforeach
+                                                                                                                                   </ul>
+                                                                                                                                </div>">
+                                                                                                                                <i class="fal fa-info-circle"></i>
+                                                                                                                            </span>
+                                                                                                                        @endif
+                                                                                                                    </button>
+                                                                                                                @endif -->
 
                 @if($single_package_infos->seo == 1)
                     <button tab-id="tab6" class="tab">
@@ -358,15 +358,15 @@
                             <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
                                 data-bs-html="true"
                                 data-bs-title="
-                                                                                                                                                                                                                                                                                                                            <div class='text-start px-3 text-white'>
-                                                                                                                                                                                                                                                                                                                               <ul class=''>
-                                                                                                                                                                                                                                                                                                                                  @foreach ($errors->getMessages() as $key => $error)
-                                                                                                                                                                                                                                                                                                                                    @if(in_array($key, $tabSix))
-                                                                                                                                                                                                                                                                                                                                        <li class='text-white'>{{ $error[0] }}</li>
-                                                                                                                                                                                                                                                                                                                                    @endif
-                                                                                                                                                                                                                                                                                                                                  @endforeach
-                                                                                                                                                                                                                                                                                                                               </ul>
-                                                                                                                                                                                                                                                                                                                            </div>">
+                                                                                                                                                                                                                                                                                                                                        <div class='text-start px-3 text-white'>
+                                                                                                                                                                                                                                                                                                                                           <ul class=''>
+                                                                                                                                                                                                                                                                                                                                              @foreach ($errors->getMessages() as $key => $error)
+                                                                                                                                                                                                                                                                                                                                                @if(in_array($key, $tabSix))
+                                                                                                                                                                                                                                                                                                                                                    <li class='text-white'>{{ $error[0] }}</li>
+                                                                                                                                                                                                                                                                                                                                                @endif
+                                                                                                                                                                                                                                                                                                                                              @endforeach
+                                                                                                                                                                                                                                                                                                                                           </ul>
+                                                                                                                                                                                                                                                                                                                                        </div>">
                                 <i class="fal fa-info-circle"></i>
                             </span>
                         @endif
@@ -374,35 +374,35 @@
                 @endif
 
                 <!-- @if($single_package_infos->is_whatsapp == 1 || $single_package_infos->is_messenger == 1)
-                                                                                            <button tab-id="tab7" class="tab">
-                                                                                                @lang('Communication')
-                                                                                                @if ($errors->has('whatsapp_number') || $errors->has('fb_app_id') || $errors->has('fb_page_id'))
-                                                                                                    @php
-                                                                                                        $tabSeven = ['whatsapp_number', 'fb_app_id', 'fb_page_id'];
-                                                                                                    @endphp
+                                                                                                <button tab-id="tab7" class="tab">
+                                                                                                    @lang('Communication')
+                                                                                                    @if ($errors->has('whatsapp_number') || $errors->has('fb_app_id') || $errors->has('fb_page_id'))
+                                                                                                        @php
+                                                                                                            $tabSeven = ['whatsapp_number', 'fb_app_id', 'fb_page_id'];
+                                                                                                        @endphp
 
-                                                                                                    <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
-                                                                                                        data-bs-html="true" data-bs-title="
-                                                                                                                                                                    <div class='text-start px-3 text-white'>
-                                                                                                                                                                       <ul class=''>
-                                                                                                                                                                          @foreach ($errors->getMessages() as $key => $error)
-                                                                                                                                                                            @if(in_array($key, $tabSeven))
-                                                                                                                                                                                <li class='text-white'>{{ $error[0] }}</li>
-                                                                                                                                                                            @endif
-                                                                                                                                                                          @endforeach
-                                                                                                                                                                       </ul>
-                                                                                                                                                                    </div>">
-                                                                                                        <i class="fal fa-info-circle"></i>
-                                                                                                    </span>
-                                                                                                @endif
-                                                                                            </button>
-                                                                                        @endif -->
+                                                                                                        <span class="text-danger" type="button" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
+                                                                                                            data-bs-html="true" data-bs-title="
+                                                                                                                                                                        <div class='text-start px-3 text-white'>
+                                                                                                                                                                           <ul class=''>
+                                                                                                                                                                              @foreach ($errors->getMessages() as $key => $error)
+                                                                                                                                                                                @if(in_array($key, $tabSeven))
+                                                                                                                                                                                    <li class='text-white'>{{ $error[0] }}</li>
+                                                                                                                                                                                @endif
+                                                                                                                                                                              @endforeach
+                                                                                                                                                                           </ul>
+                                                                                                                                                                        </div>">
+                                                                                                            <i class="fal fa-info-circle"></i>
+                                                                                                        </span>
+                                                                                                    @endif
+                                                                                                </button>
+                                                                                            @endif -->
 
                 <!-- @if($single_package_infos->is_create_from == 1)
-                                                                                                                <button tab-id="tab8" class="tab">
-                                                                                                                    @lang('Custom Form')
-                                                                                                                </button>
-                                                                                                            @endif -->
+                                                                                                                    <button tab-id="tab8" class="tab">
+                                                                                                                        @lang('Custom Form')
+                                                                                                                    </button>
+                                                                                                                @endif -->
             </div>
 
             <div class="wizard-steps" id="wizardSteps">
@@ -412,10 +412,12 @@
             <form action="{{ route('user.storeListing', $id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div id="tab1" class="add-listing-form content active">
-                    <div id="validationAlert" class="alert alert-danger alert-dismissible fade" role="alert" style="display:none;">
+                    <div id="validationAlert" class="alert alert-danger alert-dismissible fade" role="alert"
+                        style="display:none;">
                         <strong>@lang('Por favor completa los siguientes campos:')</strong>
                         <ul id="validationAlertList" class="mb-0 mt-1"></ul>
-                        <button type="button" class="btn-close" onclick="this.parentElement.style.display='none';this.parentElement.classList.remove('show');"></button>
+                        <button type="button" class="btn-close"
+                            onclick="this.parentElement.style.display='none';this.parentElement.classList.remove('show');"></button>
                     </div>
                     <div class="main row gy-4">
                         <div class="col-xl-12">
@@ -433,20 +435,20 @@
                                             </div>
                                         </div>
                                         <!-- <div class="input-box col-md-12">
-                                                                                                                                <div class="d-flex align-items-center">
-                                                                                                                                    <div class="col-4">
-                                                                                                                                        <b>@lang("Permalink : ")</b> <span>{{ url('/listing') }}/</span>
+                                                                                                                                    <div class="d-flex align-items-center">
+                                                                                                                                        <div class="col-4">
+                                                                                                                                            <b>@lang("Permalink : ")</b> <span>{{ url('/listing') }}/</span>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="col-5">
+                                                                                                                                            <input class="form-control set-slug @error('slug') is-invalid @enderror"
+                                                                                                                                                type="text" name="slug" value="{{ old('slug') }}"
+                                                                                                                                                placeholder="@lang('Slug')" />
+                                                                                                                                        </div>
                                                                                                                                     </div>
-                                                                                                                                    <div class="col-5">
-                                                                                                                                        <input class="form-control set-slug @error('slug') is-invalid @enderror"
-                                                                                                                                            type="text" name="slug" value="{{ old('slug') }}"
-                                                                                                                                            placeholder="@lang('Slug')" />
+                                                                                                                                    <div class="invalid-feedback">
+                                                                                                                                        @error('slug') @lang($message) @enderror
                                                                                                                                     </div>
-                                                                                                                                </div>
-                                                                                                                                <div class="invalid-feedback">
-                                                                                                                                    @error('slug') @lang($message) @enderror
-                                                                                                                                </div>
-                                                                                                                            </div> -->
+                                                                                                                                </div> -->
                                         <div class="input-box col-md-12">
                                             <select id="category_id"
                                                 class="listing__category__select2 form-control @error('category_id') is-invalid @enderror"
@@ -691,14 +693,12 @@
                                             <div class="d-flex flex-grow-1">
                                                 <div class="input-box w-100 my-1 me-1">
                                                     <input type="time" name="start_time[]" value="{{ old("start_time.$i") }}"
-                                                        class="form-control"
-                                                        placeholder="@lang('Start Hour')" />
+                                                        class="form-control" placeholder="@lang('Start Hour')" />
                                                 </div>
 
                                                 <div class="input-box w-100 my-1 me-1">
                                                     <input type="time" name="end_time[]" value="{{ old("end_time.$i") }}"
-                                                        class="form-control"
-                                                        placeholder="@lang('End Hour')" />
+                                                        class="form-control" placeholder="@lang('End Hour')" />
                                                 </div>
                                             </div>
                                         </div>
@@ -1335,6 +1335,17 @@
             const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
             $(document).ready(function (e) {
+                document.getElementById('description').addEventListener('paste', (e) => {
+                    // Evita el pegado por defecto
+                    e.preventDefault();
+
+                    // Obtiene el texto plano del portapapeles
+                    const text = (e.originalEvent || e).clipboardData.getData('text/plain');
+
+                    // Inserta el texto manualmente
+                    document.execCommand("insertHTML", false, text);
+                });
+
                 let maximum_no_of_image_per_listing = $('.no_of_listing_image').data('listingimage');
                 let listingImageOptions = {
                     imagesInputName: 'listing_image',
@@ -1373,39 +1384,39 @@
 
                     if (dataProducts >= 1 || dataProducts == 'unlimited') {
                         var productForm = `<div class="col-xl-6 removeProductForm">
-                                                                                                                        <div class="form new__product__form">
-                                                                                                                            <span class="product-form-close"> <i class="fa fa-times"></i> </span>
-                                                                                                                            <div class="row g-3">
-                                                                                                                                <div class="input-box col-md-6">
-                                                                                                                                    <input class="form-control" name="product_title[]" type="text" placeholder="@lang('Title')"
-                                                                                                                                    />
-                                                                                                                                </div>
-                                                                                                                                <div class="input-box col-md-6">
-                                                                                                                                    <input class="form-control" name="product_price[]" type="number" step="0.1" placeholder="@lang('Price')"/>
-                                                                                                                                </div>
-
-                                                                                                                                <div class="input-box col-12">
-                                                                                                                                     <textarea class="form-control" name="product_description[]" cols="30" rows="3" placeholder="@lang('Description')"
-                                                                                                                                     ></textarea>
-                                                                                                                                </div>
-                                                                                                                                <div class="pe-2">
-                                                                                                                                    <div class="input-box col-12 no-of-img-per-product">
-                                                                                                                                        <div class="product-image no_of_product_image" id="product-image${productLenght}" data-productimage="{{ $single_package_infos->is_product == 1 && $single_package_infos->no_of_img_per_product == null ? 500 : $single_package_infos->no_of_img_per_product }}"></div>
-                                                                                                                                        <span class="text-danger"> @error('product_image.*') @lang($message) @enderror</span>
+                                                                                                                            <div class="form new__product__form">
+                                                                                                                                <span class="product-form-close"> <i class="fa fa-times"></i> </span>
+                                                                                                                                <div class="row g-3">
+                                                                                                                                    <div class="input-box col-md-6">
+                                                                                                                                        <input class="form-control" name="product_title[]" type="text" placeholder="@lang('Title')"
+                                                                                                                                        />
                                                                                                                                     </div>
-                                                                                                                                </div>
-                                                                                                                                <div class="upload-img thumbnail">
-                                                                                                                                    <div class="form">
-                                                                                                                                        <div class="img-box product-thumbnail">
-                                                                                                                                            <input accept="image/*" type="file" onchange="previewImage('product_thumbnail` + string + `')" name="product_thumbnail[]"/>
-                                                                                                                                            <span class="select-file">@lang('Product Thumbnail')</span>
-                                                                                                                                            <img id="product_thumbnail` + string + `" src="{{ getFile(config('location.default')) }}" class="img-fluid"/>
+                                                                                                                                    <div class="input-box col-md-6">
+                                                                                                                                        <input class="form-control" name="product_price[]" type="number" step="0.1" placeholder="@lang('Price')"/>
+                                                                                                                                    </div>
+
+                                                                                                                                    <div class="input-box col-12">
+                                                                                                                                         <textarea class="form-control" name="product_description[]" cols="30" rows="3" placeholder="@lang('Description')"
+                                                                                                                                         ></textarea>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="pe-2">
+                                                                                                                                        <div class="input-box col-12 no-of-img-per-product">
+                                                                                                                                            <div class="product-image no_of_product_image" id="product-image${productLenght}" data-productimage="{{ $single_package_infos->is_product == 1 && $single_package_infos->no_of_img_per_product == null ? 500 : $single_package_infos->no_of_img_per_product }}"></div>
+                                                                                                                                            <span class="text-danger"> @error('product_image.*') @lang($message) @enderror</span>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="upload-img thumbnail">
+                                                                                                                                        <div class="form">
+                                                                                                                                            <div class="img-box product-thumbnail">
+                                                                                                                                                <input accept="image/*" type="file" onchange="previewImage('product_thumbnail` + string + `')" name="product_thumbnail[]"/>
+                                                                                                                                                <span class="select-file">@lang('Product Thumbnail')</span>
+                                                                                                                                                <img id="product_thumbnail` + string + `" src="{{ getFile(config('location.default')) }}" class="img-fluid"/>
+                                                                                                                                            </div>
                                                                                                                                         </div>
                                                                                                                                     </div>
                                                                                                                                 </div>
                                                                                                                             </div>
-                                                                                                                        </div>
-                                                                                                                    </div>`;
+                                                                                                                        </div>`;
 
                         $('.new_product_form').append(productForm)
 
@@ -1555,20 +1566,20 @@
                     let newSocialForm = $('.append_new_social_form').length + 2;
 
                     var form = `<div class="d-flex justify-content-between append_new_social_form removeSocialLinksInput">
-                                                                                                                                <div class="input-group mt-1">
-                                                                                                                                    <input type="text" name="social_icon[]" class="form-control bg-white demo__icon__picker iconpicker${newSocialForm}" placeholder="Pick a icon" aria-label="Pick a icon"
-                                                                                                                                           aria-describedby="basic-addon1" readonly>
-                                                                                                                                </div>
+                                                                                                                                    <div class="input-group mt-1">
+                                                                                                                                        <input type="text" name="social_icon[]" class="form-control bg-white demo__icon__picker iconpicker${newSocialForm}" placeholder="Pick a icon" aria-label="Pick a icon"
+                                                                                                                                               aria-describedby="basic-addon1" readonly>
+                                                                                                                                    </div>
 
-                                                                                                                                <div class="input-box w-100 my-1 me-1">
-                                                                                                                                    <input type="url" name="social_url[]" class="form-control" placeholder="@lang('URL')"/>
-                                                                                                                                </div>
-                                                                                                                                <div class="my-1 me-1">
-                                                                                                                                    <button class="btn btn-outline-danger h-100 add-new remove_social_link_input_field" type="button">
-                                                                                                                                        <i class="fa fa-times"></i>
-                                                                                                                                    </button>
-                                                                                                                                </div>
-                                                                                                                            </div>`;
+                                                                                                                                    <div class="input-box w-100 my-1 me-1">
+                                                                                                                                        <input type="url" name="social_url[]" class="form-control" placeholder="@lang('URL')"/>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="my-1 me-1">
+                                                                                                                                        <button class="btn btn-outline-danger h-100 add-new remove_social_link_input_field" type="button">
+                                                                                                                                            <i class="fa fa-times"></i>
+                                                                                                                                        </button>
+                                                                                                                                    </div>
+                                                                                                                                </div>`;
 
                     $('.new_social_links_form').append(form)
                     setIconpicker(`.iconpicker${newSocialForm}`);
@@ -1826,7 +1837,7 @@
                     $('#address-search').val($("#city_id").select2().find(":selected").data("name"));
                 @endif
 
-                                                                                                        });
+                                                                                                            });
 
             //get state of selected Country
             $(document).on('change', '#country_id', function () {
@@ -1885,7 +1896,7 @@
                         @if(old('city_id'))
                             $('#city_id').val('{{ old('city_id') }}');
                         @endif
-                                                                                                                }
+                                                                                                                    }
                 });
             });
 
@@ -1928,18 +1939,18 @@
 
                 if ($this.val() == 'select') {
                     additionalOptionsDiv.html(`
-                                                                                                                <div class="row mb-2 optionRow">
-                                                                                                                    <div class="col-md-5">
-                                                                                                                        <input type="text" name="option_name[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Name">
+                                                                                                                    <div class="row mb-2 optionRow">
+                                                                                                                        <div class="col-md-5">
+                                                                                                                            <input type="text" name="option_name[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Name">
+                                                                                                                        </div>
+                                                                                                                        <div class="col-md-5">
+                                                                                                                            <input type="text" name="option_value[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Value">
+                                                                                                                        </div>
+                                                                                                                        <div class="col-md-2 d-flex align-items-center">
+                                                                                                                            <button type="button" class="btn btn-sm btn-success addOptionField">+</button>
+                                                                                                                        </div>
                                                                                                                     </div>
-                                                                                                                    <div class="col-md-5">
-                                                                                                                        <input type="text" name="option_value[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Value">
-                                                                                                                    </div>
-                                                                                                                    <div class="col-md-2 d-flex align-items-center">
-                                                                                                                        <button type="button" class="btn btn-sm btn-success addOptionField">+</button>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            `);
+                                                                                                                `);
                 } else {
                     additionalOptionsDiv.empty();
                 }
@@ -1949,17 +1960,17 @@
                 var fieldIndex = $(this).closest('.copyField').find('.copyFieldLength').val();
                 optionIndex++;
                 var newOptionRow = `
-                                                                                                            <div class="row mb-2 optionRow">
-                                                                                                                <div class="col-md-5">
-                                                                                                                    <input type="text" name="option_name[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Name">
-                                                                                                                </div>
-                                                                                                                <div class="col-md-5">
-                                                                                                                    <input type="text" name="option_value[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Value">
-                                                                                                                </div>
-                                                                                                                <div class="col-md-2 d-flex align-items-center">
-                                                                                                                    <button type="button" class="btn btn-sm btn-danger removeOptionField">-</button>
-                                                                                                                </div>
-                                                                                                            </div>`;
+                                                                                                                <div class="row mb-2 optionRow">
+                                                                                                                    <div class="col-md-5">
+                                                                                                                        <input type="text" name="option_name[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Name">
+                                                                                                                    </div>
+                                                                                                                    <div class="col-md-5">
+                                                                                                                        <input type="text" name="option_value[${fieldIndex}][${optionIndex}]" class="form-control" placeholder="Enter Option Value">
+                                                                                                                    </div>
+                                                                                                                    <div class="col-md-2 d-flex align-items-center">
+                                                                                                                        <button type="button" class="btn btn-sm btn-danger removeOptionField">-</button>
+                                                                                                                    </div>
+                                                                                                                </div>`;
                 $(this).closest('.additional-options').append(newOptionRow);
             });
 
@@ -2037,40 +2048,40 @@
             @endif
 
 
-            // Announcement Type Selection Functions
-            function selectAnnouncementType(element) {
-                // Remove selection from all options
-                $('.announcement-type-option').removeClass('selected');
+                // Announcement Type Selection Functions
+                function selectAnnouncementType(element) {
+                    // Remove selection from all options
+                    $('.announcement-type-option').removeClass('selected');
 
-                // Add selection to clicked option
-                $(element).addClass('selected');
+                    // Add selection to clicked option
+                    $(element).addClass('selected');
 
-                // Set the hidden input value
-                var type = $(element).data('type');
-                $('#announcement_type').val(type);
+                    // Set the hidden input value
+                    var type = $(element).data('type');
+                    $('#announcement_type').val(type);
 
-                // Show price field only for clasificados
-                if (type === 'clasificados') {
-                    $('.price-field').show();
-                } else {
-                    $('.price-field').hide();
-                    $('#price_display').val('');
-                    $('#price_hidden').val('');
+                    // Show price field only for clasificados
+                    if (type === 'clasificados') {
+                        $('.price-field').show();
+                    } else {
+                        $('.price-field').hide();
+                        $('#price_display').val('');
+                        $('#price_hidden').val('');
+                    }
+
+                    // Load categories based on announcement type
+                    loadCategoriesByType(type);
+
+                    // Show the wizard
+                    $('#wizardContainer').show();
+                    $('#announcementTypeSelection').hide();
+
+                    // Initialize wizard
+                    if (typeof buildStepIndicator === 'function' && typeof updateWizard === 'function') {
+                        buildStepIndicator();
+                        updateWizard();
+                    }
                 }
-
-                // Load categories based on announcement type
-                loadCategoriesByType(type);
-
-                // Show the wizard
-                $('#wizardContainer').show();
-                $('#announcementTypeSelection').hide();
-
-                // Initialize wizard
-                if (typeof buildStepIndicator === 'function' && typeof updateWizard === 'function') {
-                    buildStepIndicator();
-                    updateWizard();
-                }
-            }
 
             function loadCategoriesByType(type) {
                 // Show loading state
@@ -2102,7 +2113,7 @@
                             width: '100%',
                             placeholder: '@lang("Select Categories")',
                             maximumSelectionLength: {{$single_package_infos->no_of_categories_per_listing}}
-                                                                });
+                                                                    });
 
                         // Trigger change to initialize dependent fields
                         $('#category_id').trigger('change');
@@ -2261,7 +2272,7 @@
                     var alertBox = document.getElementById('validationAlert');
                     var alertList = document.getElementById('validationAlertList');
                     if (missing.length > 0) {
-                        alertList.innerHTML = missing.map(function(field) {
+                        alertList.innerHTML = missing.map(function (field) {
                             return '<li>' + field + '</li>';
                         }).join('');
                         alertBox.style.display = 'block';
