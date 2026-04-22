@@ -1326,6 +1326,11 @@
                     onBlurCodeview: function () {
                         let codeviewHtml = $(this).siblings('div.note-editor').find('.note-codable').val();
                         $(this).val(codeviewHtml);
+                    },
+                    onPaste: function (e) {
+                        e.preventDefault();
+                        let text = (e.originalEvent.clipboardData || window.clipboardData).getData('text/plain');
+                        document.execCommand('insertText', false, text);
                     }
                 },
                 placeholder: 'Escribe los detalles aqui...',
