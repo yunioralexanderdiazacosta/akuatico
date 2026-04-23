@@ -37,6 +37,8 @@ class ListingController extends Controller
         $search = $request->all();
         $categoryIds = $request->category;
         $subcategoryIds = $request->subcategory;
+        $detectedCountryId = session('detected_country_id');
+        $detectedCityId = session('detected_city_id');
 
         $data['all_listings'] = Listing::with(['get_user', 'get_place', 'get_reviews', 'get_package', 'listingSeo'])
             ->when(isset($categoryIds) && !in_array('all', $categoryIds), function ($query) use ($categoryIds) {
@@ -92,6 +94,12 @@ class ListingController extends Controller
             })
             ->where('status', 1)
             ->where('is_active', 1)
+            ->when($detectedCityId && (!isset($search['city']) || $search['city'] == 'all'), function ($q) use ($detectedCityId) {
+                $q->orderByRaw('CASE WHEN city_id = ? THEN 0 ELSE 1 END', [$detectedCityId]);
+            })
+            ->when($detectedCountryId && (!isset($search['location']) || $search['location'] == 'all'), function ($q) use ($detectedCountryId) {
+                $q->orderByRaw('CASE WHEN country_id = ? THEN 0 ELSE 1 END', [$detectedCountryId]);
+            })
             ->when($request->exists('popular') == true, function ($query5) use ($search) {
                 $query5->orderByDesc('average_rating');
             })
