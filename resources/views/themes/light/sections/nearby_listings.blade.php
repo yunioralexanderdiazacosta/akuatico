@@ -39,14 +39,17 @@
                             @if(isset($nearby_listings['single']['sub_title']) && $nearby_listings['single']['sub_title'])
                                 <h3>@lang($nearby_listings['single']['sub_title'])</h3>
                             @else
+                                <!--  <h3>
+                                            @if(!empty($nearby_listings['detectedCityName']))
+                                                @lang('Clasificados en') {{ $nearby_listings['detectedCityName'] }}
+                                            @elseif(!empty($nearby_listings['detectedCountryName']))
+                                                @lang('Clasificados en') {{ $nearby_listings['detectedCountryName'] }}
+                                            @else
+                                                @lang('Clasificados recientes')
+                                            @endif
+                                        </h3> -->
                                 <h3>
-                                    @if(!empty($nearby_listings['detectedCityName']))
-                                        @lang('Clasificados en') {{ $nearby_listings['detectedCityName'] }}
-                                    @elseif(!empty($nearby_listings['detectedCountryName']))
-                                        @lang('Clasificados en') {{ $nearby_listings['detectedCountryName'] }}
-                                    @else
-                                        @lang('Clasificados recientes')
-                                    @endif
+                                    @lang('Clasificados recientes')
                                 </h3>
                             @endif
                             @if(isset($nearby_listings['single']['description']) && $nearby_listings['single']['description'])
@@ -65,8 +68,8 @@
                             <a class="title h-100 listing-grid-card-link" href="{{ route('listing.details', $item->slug) }}">
                                 <div class="listing-box listing-grid-card">
                                     <div class="img-box">
-                                        <img class="img-fluid"
-                                            src="{{ getFile($item->thumbnail_driver, $item->thumbnail) }}" alt="image" />
+                                        <img class="img-fluid" src="{{ getFile($item->thumbnail_driver, $item->thumbnail) }}"
+                                            alt="image" />
                                     </div>
                                     <div class="text-box">
                                         <p class="title">
