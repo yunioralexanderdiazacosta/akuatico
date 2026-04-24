@@ -186,6 +186,77 @@ trait Frontend
                         : [],
                     "popularListings" => $popularListings,
                 ];
+            } elseif ($section == "nearby_listings") {
+                $nearbyListingsQuery = Listing::with([
+                    "get_reviews",
+                    "get_user",
+                ])
+                    ->where("status", 1)
+                    ->where("is_active", 1)
+                    ->withCount("getFavourite");
+
+                if ($detectedCityId) {
+                    $nearbyListingsQuery->orderByRaw(
+                        "CASE WHEN city_id = ? THEN 0 ELSE 1 END",
+                        [$detectedCityId],
+                    );
+                }
+                if ($detectedCountryId) {
+                    $nearbyListingsQuery->orderByRaw(
+                        "CASE WHEN country_id = ? THEN 0 ELSE 1 END",
+                        [$detectedCountryId],
+                    );
+                }
+
+                $nearbyListings = $nearbyListingsQuery
+                    ->inRandomOrder()
+                    ->get()
+                    ->sort(function ($a, $b) use (
+                        $detectedCityId,
+                        $detectedCountryId,
+                    ) {
+                        if ($detectedCityId) {
+                            if (
+                                $a->city_id == $detectedCityId &&
+                                $b->city_id != $detectedCityId
+                            ) {
+                                return -1;
+                            }
+                            if (
+                                $a->city_id != $detectedCityId &&
+                                $b->city_id == $detectedCityId
+                            ) {
+                                return 1;
+                            }
+                        }
+                        if ($detectedCountryId) {
+                            if (
+                                $a->country_id == $detectedCountryId &&
+                                $b->country_id != $detectedCountryId
+                            ) {
+                                return -1;
+                            }
+                            if (
+                                $a->country_id != $detectedCountryId &&
+                                $b->country_id == $detectedCountryId
+                            ) {
+                                return 1;
+                            }
+                        }
+                        return $b->created_at <=> $a->created_at;
+                    })
+                    ->take(8);
+
+                $data[$section] = [
+                    "single" => $singleContent
+                        ? collect($singleContent->description ?? [])->merge(
+                            $singleContent->content->only("media"),
+                        )
+                        : [],
+                    "nearbyListings" => $nearbyListings,
+                    "detectedCityName" => $detectedCityName,
+                    "detectedCountryName" => $detectedCountryName,
+                ];
             } elseif ($section == "listing_categories") {
                 $categoryIds = array_count_values(
                     Listing::where("status", 1)
