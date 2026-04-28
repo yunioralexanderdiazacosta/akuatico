@@ -116,7 +116,7 @@
                     </a>
                 </div>
                 <div class="col-12 col-md-4">
-                    <a href="{{ route('listings') }}">
+                    <a href="{{ route('listings', ['category' => [27]]) }}">
                         <img src="{{ asset('assets/global/images/home/2.jpeg') }}" alt="Image 2" class="img-fluid rounded" style="max-height: 300px; width: 100%; object-fit: scale-down;">
                     </a>
                 </div>
