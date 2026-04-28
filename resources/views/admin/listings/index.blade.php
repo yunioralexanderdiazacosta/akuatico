@@ -691,7 +691,7 @@
 
 @push('script')
     <script>
-        $(document).on('ready', function () {
+$(document).on('ready', function () {
             $('#deleteModal').on('show.bs.modal', function (event) {
                 let button = $(event.relatedTarget);
                 let route = button.data('route');
