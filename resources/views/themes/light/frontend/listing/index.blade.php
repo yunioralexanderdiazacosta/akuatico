@@ -211,6 +211,34 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">@lang('Brand')</label>
+                                        <select name="marca[]" id="filter-marca" class="form-control bg-white" multiple>
+                                            @foreach($marcas as $marca)
+                                                <option value="{{ $marca->id }}"
+                                                    @if(request()->marca && in_array($marca->id, request()->marca)) selected @endif>
+                                                    {{ optional($marca->details)->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">@lang('Year')</label>
+                                        <div class="row g-2">
+                                            <div class="col-6">
+                                                <input type="number" name="year_from" class="form-control bg-white"
+                                                       value="{{ request()->year_from }}" min="1900" max="{{ date('Y') }}"
+                                                       placeholder="@lang('From')"/>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="number" name="year_to" class="form-control bg-white"
+                                                       value="{{ request()->year_to }}" min="1900" max="{{ date('Y') }}"
+                                                       placeholder="@lang('To')"/>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -503,6 +531,7 @@
             } else {
                 $botesFilters.slideUp();
                 $botesFilters.find('input').val('');
+                $botesFilters.find('select').val(null).trigger('change');
             }
         }
 
