@@ -55,7 +55,7 @@ trait Upload
     protected function makeImage($activeDisk, $file, $location, $size, $encodedFormat, $encodedQuality, $fileExtension)
     {
         $driver = config('image.driver', 'gd');
-        $originalName = is_object($file) ? $file->getClientOriginalName() : basename($file);
+        $originalName = is_object($file) ? ($file instanceof \Illuminate\Http\UploadedFile ? $file->getClientOriginalName() : $file->getFilename()) : basename($file);
 
         try {
             $image = Image::make($file);
