@@ -134,9 +134,11 @@
                             <select id="category_id" class="listing__category__select2 form-control" name="category[]" multiple>
                                 <option value="all" @if(request()->category && in_array('all', request()->category)) selected @endif>@lang('All Category')</option>
                                 @foreach($all_categories as $category)
+                                    @if(optional($category->details)->name != 'Marcas')
                                     <option value="{{ $category->id }}"
                                             @if(request()->category && in_array($category->id, request()->category)) selected @endif> @lang(optional($category->details)->name)
                                     </option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
