@@ -104,13 +104,15 @@
                     <form action="{{ route('listings') }}" method="get">
                         <div class="filter-area">
                             <div class="filter-box">
+
                                 <h5>@lang('search')</h5>
                                 <div class="input-group mb-3">
                                     <input type="text" name="name" class="form-control bg-white"
                                            value="{{ old('name', request()->name) }}" autocomplete="off"
                                            placeholder="@lang('Name')"/>
                                 </div>
-                                <div class="input-group mb-3">
+
+                                <!-- <div class="input-group mb-3">
                                     <select class="js-example-basic-single form-control" name="location">
                                         <option selected disabled>@lang('Country')</option>
                                         <option value="all"
@@ -124,9 +126,9 @@
                                             @endif
                                         @endforeach
                                     </select>
-                                </div>
+                                </div> -->
 
-                                <div class="input-group mb-3">
+                                <!-- div class="input-group mb-3">
                                     <select class="js-example-basic-single form-control" name="city">
                                         <option selected disabled>@lang('City')</option>
                                         <option value="all"
@@ -141,7 +143,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-
+ -->
                                 <div class="input-group mb-3">
                                     <select id="category_id" class="listing__category__select2 form-control" name="category[]" multiple>
                                         <option value="all"
