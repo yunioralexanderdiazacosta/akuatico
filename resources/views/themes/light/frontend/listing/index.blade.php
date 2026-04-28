@@ -502,12 +502,36 @@
         $(".listing__subcategory__select2").select2({
             width: '100%',
             placeholder: '@lang("Subcategories")',
+            templateResult: filterSubcategoriesResults,
         });
 
         $(".listing__marca__select2").select2({
             width: '100%',
             placeholder: '@lang("All Brands")',
         });
+
+        function filterSubcategoriesResults(option) {
+            if (!option.id) {
+                return option.text;
+            }
+
+            let selectedCategories = $('#category_id').val() || [];
+            let parentId = $(option.element).data('parent');
+
+            if (!parentId) {
+                return option.text;
+            }
+
+            if (selectedCategories.length === 0) {
+                return null;
+            }
+
+            let isRelated = selectedCategories.some(function (catId) {
+                return String(catId) === String(parentId);
+            });
+
+            return isRelated ? option.text : null;
+        }
 
         function filterSubcategories() {
             let selectedParents = $('#category_id').val() || [];
