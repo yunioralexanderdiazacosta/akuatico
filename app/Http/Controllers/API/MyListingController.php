@@ -19,6 +19,7 @@ use App\Models\PurchasePackage;
 use App\Models\UserReview;
 use App\Models\WebsiteAndSocial;
 use App\Rules\AlphaDashWithoutSlashes;
+use App\Rules\MagicMimeValidation;
 use App\Traits\ApiResponse;
 use App\Traits\ListingTrait;
 use App\Traits\Notify;
@@ -201,7 +202,7 @@ class MyListingController extends Controller
             'social_url.*' => 'nullable|url|max:180',
             'youtube_video_id' => 'nullable|string|max:20',
             'thumbnail' => 'nullable|mimes:jpeg,png,jpg|max:51200',
-            'listing_image.*' => 'nullable|mimes:jpeg,png,jpg',
+            'listing_image.*' => ['nullable', new MagicMimeValidation()],
             'amenity_id.*' => 'nullable|numeric|exists:amenities,id',
             'product_title.*' => 'nullable|string|max:150',
             'product_price.*' => 'nullable|numeric',
@@ -531,7 +532,7 @@ class MyListingController extends Controller
             'social_url.*' => 'nullable|url|max:180',
             'youtube_video_id' => 'nullable|string|max:20',
             'thumbnail' => 'nullable|mimes:jpeg,png,jpg|max:51200',
-            'listing_image.*' => 'nullable|mimes:jpeg,png,jpg',
+            'listing_image.*' => ['nullable', new MagicMimeValidation()],
             'amenity_id.*' => 'nullable|numeric|exists:amenities,id',
             'product_title.*' => 'nullable|string|max:150',
             'product_price.*' => 'nullable|numeric',
