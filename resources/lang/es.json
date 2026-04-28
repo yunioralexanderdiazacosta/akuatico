@@ -254,7 +254,7 @@
     "Please Pay": "Por favor, pague",
     "Payment Preview": "Vista previa del pago",
     "PLEASE SEND EXACTLY": "POR FAVOR ENVÍE EXACTAMENTE",
-    "TO": "A",
+    "To": "Hasta",
     "SCAN TO SEND": "ESCANEAR PARA ENVIAR",
     "Pay with Khalti": "Pagar con Khalti",
     "Upload Image": "Cargar imagen",
@@ -960,10 +960,8 @@
     "Light Mode": "",
     "Dark Mode": "",
     "Filter Messages": "",
-    "To": "",
     "Message Information": "",
     "From:": "",
-    "To:": "",
     "Date:": "",
     "Parent Category": "",
     "No Parent (Main Category)": "",
@@ -1418,5 +1416,7 @@
     "Select Announcement Type": "Seleccionar tipo de anuncio",
     "For buying and selling items": "Para comprar y vender artículos",
     "For businesses and services": "Para empresas y servicios",
-    "For professional services": "Para servicios profesionales"
+    "For professional services": "Para servicios profesionales",
+    "All Brands": "Todas las marcas",
+    "Brand": "Marca"
 }

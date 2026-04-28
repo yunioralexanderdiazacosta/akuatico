@@ -214,7 +214,7 @@
 
                                     <div class="mb-3">
                                         <label class="form-label">@lang('Brand')</label>
-                                        <select name="marca[]" id="filter-marca" class="form-control bg-white" multiple>
+                                        <select name="marca[]" id="filter-marca" class="listing__marca__select2 form-control" multiple>
                                             @foreach($marcas as $marca)
                                                 <option value="{{ $marca->id }}"
                                                     @if(request()->marca && in_array($marca->id, request()->marca)) selected @endif>
@@ -500,6 +500,11 @@
         $(".listing__subcategory__select2").select2({
             width: '100%',
             placeholder: '@lang("Subcategories")',
+        });
+
+        $(".listing__marca__select2").select2({
+            width: '100%',
+            placeholder: '@lang("All Brands")',
         });
 
         function filterSubcategories() {

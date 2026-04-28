@@ -91,6 +91,19 @@ class ListingController extends Controller
             ->when(isset($search['max_price']), function ($query) use ($search) {
                 return $query->where('price', '<=', $search['max_price']);
             })
+            ->when(!empty($search['marca']), function ($query) use ($search) {
+                return $query->where(function ($q) use ($search) {
+                    foreach ($search['marca'] as $marcaId) {
+                        $q->orWhereJsonContains('marca', (int) $marcaId);
+                    }
+                });
+            })
+            ->when(!empty($search['year_from']), function ($query) use ($search) {
+                return $query->where('year', '>=', $search['year_from']);
+            })
+            ->when(!empty($search['year_to']), function ($query) use ($search) {
+                return $query->where('year', '<=', $search['year_to']);
+            })
             ->when(isset($search['user']) && $search['user'] != 'all', function ($query4) use ($search) {
                 return $query4->where('user_id', $search['user']);
             })
@@ -129,6 +142,15 @@ class ListingController extends Controller
         $data['uniqueCities'] = Listing::with('get_cities')->where('city_id', '!=', null)->get()->pluck('get_cities');
         $data['all_categories'] = ListingCategory::onlyParent()->select('id')->with('details:id,listing_category_id,name')->where('status', 1)->latest()->get();
         $data['all_subcategories'] = ListingCategory::onlySubcategories()->with('details:id,listing_category_id,name')->where('status', 1)->get();
+        $marcasCategory = ListingCategory::whereHas('details', function ($q) {
+            $q->where('name', 'Marcas');
+        })->first();
+        $data['marcas'] = $marcasCategory ? ListingCategory::with('details')
+            ->where('parent_id', $marcasCategory->id)
+            ->where('status', 1)
+            ->get()
+            ->sortBy(fn($cat) => optional($cat->details)->name ?? '')
+            : collect();
         $pageSeo = Page::where('template_name', $selectedTheme)->where('slug', 'listings')->first();
         $pageSeo['breadcrumb_image'] = $pageSeo?->breadcrumb_status == 1 ? getFile($pageSeo->breadcrumb_image_driver, $pageSeo->breadcrumb_image) : null;
         return view(template() . 'frontend.listing.index', $data, compact('pageSeo'));
