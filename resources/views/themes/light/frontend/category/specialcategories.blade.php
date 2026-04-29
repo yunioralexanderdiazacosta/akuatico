@@ -6,7 +6,7 @@
       <section class="category-filter-section">
          <div class="container">
             <div class="row g-3 mt-5" id="renderCategory">
-                @include(template().'frontend.category.partials.renderCategory')
+                @include(template().'frontend.category.partials.renderCategory', ['useProfileRoute' => true])
             </div>
          </div>
       </section>
