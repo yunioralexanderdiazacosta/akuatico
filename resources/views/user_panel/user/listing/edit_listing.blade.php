@@ -452,9 +452,37 @@
                                     </div>
                                 </div>
 
-                                <div class="input-box col-12">
-                                    <p class="mb-2 text-muted" style="font-size: 0.9rem;">En la descripción favor de
-                                        colocar: Horas, combustible, caballaje de motores.</p>
+                                <div class="input-box col-md-4 boat-fields">
+                                    <input class="form-control @error('horas') is-invalid @enderror" type="number"
+                                        name="horas" min="0"
+                                        value="{{ old('horas', $single_listing_infos->horas) }}"
+                                        placeholder="@lang('Horas de motor')" />
+                                    <div class="invalid-feedback">
+                                        @error('horas') @lang($message) @enderror
+                                    </div>
+                                </div>
+
+                                <div class="input-box col-md-4 boat-fields">
+                                    <select class="form-control @error('combustible') is-invalid @enderror" name="combustible">
+                                        <option value="">@lang('Combustible')</option>
+                                        <option value="gasolina" {{ old('combustible', $single_listing_infos->combustible) == 'gasolina' ? 'selected' : '' }}>@lang('Gasolina')</option>
+                                        <option value="diesel" {{ old('combustible', $single_listing_infos->combustible) == 'diesel' ? 'selected' : '' }}>@lang('Diésel')</option>
+                                        <option value="electrico" {{ old('combustible', $single_listing_infos->combustible) == 'electrico' ? 'selected' : '' }}>@lang('Eléctrico')</option>
+                                        <option value="hibrido" {{ old('combustible', $single_listing_infos->combustible) == 'hibrido' ? 'selected' : '' }}>@lang('Híbrido')</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        @error('combustible') @lang($message) @enderror
+                                    </div>
+                                </div>
+
+                                <div class="input-box col-md-4 boat-fields">
+                                    <input class="form-control @error('caballaje') is-invalid @enderror" type="number"
+                                        name="caballaje" min="0"
+                                        value="{{ old('caballaje', $single_listing_infos->caballaje) }}"
+                                        placeholder="@lang('Caballaje de motor (HP)')" />
+                                    <div class="invalid-feedback">
+                                        @error('caballaje') @lang($message) @enderror
+                                    </div>
                                 </div>
 
                                 <div class="input-box col-12 bg-white p-0">

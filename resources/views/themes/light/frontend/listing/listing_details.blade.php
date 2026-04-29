@@ -259,6 +259,21 @@
                                             <h5>@lang('Year'): <span class="text-secondary">{{ $single_listing_details->year }}</span></h5>
                                         </div>
                                     @endif
+                                    @if($single_listing_details->horas)
+                                        <div class="mt-2">
+                                            <h5>@lang('Horas de motor'): <span class="text-secondary">{{ number_format($single_listing_details->horas) }} @lang('hrs')</span></h5>
+                                        </div>
+                                    @endif
+                                    @if($single_listing_details->combustible)
+                                        <div class="mt-2">
+                                            <h5>@lang('Combustible'): <span class="text-secondary">{{ ucfirst($single_listing_details->combustible) }}</span></h5>
+                                        </div>
+                                    @endif
+                                    @if($single_listing_details->caballaje)
+                                        <div class="mt-2">
+                                            <h5>@lang('Caballaje'): <span class="text-secondary">{{ number_format($single_listing_details->caballaje) }} @lang('HP')</span></h5>
+                                        </div>
+                                    @endif
                                 </div>
 
                                 @if(optional($single_listing_details->get_package)->is_video != 0 && $single_listing_details->youtube_video_id != null)

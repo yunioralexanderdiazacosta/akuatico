@@ -176,6 +176,9 @@ class MyListingController extends Controller
             "length" => "nullable|numeric|min:0",
             "year" => "nullable|integer|min:1960|max:" . date('Y'),
             "condition" => "nullable|in:new,used",
+            "horas" => "nullable|integer|min:0",
+            "combustible" => "nullable|string|max:100",
+            "caballaje" => "nullable|integer|min:0",
             "slug" => [
                 "nullable",
                 "min:1",
@@ -325,6 +328,9 @@ class MyListingController extends Controller
             $listing->condition = $this->shouldHideConditionForCategories($request->category_id)
                 ? null
                 : $request->condition;
+            $listing->horas = $request->horas;
+            $listing->combustible = $request->combustible;
+            $listing->caballaje = $request->caballaje;
             $listing->category_id = array_slice(
                 $request->category_id,
                 0,
@@ -693,6 +699,9 @@ class MyListingController extends Controller
             $listing->condition = $this->shouldHideConditionForCategories($request->category_id)
                 ? null
                 : $request->condition;
+            $listing->horas = $request->horas;
+            $listing->combustible = $request->combustible;
+            $listing->caballaje = $request->caballaje;
 
             $numberOfCategoriesPerListing = min(
                 count($request->category_id),
