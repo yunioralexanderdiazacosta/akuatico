@@ -18,7 +18,7 @@
             <div class="row g-3 g-lg-4">
                 @forelse($listing_categories['popularCategories'] as $category)
                     <div class="col-xl-3 col-md-6 col-6">
-                        <a href="{{ route('listings', $category->id) }}">
+                        <a href="{{ route('listings') }}?category[]={{ $category->id }}">
                             <div class="category-box">
                                 <div class="icon-box p-0">
                                     @if(isset($category->mobile_app_image) && $category->mobile_app_image) <img class="avatar avatar-xl avatar-4x3 avatar-centered h-100 mb-2" src="{{ getFile($category->image_driver, $category->mobile_app_image) }}" alt="{{ optional($category->details)->name }}"/> @else <i class="{{ $category->icon }}"></i> @endif
