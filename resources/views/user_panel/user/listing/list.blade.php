@@ -70,7 +70,7 @@
                                         </a>
                                     @else
                                         <span class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top"
-                                              title="@lang($item->status == 2 ? 'This listing was rejected and is not publicly visible.' : 'This listing is pending admin approval and is not yet publicly visible.')">
+                                              title="@lang($item->status == 2 ? __('This listing was rejected and is not publicly visible.') : __('This listing is pending admin approval and is not yet publicly visible.'))">
                                             @lang($item->title)
                                         </span>
                                     @endif

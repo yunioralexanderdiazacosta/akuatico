@@ -1418,5 +1418,7 @@
     "For businesses and services": "Para empresas y servicios",
     "For professional services": "Para servicios profesionales",
     "All Brands": "Todas las marcas",
-    "Brand": "Marca"
+    "Brand": "Marca",
+    "This listing was rejected and is not publicly visible.": "Este anuncio fue rechazado y no es visible públicamente.",
+    "This listing is pending admin approval and is not yet publicly visible.": "Este anuncio está pendiente de aprobación del administrador y aún no es visible públicamente."
 }
