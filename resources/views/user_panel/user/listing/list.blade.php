@@ -64,10 +64,16 @@
                                 </td>
 
                                 <td data-label="Listing">
-                                    <a class="text-info" href="{{ route('listing.details', $item->slug) }}"
-                                       target="_blank">
-                                        @lang($item->title)
-                                    </a>
+                                    @if($item->status == 1)
+                                        <a class="text-info" href="{{ route('listing.details', $item->slug) }}" target="_blank">
+                                            @lang($item->title)
+                                        </a>
+                                    @else
+                                        <span class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top"
+                                              title="@lang($item->status == 2 ? 'This listing was rejected and is not publicly visible.' : 'This listing is pending admin approval and is not yet publicly visible.')">
+                                            @lang($item->title)
+                                        </span>
+                                    @endif
                                 </td>
 
                                 <td data-label="Location">
@@ -295,6 +301,9 @@
     <script>
         'use strict'
         $(document).ready(function () {
+            var tooltipEls = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipEls.forEach(function (el) { new bootstrap.Tooltip(el); });
+
             $(".listing__category__select2").select2({
                 width: '100%',
                 placeholder: '@lang("Select Categories")',
